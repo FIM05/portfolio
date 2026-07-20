@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Étude 01 — Bras de suspension inférieur | Dossier calcul structurel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14171C;
+    --panel:#1B1F26;
+    --panel-2:#20252D;
+    --line:#2A3038;
+    --line-strong:#3A4149;
+    --text:#E8EAED;
+    --text-dim:#8B93A1;
+    --text-faint:#5B6371;
+    --accent:#E8A33D;
+    --accent-soft:#4a3a20;
+    --cool:#4FB8C4;
+    --force:#D6564A;
+    --display:'Space Grotesk',sans-serif;
+    --body:'IBM Plex Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      linear-gradient(var(--bg),var(--bg)),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 48px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 48px);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(20,23,28,0.96);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-strong);
+    box-shadow:0 1px 0 rgba(232,163,61,0.15);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px;}
+  .brand{font-family:var(--mono);font-size:13px;letter-spacing:0.08em;color:var(--text-dim);white-space:nowrap;text-decoration:none;}
+  .brand b{color:var(--text);font-weight:600;}
+  nav ul{display:flex;gap:26px;list-style:none;font-size:13px;font-family:var(--mono);}
+  nav a{
+    text-decoration:none;color:var(--text-dim);transition:color .2s;
+    padding:4px 2px;border-bottom:2px solid transparent;white-space:nowrap;
+  }
+  nav a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  @media(max-width:900px){
+    nav .wrap{flex-wrap:wrap;height:auto;padding:14px 18px;gap:10px;}
+    .brand{font-size:11px;}
+    nav ul{
+      display:flex;gap:18px;width:100%;overflow-x:auto;padding-bottom:4px;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;
+      border-top:1px solid var(--line);padding-top:10px;
+    }
+    nav ul::-webkit-scrollbar{display:none;}
+    nav a{font-size:12.5px;font-weight:500;color:var(--text);}
+  }
+
+  /* HERO */
+  .hero{padding:96px 0 64px;border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:0.14em;color:var(--accent);
+    display:flex;align-items:center;gap:10px;margin-bottom:24px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);}
+  h1{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(32px,5vw,54px);line-height:1.08;
+    letter-spacing:-0.01em;max-width:820px;margin-bottom:22px;
+  }
+  h1 em{font-style:normal;color:var(--accent);}
+  .hero p.lede{font-size:17px;color:var(--text-dim);max-width:620px;margin-bottom:40px;}
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .stat{background:var(--panel);padding:20px 22px;}
+  .stat .v{font-family:var(--display);font-size:28px;font-weight:600;color:var(--text);}
+  .stat .v span{font-size:15px;color:var(--text-faint);font-weight:400;}
+  .stat .l{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:0.04em;margin-top:6px;}
+  @media(max-width:640px){.stat-row{grid-template-columns:1fr;}}
+
+  /* SECTION GENERIC */
+  section{padding:72px 0;border-bottom:1px solid var(--line);scroll-margin-top:90px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px;flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono);color:var(--text-faint);font-size:13px;}
+  h2{font-family:var(--display);font-size:26px;font-weight:600;}
+  .sec-desc{color:var(--text-dim);max-width:640px;margin-bottom:40px;font-size:15px;}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th{
+    text-align:left;font-family:var(--mono);font-weight:500;font-size:11px;
+    letter-spacing:0.05em;color:var(--text-faint);padding:10px 14px;
+    border-bottom:1px solid var(--line-strong);text-transform:uppercase;
+  }
+  td{padding:12px 14px;border-bottom:1px solid var(--line);color:var(--text-dim);font-family:var(--mono);}
+  td.label{color:var(--text);font-family:var(--body);}
+  tr:hover td{background:var(--panel);}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);margin-bottom:16px;}
+  .note{font-size:12.5px;color:var(--text-faint);font-style:italic;}
+
+  /* DIAGRAM */
+  .diagram-block{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:32px;align-items:center;
+    background:var(--panel);border:1px solid var(--line);padding:32px;margin-top:24px;
+  }
+  @media(max-width:800px){.diagram-block{grid-template-columns:1fr;}}
+  .diagram-block svg{width:100%;height:auto;}
+  .diagram-legend{font-family:var(--mono);font-size:12.5px;color:var(--text-dim);}
+  .diagram-legend li{list-style:none;margin-bottom:14px;padding-left:18px;position:relative;}
+  .diagram-legend li::before{content:"";position:absolute;left:0;top:5px;width:9px;height:9px;border-radius:50%;}
+  .leg-pivot::before{background:var(--text-dim);}
+  .leg-ressort::before{background:var(--cool);}
+  .leg-rotule::before{background:var(--force);}
+  .diagram-legend b{color:var(--text);font-family:var(--body);display:block;font-size:13.5px;margin-bottom:2px;}
+
+  /* CALC CHAIN */
+  .chain{display:flex;flex-direction:column;gap:0;}
+  .chain-step{
+    display:grid;grid-template-columns:56px 1fr;gap:24px;
+    padding:28px 0;border-top:1px solid var(--line);position:relative;
+  }
+  .chain-step:first-child{border-top:none;}
+  .chain-step .idx{
+    font-family:var(--mono);font-size:13px;color:var(--accent);
+    border:1px solid var(--line-strong);height:40px;width:40px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .chain-step h3{font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:8px;}
+  .chain-step p{color:var(--text-dim);font-size:14px;max-width:600px;margin-bottom:14px;}
+  .formula{
+    background:var(--panel-2);border:1px solid var(--line);
+    padding:14px 18px;font-family:var(--mono);font-size:13.5px;color:var(--cool);
+    display:inline-block;margin-bottom:8px;
+  }
+  .result-tag{
+    font-family:var(--mono);font-size:12.5px;color:var(--text-faint);
+    display:flex;gap:18px;flex-wrap:wrap;
+  }
+  .result-tag b{color:var(--accent);font-weight:600;}
+
+  /* BC CARDS */
+  .bc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  @media(max-width:720px){.bc-grid{grid-template-columns:1fr;}}
+  .bc-card{background:var(--panel);padding:24px;}
+  .bc-card .tag{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.06em;
+    color:var(--bg);background:var(--accent);display:inline-block;
+    padding:3px 8px;margin-bottom:12px;
+  }
+  .bc-card h4{font-family:var(--display);font-size:16px;margin-bottom:8px;}
+  .bc-card p{color:var(--text-dim);font-size:13.5px;margin-bottom:10px;}
+  .bc-card .val{font-family:var(--mono);font-size:13px;color:var(--cool);}
+
+  /* RESULTS PLACEHOLDER */
+  .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  @media(max-width:800px){.results-grid{grid-template-columns:1fr;}}
+  .res-card{background:var(--panel);padding:26px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between;}
+  .res-card h4{font-family:var(--display);font-size:16px;margin-bottom:8px;}
+  .res-card p{color:var(--text-dim);font-size:13px;}
+  .img-slot{
+    margin-top:16px;aspect-ratio:4/3;border:1px dashed var(--line-strong);
+    background:var(--panel-2);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;color:var(--text-faint);font-family:var(--mono);font-size:11px;text-align:center;padding:12px;
+  }
+  .img-slot svg{width:22px;height:22px;opacity:0.5;}
+  .img-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .img-slot.filled{border-style:solid;padding:0;}
+  .img-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media(max-width:700px){.img-grid-2{grid-template-columns:1fr;}}
+  .img-grid-2 .img-slot,.img-grid-2 .img-slot.filled{margin:0;}
+  .takeaway{
+    margin-top:10px;padding:10px 12px;border-left:2px solid var(--accent);
+    background:var(--panel-2);font-size:12px;color:var(--text-dim);
+  }
+  .takeaway b{color:var(--accent);font-family:var(--mono);font-size:10px;letter-spacing:0.05em;display:block;margin-bottom:4px;}
+  .status{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.06em;
+    color:var(--text-faint);border:1px solid var(--line-strong);
+    display:inline-block;padding:4px 9px;margin-top:16px;width:fit-content;
+  }
+
+  /* SKILLS */
+  .skills-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 32px;}
+  @media(max-width:600px){.skills-list{grid-template-columns:1fr;}}
+  .skills-list li{list-style:none;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--text-dim);display:flex;gap:12px;}
+  .skills-list li::before{content:"—";color:var(--accent);font-family:var(--mono);}
+
+  /* FUTURE STUDIES */
+  .study-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  @media(max-width:800px){.study-grid{grid-template-columns:1fr;}}
+  .study-card{background:var(--panel);padding:22px;min-height:120px;position:relative;}
+  .study-card.active{background:var(--panel-2);}
+  .study-card .n{font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+  .study-card h5{font-family:var(--display);font-size:15px;margin:10px 0 6px;}
+  .study-card p{font-size:12.5px;color:var(--text-faint);}
+
+  footer{padding:56px 0;text-align:center;}
+  footer p{color:var(--text-faint);font-size:12.5px;font-family:var(--mono);}
+  footer .contact{margin-top:14px;font-size:13.5px;color:var(--text-dim);}
+
+  /* SMALL SCREENS */
+  @media(max-width:480px){
+    .wrap{padding:0 18px;}
+    .hero{padding:56px 0 40px;}
+    section{padding:44px 0;}
+    h1{font-size:26px;}
+    .hero p.lede{font-size:15px;}
+    .stat{padding:16px 18px;}
+    .stat .v{font-size:23px;}
+    h2{font-size:21px;}
+    .chain-step{grid-template-columns:36px 1fr;gap:14px;padding:22px 0;}
+    .chain-step .idx{height:34px;width:34px;font-size:12px;}
+    .chain-step h3{font-size:15.5px;}
+    .formula{font-size:12px;padding:11px 14px;word-break:break-word;}
+    .diagram-block{padding:20px;}
+    .bc-card,.res-card,.study-card{padding:18px;}
+    table{font-size:12px;}
+    th,td{padding:9px 10px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="../index.html" class="brand">DOSSIER&nbsp;CALCUL — <b>ÉTUDES STRUCTURELLES</b></a>
+    <ul>
+      <li><a href="#contexte">Contexte</a></li>
+      <li><a href="#geometrie">Géométrie</a></li>
+      <li><a href="#chargement">Chargement</a></li>
+      <li><a href="#liaisons">Liaisons</a></li>
+      <li><a href="#resultats">Résultats</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#autres-etudes">Études</a></li>
+      <li><a href="#nuances" style="color:var(--force);">Diagnostic</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">ÉTUDE 01 — SUSPENSION AVANT, BRAS INFÉRIEUR</div>
+    <h1>Du contact pneu‑sol à la contrainte locale : <em>tracer la charge</em> dans un bras de suspension</h1>
+    <p class="lede">Étude structurelle d'un bras de suspension inférieur isolé de son assemblage : géométrie réelle extraite de la CAO, chaîne de chargement reconstituée par équilibre mécanique, conditions aux limites représentatives (bushing, rotule). Statique · Modale · Harmonique.</p>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="v">13,2 <span>kN</span></div>
+        <div class="l">CHARGE ROUE — CAS 3G VERTICAL</div>
+      </div>
+      <div class="stat">
+        <div class="v">10,4 <span>kN</span></div>
+        <div class="l">EFFORT REPRIS — ROTULE INFÉRIEURE</div>
+      </div>
+      <div class="stat">
+        <div class="v">13,4 <span>kN</span></div>
+        <div class="l">EFFORT REPRIS — POINT RESSORT</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<section id="contexte">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Contexte & objectif</h2></div>
+    <p class="sec-desc">
+      Le bras inférieur est isolé du reste de la suspension (bras supérieur, fusée, jante non modélisés).
+      Chaque liaison retirée du modèle est remplacée par une condition aux limites équivalente — c'est cette
+      démarche de simplification représentative, plus que le clic « Solve », qui est documentée ici : d'où
+      vient chaque effort, comment il se répartit, et pourquoi telle liaison plutôt qu'un encastrement.
+    </p>
+
+    <div class="img-slot filled" style="aspect-ratio:16/9;margin-top:24px;">
+      <img src="cao-vue-complete.png" alt="Vue d'ensemble du système de suspension avant complet">
+    </div>
+    <div class="takeaway"><b>OBSERVATION</b>Le système complet (2 triangles, moyeux, jantes, ressorts/amortisseurs, biellette de direction) situe le bras inférieur étudié — seule cette pièce est modélisée dans Ansys, le reste est remplacé par des conditions aux limites équivalentes (voir section Liaisons).</div>
+  </div>
+</section>
+
+<section id="geometrie">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Géométrie mesurée</h2></div>
+    <p class="sec-desc">Coordonnées extraites directement de la CAO (centroïdes des faces cylindriques). Repère véhicule : X transverse, Y vertical, Z longitudinal — unités en mm.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Point</th><th>X (transverse)</th><th>Y (vertical)</th><th>Z (longitudinal)</th></tr>
+        <tr><td class="label">Silentbloc avant</td><td>−214,74</td><td>−40,342</td><td>942,56</td></tr>
+        <tr><td class="label">Silentbloc arrière</td><td>−214,74</td><td>−40,342</td><td>522,30</td></tr>
+        <tr><td class="label">Point d'ancrage ressort</td><td>−598,92</td><td>−44,964</td><td>732,43</td></tr>
+        <tr><td class="label">Rotule inférieure</td><td>−699,88</td><td>−122,86</td><td>732,03</td></tr>
+        <tr><td class="label">Rotule supérieure (réf.)</td><td>−690,56</td><td>622,26</td><td>732,43</td></tr>
+        <tr><td class="label">Centre roue (réf.)</td><td>−970,36</td><td>34,628</td><td>737,36</td></tr>
+      </table>
+    </div>
+    <p class="note">Silentblocs avant/arrière partageant X et Y → l'axe de pivot du bras est parallèle à Z (longitudinal), cohérent avec un débattement vertical de suspension.</p>
+
+    <div class="img-slot filled" style="aspect-ratio:16/9;margin-top:24px;">
+      <img src="bras-inf.png" alt="Vue CAO du bras de suspension inférieur isolé">
+    </div>
+    <div class="takeaway"><b>REMARQUE</b>Simplifications géométriques retenues (congés, trous secondaires supprimés) — à compléter.</div>
+
+    <div class="diagram-block">
+      <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+        <line x1="40" y1="150" x2="440" y2="150" stroke="#2A3038" stroke-width="1"/>
+        <line x1="420" y1="40" x2="420" y2="270" stroke="#2A3038" stroke-width="1"/>
+        <text x="10" y="154" font-family="IBM Plex Mono" font-size="10" fill="#5B6371">X</text>
+        <text x="424" y="36" font-family="IBM Plex Mono" font-size="10" fill="#5B6371">Y</text>
+
+        <!-- pivot : maintenant à droite -->
+        <circle cx="400" cy="140" r="6" fill="none" stroke="#8B93A1" stroke-width="1.5"/>
+        <line x1="400" y1="140" x2="400" y2="80" stroke="#8B93A1" stroke-width="1" stroke-dasharray="2,3"/>
+        <text x="322" y="72" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">pivot (silentblocs)</text>
+
+        <!-- ressort point : force vers le BAS (ressort comprimé repousse le bras) -->
+        <circle cx="230" cy="165" r="6" fill="none" stroke="#4FB8C4" stroke-width="1.5"/>
+        <line x1="400" y1="140" x2="230" y2="165" stroke="#4FB8C4" stroke-width="1.5"/>
+        <text x="250" y="147" font-family="IBM Plex Mono" font-size="11" fill="#4FB8C4">d = 384,2 mm</text>
+        <line x1="230" y1="165" x2="230" y2="227" stroke="#4FB8C4" stroke-width="1" stroke-dasharray="2,3"/>
+        <path d="M230 227 L226 217 L234 217 Z" fill="#4FB8C4"/>
+        <text x="188" y="243" font-family="IBM Plex Mono" font-size="11" fill="#4FB8C4">F ≈ −13,4 kN ↓</text>
+
+        <!-- rotule inférieure : maintenant à gauche, force vers le HAUT -->
+        <circle cx="70" cy="190" r="6" fill="none" stroke="#D6564A" stroke-width="1.5"/>
+        <line x1="400" y1="140" x2="70" y2="190" stroke="#D6564A" stroke-width="1.5"/>
+        <text x="150" y="157" font-family="IBM Plex Mono" font-size="11" fill="#D6564A">d = 492,1 mm</text>
+        <line x1="70" y1="190" x2="70" y2="122" stroke="#D6564A" stroke-width="1" stroke-dasharray="2,3"/>
+        <path d="M70 122 L66 132 L74 132 Z" fill="#D6564A"/>
+        <text x="38" y="112" font-family="IBM Plex Mono" font-size="11" fill="#D6564A">F ≈ +10,4 kN ↑</text>
+
+        <text x="30" y="20" font-family="IBM Plex Mono" font-size="10" fill="#5B6371">VUE PLAN (X–Y) — SCHÉMATIQUE, NON À L'ÉCHELLE</text>
+      </svg>
+      <ul class="diagram-legend">
+        <li class="leg-pivot"><b>Axe de pivot</b>Silentblocs avant/arrière — 2 liaisons Bushing, seuls points fixes de la pièce.</li>
+        <li class="leg-ressort"><b>Point ressort</b>Force dirigée vers le <em style="color:#4FB8C4;font-style:normal;">bas</em> — le ressort comprimé repousse le bras (réaction).</li>
+        <li class="leg-rotule"><b>Rotule inférieure</b>Force dirigée vers le <em style="color:#D6564A;font-style:normal;">haut</em> — la roue pousse le bras. Sens opposé au ressort : c'est ce qui crée l'équilibre de moment autour du pivot.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="chargement">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Chaîne de chargement</h2></div>
+    <p class="sec-desc">Trois équilibres successifs, du contact roue jusqu'à la pièce étudiée. Cas retenu : choc vertical 3g, roue avant (450 kg/roue).</p>
+
+    <div class="chain">
+      <div class="chain-step">
+        <div class="idx">01</div>
+        <div>
+          <h3>Contact pneu‑sol → effort au centre roue</h3>
+          <p>Poids par roue amplifié par le facteur de choc dynamique (nid‑de‑poule, cas normatif 3g).</p>
+          <div class="formula">Fz = m_roue × g × n = 450 × 9,81 × 3</div>
+          <div class="result-tag"><span>Résultat : <b>Fz ≈ 13 244 N</b></span></div>
+        </div>
+      </div>
+      <div class="chain-step">
+        <div class="idx">02</div>
+        <div>
+          <h3>Équilibre de la fusée → répartition sup/inf</h3>
+          <p>La fusée reprend Fz entre les deux rotules ; répartition selon les hauteurs réelles mesurées par rapport au centre roue.</p>
+          <div class="formula">F_rotule_inf = Fz × h_sup / h_totale = 13 244 × 587,63 / 745,12</div>
+          <div class="result-tag"><span><b>F_rotule_inf ≈ 10 446 N</b></span><span>F_rotule_sup ≈ 2 798 N</span></div>
+        </div>
+      </div>
+      <div class="chain-step">
+        <div class="idx">03</div>
+        <div>
+          <h3>Équilibre du bras (effet de levier) → effort ressort</h3>
+          <p>Le bras pivote autour de l'axe silentblocs ; le ressort équilibre le moment créé par la rotule. Les deux forces sont géométriquement du même côté du pivot mais de <b style="color:var(--text);">sens vertical opposé</b> — sans quoi rien ne s'opposerait à la rotation du bras (voir section Nuances).</p>
+          <div class="formula">F_ressort = F_rotule_inf × (d_rotule / d_ressort) = 10 446 × (492,1 / 384,2)</div>
+          <div class="result-tag"><span><b>F_ressort ≈ 13 381 N</b></span><span>Fy(rotule) = +10 446 N</span><span>Fy(ressort) = −13 381 N</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:20px;">Cas complémentaires (freinage μ=1, virage limite) à intégrer pour le cas combiné dimensionnant — non traité dans cette première version.</p>
+  </div>
+</section>
+
+<section id="liaisons">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Conditions aux limites</h2></div>
+    <p class="sec-desc">Chaque liaison retirée est remplacée par la condition la plus représentative de son comportement réel — jamais un encastrement pur, qui rigidifierait artificiellement la pièce.</p>
+
+    <div class="bc-grid">
+      <div class="bc-card">
+        <span class="tag">JOINT BUSHING</span>
+        <h4>Silentblocs avant / arrière</h4>
+        <p>6 DDL liés par raideur (3 translations + 3 rotations), issues de la fiche technique élastomère. Seuls points réellement fixes de la pièce.</p>
+        <div class="val">Kx, Ky, Kz, Krx, Kry, Krz — à renseigner</div>
+      </div>
+      <div class="bc-card">
+        <span class="tag">BEARING LOAD</span>
+        <h4>Rotule inférieure</h4>
+        <p>3 forces, aucun moment transmis (comportement réel d'une rotule). Substitue la fusée non modélisée. Distribution en cosinus sur le demi‑cylindre en contact plutôt qu'une répartition rigide sur tout le trou (voir Nuances).</p>
+        <div class="val">Fy = +10,4 kN — vers le haut, cas 3g</div>
+      </div>
+      <div class="bc-card">
+        <span class="tag">BEARING LOAD</span>
+        <h4>Point d'ancrage ressort</h4>
+        <p>Force selon l'axe réel du ressort/amortisseur. Substitue l'ensemble ressort‑amortisseur non modélisé. Sens opposé à la rotule : le ressort comprimé repousse le bras.</p>
+        <div class="val">Fy = −13,4 kN — vers le bas, axe ressort</div>
+      </div>
+      <div class="bc-card">
+        <span class="tag" style="background:var(--cool);">VÉRIFIÉ ✓</span>
+        <h4>Équilibre global</h4>
+        <p>Somme des réactions aux bushings (Joint Probe) comparée à la somme des efforts appliqués (rotule + ressort).</p>
+        <div class="val">1 473,7 N × 2 = 2 947,4 N — vs 2 935 N attendus (écart 0,4%)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resultats">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Résultats</h2></div>
+    <p class="sec-desc">Structure prête, calcul à exécuter sous Ansys Mechanical. Cette section sera complétée avec cartographies de contrainte, déplacement, modes propres et fonction de transfert.</p>
+
+    <h3 id="maillage" style="font-family:var(--display);font-size:18px;margin-bottom:10px;scroll-margin-top:90px;">Convergence de maillage</h3>
+    <div style="border:1px solid var(--cool);background:rgba(79,184,196,0.08);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+      <span style="font-family:var(--mono);font-size:10.5px;letter-spacing:0.05em;color:var(--cool);border:1px solid var(--cool);padding:3px 8px;white-space:nowrap;">MODÈLE VALIDÉ</span>
+      <span style="font-family:var(--body);font-size:13px;color:var(--text-dim);">Série calculée après correction du DOF de torsion (repère du Bushing fixé) et au vrai cas de charge (10 446 N / 13 381 N) — déplacement dans l'ordre de grandeur attendu. Remplace la série de diagnostic précédente (voir Annexe — Diagnostic).</span>
+    </div>
+    <p class="sec-desc" style="margin-bottom:24px;">Avant d'exploiter un résultat de contrainte, il faut vérifier qu'il ne dépend plus de la finesse du maillage. Méthode : raffiner successivement (global ou local aux zones de concentration — congés, trous), relever la contrainte max à chaque étape, et retenir le maillage à partir duquel l'écart entre deux raffinements successifs devient négligeable (typiquement &lt; 5%).</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Itération</th><th>Taille de maille (mm)</th><th>Nb éléments</th><th>Contrainte max (MPa)</th><th>Écart vs précédent</th></tr>
+        <tr><td class="label">1 — grossier (global 17)</td><td>8</td><td>—</td><td>29,4</td><td>—</td></tr>
+        <tr><td class="label">2</td><td>6</td><td>—</td><td>29,7</td><td style="color:var(--cool)">+1,0 %</td></tr>
+        <tr><td class="label">3</td><td>4</td><td>—</td><td>31,24</td><td style="color:var(--accent)">+5,2 %</td></tr>
+        <tr><td class="label">4 — fin (retenu)</td><td>3</td><td>—</td><td>30,17</td><td style="color:var(--cool)">−3,4 %</td></tr>
+        <tr><td class="label">5 — confirmation</td><td>2</td><td>—</td><td>30,8</td><td style="color:var(--cool)">+2,1 %</td></tr>
+      </table>
+    </div>
+    <p class="note" style="margin-bottom:20px;">Convergence atteinte à 3 mm : écart repassé sous le seuil de 5% (−3,4%). La légère oscillation entre 4 et 3 mm (hausse puis baisse) est un comportement normal de maillage tétraédrique proche d'une zone de concentration, pas une divergence. <b style="color:var(--text)">Point de confirmation à 2 mm</b> (+2,1%) : reste dans la même bande de stabilité — <b style="color:var(--text)">contrainte max retenue ≈ 30,17 MPa</b> (maillage 3 mm, meilleur compromis précision/coût de calcul).</p>
+
+    <div class="img-grid-2" style="margin-bottom:8px;">
+      <div class="img-slot filled" style="aspect-ratio:16/9;padding:20px;">
+        <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+          <line x1="60" y1="40" x2="60" y2="220" stroke="#3A4149" stroke-width="1"/>
+          <line x1="60" y1="220" x2="450" y2="220" stroke="#3A4149" stroke-width="1"/>
+          <text x="10" y="44" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">MPa</text>
+          <text x="330" y="240" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">taille de maille</text>
+
+          <line x1="60" y1="134" x2="450" y2="134" stroke="#2A3038" stroke-width="1" stroke-dasharray="2,3"/>
+          <text x="380" y="130" font-family="IBM Plex Mono" font-size="9.5" fill="#5B6371">bande de convergence</text>
+
+          <polyline points="75,174 175,158 275,79 375,134 445,109" fill="none" stroke="#4FB8C4" stroke-width="2"/>
+
+          <circle cx="75" cy="174" r="5" fill="#14171C" stroke="#4FB8C4" stroke-width="2"/>
+          <text x="75" y="194" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#E8EAED">29,4</text>
+          <text x="75" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">8mm</text>
+
+          <circle cx="175" cy="158" r="5" fill="#14171C" stroke="#4FB8C4" stroke-width="2"/>
+          <text x="175" y="145" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#E8EAED">29,7</text>
+          <text x="175" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">6mm</text>
+
+          <circle cx="275" cy="79" r="5" fill="#14171C" stroke="#4FB8C4" stroke-width="2"/>
+          <text x="275" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#E8EAED">31,24</text>
+          <text x="275" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">4mm</text>
+
+          <circle cx="375" cy="134" r="6" fill="#E8A33D" stroke="#E8A33D" stroke-width="2"/>
+          <text x="375" y="120" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#E8A33D">30,17 (retenu)</text>
+          <text x="375" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">3mm</text>
+
+          <circle cx="445" cy="109" r="5" fill="#14171C" stroke="#4FB8C4" stroke-width="2"/>
+          <text x="445" y="95" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#E8EAED">30,8</text>
+          <text x="445" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#8B93A1">2mm</text>
+        </svg>
+      </div>
+      <div class="img-slot" style="aspect-ratio:16/9;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        <span>CAPTURE DU MAILLAGE (3mm, raffinement local aux trous visible)<br>À insérer</span>
+      </div>
+    </div>
+    <div class="takeaway" style="margin-bottom:40px;"><b>OBSERVATION</b>Convergence de maillage confirmée sur 2 points consécutifs (3mm et 2mm, écart &lt;5%) — statique entièrement validée : linéarité, déplacement, équilibre global et convergence tous cohérents.</div>
+
+    <div class="results-grid">
+      <div class="res-card">
+        <div>
+          <h4>Statique structurelle</h4>
+          <p>Von Mises, coefficient de sécurité, convergence de maillage.</p>
+          <div class="img-slot filled">
+            <img src="von-mises.png" alt="Cartographie Von Mises - bras de suspension inférieur">
+          </div>
+          <div class="takeaway"><b>REMARQUE</b>Contrainte max relevée : 30,822 MPa (nœud 2746, maillage 2mm) — cohérent avec la série de convergence (30,17–30,8 MPa). Zone max localisée à proximité immédiate d'un alésage : à confirmer qu'elle est bien hors de la zone à exclure (point G, principe de Saint‑Venant), sinon relire la contrainte au congé de raccordement voisin.</div>
+        </div>
+        <span class="status">EN COURS</span>
+      </div>
+      <div class="res-card">
+        <div>
+          <h4>Analyse modale</h4>
+          <p>10–20 premiers modes, participation modale, fréquences propres.</p>
+          <div class="img-slot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h3l2-7 4 14 3-10 2 3h4"/></svg>
+            <span>DÉFORMÉE MODALE + TABLEAU FRÉQUENCES<br>À insérer</span>
+          </div>
+          <div class="takeaway"><b>REMARQUE</b>Fréquence du 1er mode, nature (flexion/torsion), risque de coïncidence avec une excitation réelle — à compléter.</div>
+        </div>
+        <span class="status">À VENIR</span>
+      </div>
+      <div class="res-card">
+        <div>
+          <h4>Réponse harmonique</h4>
+          <p>Fonction de transfert, facteur d'amplification, risque de résonance.</p>
+          <div class="img-slot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17c3 0 3-10 6-10s3 14 6 14 3-7 6-7"/></svg>
+            <span>COURBE RÉPONSE FRÉQUENTIELLE<br>À insérer (graphe)</span>
+          </div>
+          <div class="takeaway"><b>REMARQUE</b>Facteur d'amplification au pic, comparaison au spectre d'excitation réel — à compléter.</div>
+        </div>
+        <span class="status">À VENIR</span>
+      </div>
+    </div>
+    <p class="note" style="margin-top:20px;">Pour insérer une image : place le fichier (ex. <code>von-mises.png</code>) dans le même dossier que ce site, puis remplace le bloc <code>&lt;div class="img-slot"&gt;...&lt;/div&gt;</code> correspondant par <code>&lt;div class="img-slot filled"&gt;&lt;img src="von-mises.png"&gt;&lt;/div&gt;</code>.</p>
+
+    <div style="border-left:2px solid var(--cool);background:var(--panel-2);padding:14px 18px;margin-top:28px;">
+      <span style="font-family:var(--mono);font-size:10.5px;color:var(--cool);letter-spacing:0.05em;">LECTURE DU NIVEAU DE CONTRAINTE</span>
+      <p style="font-size:13.5px;color:var(--text-dim);margin-top:6px;">La contrainte relevée (≈ 24 MPa au nœud de référence utilisé pour valider la linéarité du modèle ; ≈ 30,17 MPa pour le maximum global hors zones de liaison, convergence de maillage confirmée ci-dessus — deux points de mesure différents, cohérents entre eux) reste largement en dessous de la limite élastique de l'acier (coefficient de sécurité très confortable). Ce n'est pas nécessairement le signe d'une pièce surdimensionnée par erreur : un bras de suspension est souvent dimensionné par la <b style="color:var(--text)">rigidité en service</b> (précision de tenue de route) ou la <b style="color:var(--text)">tenue en fatigue</b> (limite d'endurance ≈ 2 à 3× plus basse que la limite élastique statique) plutôt que par la résistance statique seule — la matière nécessaire pour rester rigide ou pour encaisser des millions de cycles dépasse souvent celle qui suffirait juste à ne pas casser sous un seul cas de charge extrême.</p>
+    </div>
+  </div>
+</section>
+
+<section id="competences">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Compétences démontrées</h2></div>
+    <ul class="skills-list">
+      <li>Extraction et exploitation de coordonnées réelles depuis la CAO</li>
+      <li>Reconstitution d'une chaîne de charge par équilibres successifs</li>
+      <li>Modélisation de liaisons élastiques (bushing) vs rigides</li>
+      <li>Justification de simplifications d'assemblage (coupure de système)</li>
+      <li>Remote Points / Remote Forces sous Ansys Mechanical</li>
+      <li>Compréhension physique des degrés de liberté par type de joint</li>
+      <li>Préparation d'un enchaînement statique → modale → harmonique</li>
+      <li>Vérification d'équilibre global (Force Reaction Probe)</li>
+      <li>Lecture physique du sens des efforts (action/réaction)</li>
+      <li>Matrice de raideur 6×6 et gestion des unités angulaires</li>
+      <li>Choix Bearing Load vs Remote Point Rigid selon le contact réel</li>
+    </ul>
+  </div>
+</section>
+
+<section id="autres-etudes" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Autres études du dossier</h2></div>
+    <div class="study-grid">
+      <div class="study-card">
+        <div class="n">01</div>
+        <h5>Bras de suspension inférieur</h5>
+        <p>Statique + modale + harmonique — Ansys</p>
+      </div>
+      <a href="../etude-02-drive-unit/etude-drive-unit.html" class="study-card active">
+        <div class="n">02</div>
+        <h5>Rigidité Drive Unit VAE</h5>
+        <p>Statique + modale + sous-structuration — Abaqus</p>
+      </a>
+    </div>
+    <p style="margin-top:20px;"><a href="../index.html" style="font-family:var(--mono);font-size:13px;color:var(--accent);">← Voir le dossier complet</a></p>
+  </div>
+</section>
+
+<section id="nuances">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Annexe — Diagnostic & démarche de résolution</h2></div>
+    <div style="border:1px solid var(--line-strong);background:var(--panel-2);padding:14px 18px;margin-bottom:24px;">
+      <span style="font-family:var(--mono);font-size:10.5px;color:var(--text-faint);letter-spacing:0.05em;">JOURNAL DE BORD</span>
+      <p style="font-size:13.5px;color:var(--text-dim);margin-top:6px;">Cette annexe documente les difficultés rencontrées pendant la construction du modèle (convergence, orientation des repères, choix de conditions aux limites) et comment elles ont été résolues. Les sections précédentes présentent la démarche et les résultats retenus ; celle‑ci trace le raisonnement qui a permis d'y arriver — utile pour juger la fiabilité du modèle, pas nécessaire pour lire les résultats.</p>
+    </div>
+    <p class="sec-desc">Chaque choix de modélisation a une contrepartie physique. Cette section documente les points où une simplification naïve introduirait une erreur, et pourquoi le choix retenu est plus représentatif.</p>
+
+    <div class="chain">
+      <div class="chain-step">
+        <div class="idx">A</div>
+        <div>
+          <h3>Sens des efforts : rotule et ressort s'opposent</h3>
+          <p>Rotule et point ressort sont géométriquement du même côté du pivot — on pourrait croire que leurs forces s'additionnent. En réalité elles sont de sens vertical opposé : la roue pousse le bras <b style="color:var(--text)">vers le haut</b> à la rotule, le ressort comprimé le repousse <b style="color:var(--text)">vers le bas</b> à son point d'ancrage (principe action‑réaction). Sans cette opposition, rien n'équilibrerait la rotation du bras autour du pivot — la suspension ne pourrait pas fonctionner.</p>
+          <div class="result-tag"><span>Fy(rotule) = <b>+10 446 N</b></span><span>Fy(ressort) = <b>−13 381 N</b></span></div>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="idx">B</div>
+        <div>
+          <h3>Matrice de raideur du Bushing : diagonale uniquement</h3>
+          <p>Le tableau de raideur d'un joint Bushing est une matrice 6×6 symétrique (translations X/Y/Z, rotations θX/θY/θZ) — Ansys ne fait saisir que le triangle inférieur, le reste est dupliqué automatiquement. Pour un silentbloc isotrope classique, seule la <b style="color:var(--text)">diagonale</b> est renseignée ; les termes de couplage hors diagonale restent nuls. L'axe du silentbloc étant confondu avec l'axe de pivot (Z global), les raideurs radiales sont X/Y et l'axiale est Z.</p>
+          <div class="formula">Kx = Ky = 2 500 N/mm (radial)  ·  Kz = 500 N/mm (axial)</div>
+          <div class="formula">Krx = Kry = 8 000 N·mm/°  ·  Krz = 2 000 N·mm/° (torsion — la plus souple, autorise le débattement)</div>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="idx">C</div>
+        <div>
+          <h3>Unité d'angle : degrés vs radians</h3>
+          <p>Ansys grise les cellules de raideur en rotation quand l'unité active du projet est le degré (la matrice de raideur en rotation n'est éditable qu'en radians). Il faut basculer l'unité d'angle sur <b style="color:var(--text)">Radians</b> dans la barre d'état, puis convertir les valeurs.</p>
+          <div class="formula">K[N·mm/rad] = K[N·mm/°] × 57,2958</div>
+          <div class="result-tag"><span>Krx = Kry ≈ <b>458 366 N·mm/rad</b></span><span>Krz ≈ <b>114 592 N·mm/rad</b></span></div>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="idx">D</div>
+        <div>
+          <h3>Joint Bushing : Corps‑Sol, pas Corps‑Corps</h3>
+          <p>Le châssis n'étant pas modélisé, le joint se définit en <b style="color:var(--text)">Corps‑Sol</b> (Body‑Ground) : seul le corps mobile (la face du bras) est renseigné, l'autre extrémité étant un repère fixe implicite. Le mode Corps‑Corps (Body‑Body) ne s'impose que si le châssis est réellement présent dans le modèle.</p>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="idx">E</div>
+        <div>
+          <h3>Remote Point Rigid : un excès de représentativité</h3>
+          <p>Un Remote Point en mode Rigid impose la même transformation à tous les nœuds de la face cylindrique — y compris la moitié du trou opposée à la direction de la charge, qui se retrouve « tirée » de façon non physique. Or un trou avec un axe simple ne transmet que de la <b style="color:var(--text)">compression</b>, jamais de traction.</p>
+          <p><b style="color:var(--cool)">Silentblocs</b> : le manchon est collé/monté serré → contact sur toute la circonférence → Rigid reste représentatif.<br><b style="color:var(--force)">Rotule et point ressort</b> : contact simple axe/trou → utiliser <b style="color:var(--text)">Bearing Load</b> plutôt qu'une Remote Force classique, pour une distribution en cosinus limitée au demi‑cylindre en contact.</p>
+        </div>
+      </div>
+      <div class="chain-step">
+        <div class="idx">F</div>
+        <div>
+          <h3>Diagnostic : mouvement de corps rigide non contraint</h3>
+          <p>Message <b style="color:var(--text)">« insufficient constraints to prevent rigid body motion »</b> : le modèle peut encore bouger sans se déformer dans au moins une direction — le solveur ne trouve pas de solution stable. Un <b style="color:var(--text)">temps de calcul anormalement long</b> (le solveur qui « tourne » sans converger) est souvent le premier symptôme, avant même le message d'erreur explicite.</p>
+          <p>Point de vigilance spécifique à une pièce tenue par <b style="color:var(--text)">2 bushings alignés sur le même axe</b> (ici Z, l'axe de pivot) : les raideurs en translation (Kx, Ky, Kz) ne s'opposent à aucune rotation du bras <em>autour de cet axe</em> — les 2 points restent immobiles pendant cette rotation, ils ne « voient » rien. Seule la raideur en <b style="color:var(--text)">torsion (Krz)</b> peut empêcher ce mouvement. Une charge (Bearing Load / Remote Force) n'est jamais une contrainte : elle ne bloque aucun déplacement, seul un joint ou un support le peut.</p>
+          <div class="chain-step">
+        <div class="idx">G</div>
+        <div>
+          <h3>Interprétation : exclure les contraintes locales aux conditions aux limites</h3>
+          <p>Toute application idéalisée d'une liaison (Joint Bushing, Bearing Load, et <b style="color:var(--text)">surtout un Fixed Support</b>) crée une concentration de contrainte artificielle localement, autour de la zone concernée — ce n'est pas un défaut réel de la pièce, mais un effet de la simplification de modélisation elle‑même. C'est le principe de <b style="color:var(--text)">Saint‑Venant</b> : au‑delà d'une distance de l'ordre de la dimension caractéristique de la zone chargée (≈ 1 à 2 fois le diamètre du trou), la contrainte redevient représentative du comportement réel.</p>
+          <p>Un <b style="color:var(--text)">Fixed Support</b> est le cas le plus sévère : en bloquant totalement les 6 DDL sans aucune souplesse, il concentre la contrainte de façon encore plus artificielle qu'un Bushing (qui laisse un peu de liberté élastique). C'est une raison supplémentaire, en plus de celles déjà vues, de s'en méfier : même utilisé ponctuellement pour un test de convergence, la contrainte relevée juste à son voisinage ne doit jamais être retenue comme résultat final.</p>
+          <div class="result-tag"><span>À exclure de l'interprétation : contrainte dans un rayon ≈ 1–2× le diamètre du trou autour de chaque liaison</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>DOSSIER CALCUL — ÉTUDES STRUCTURELLES · Ansys Mechanical / Abaqus</p>
+    <p class="contact">Malick FANNY · ibrahimemalickfanny@gmail.com · [LinkedIn]</p>
+  </div>
+</footer>
+
+</body>
+</html>
