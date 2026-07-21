@@ -34,7 +34,7 @@
 
   /* PROFILE */
   .profile{padding:90px 0 60px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
-  .hero-bg{position:absolute;top:0;right:-8%;height:130%;width:70%;opacity:0.22;pointer-events:none;z-index:0;shape-rendering:geometricPrecision;}
+  .hero-bg{position:absolute;top:0;right:-8%;height:130%;width:70%;opacity:0.4;pointer-events:none;z-index:0;object-fit:cover;}
   .profile-grid{position:relative;z-index:1;}
   @media(max-width:640px){.profile-grid{grid-template-columns:1fr;}}
   .avatar{
@@ -131,26 +131,7 @@
 <body>
 
 <header class="profile">
-  <svg class="hero-bg" viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <linearGradient id="heroStress" x1="0%" y1="100%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#4FB8C4"/>
-        <stop offset="40%" stop-color="#6FBF7A"/>
-        <stop offset="70%" stop-color="#E8A33D"/>
-        <stop offset="100%" stop-color="#D6564A"/>
-      </linearGradient>
-      <clipPath id="heroClip">
-        <path d="M40 560 L40 420 L150 260 L260 260 L260 160 L400 160 L470 240 L470 380 L360 380 L360 480 L260 480 L260 600 L120 600 Z"/>
-      </clipPath>
-    </defs>
-    <path d="M40 560 L40 420 L150 260 L260 260 L260 160 L400 160 L470 240 L470 380 L360 380 L360 480 L260 480 L260 600 L120 600 Z" fill="url(#heroStress)"/>
-    <g clip-path="url(#heroClip)" stroke="#0B0D10" stroke-width="1.1" opacity="0.75">
-      <path d="M0 0L500 0M0 45L500 45M0 90L500 90M0 135L500 135M0 180L500 180M0 225L500 225M0 270L500 270M0 315L500 315M0 360L500 360M0 405L500 405M0 450L500 450M0 495L500 495M0 540L500 540M0 585L500 585M0 630L500 630M0 675L500 675"/>
-      <path d="M-700 0L0 700M-655 0L45 700M-610 0L90 700M-565 0L135 700M-520 0L180 700M-475 0L225 700M-430 0L270 700M-385 0L315 700M-340 0L360 700M-295 0L405 700M-250 0L450 700M-205 0L495 700M-160 0L540 700M-115 0L585 700M-70 0L630 700M-25 0L675 700M20 0L720 700M65 0L765 700M110 0L810 700M155 0L855 700M200 0L900 700M245 0L945 700M290 0L990 700M335 0L1035 700M380 0L1080 700M425 0L1125 700M470 0L1170 700"/>
-      <path d="M-700 0L-1400 700M-655 0L-1355 700M-610 0L-1310 700M-565 0L-1265 700M-520 0L-1220 700M-475 0L-1175 700M-430 0L-1130 700M-385 0L-1085 700M-340 0L-1040 700M-295 0L-995 700M-250 0L-950 700M-205 0L-905 700M-160 0L-860 700M-115 0L-815 700M-70 0L-770 700M-25 0L-725 700M20 0L-680 700M65 0L-635 700M110 0L-590 700M155 0L-545 700M200 0L-500 700M245 0L-455 700M290 0L-410 700M335 0L-365 700M380 0L-320 700M425 0L-275 700M470 0L-230 700"/>
-    </g>
-    <path d="M40 560 L40 420 L150 260 L260 260 L260 160 L400 160 L470 240 L470 380 L360 380 L360 480 L260 480 L260 600 L120 600 Z" fill="none" stroke="#0B0D10" stroke-width="2" opacity="0.85"/>
-  </svg>
+  <img class="hero-bg" src="hero-fea.png" alt="">
   <div class="wrap">
     <div class="profile-grid">
       <div>
