@@ -72,7 +72,7 @@
   .study-row.mesh-bg{overflow:hidden;padding-left:20px;padding-right:20px;}
   .study-row.mesh-bg::before{
     content:"";position:absolute;top:0;right:0;height:100%;width:45%;
-    background-image:url('mesh-bras-bg.png');background-size:cover;background-position:center;
+    background-image:url('mesh-bras-bg.png');background-size:130% auto;background-position:60% 40%;
     opacity:0.2;z-index:0;pointer-events:none;
     mask-image:linear-gradient(to right, transparent, black 30%);
     -webkit-mask-image:linear-gradient(to right, transparent, black 30%);
@@ -260,10 +260,10 @@
             <h3>Bras de suspension inférieur</h3>
             <p><b style="color:var(--text)">Objectif</b> : vérifier la tenue du bras de suspension sous un choc de 3g, en traçant la charge du contact roue jusqu'à la contrainte locale.<br><br><b style="color:var(--text)">Résultat</b> : validé — contrainte max 30,79 MPa, coefficient de sécurité supérieur à 8. Démarche complète : géométrie CAO réelle, chaîne de chargement par équilibres successifs, diagnostic et correction d'un mouvement de corps rigide, convergence de maillage confirmée. Analyses statique et modale bouclées ; harmonique en cours.</p>
             <div class="tags">
+              <span class="tag">ANSYS</span>
               <span class="tag">STATIQUE</span>
               <span class="tag">MODALE</span>
               <span class="tag">HARMONIQUE</span>
-              <span class="tag">ANSYS</span>
             </div>
           </div>
         </div>
@@ -281,6 +281,7 @@
             <p>Projet Bosch eBike Systems (méthodologie anonymisée) : caractérisation de la rigidité d'une drive unit sous Abaqus (modèle simplifié à 80–90% de la rigidité réelle), analyse de sensibilité par déplacements/rotations imposés, sous‑structuration en superéléments, chargement pédalier selon ISO 4210‑6, décomposition vélo/drive unit pour orienter le renforcement structurel.</p>
             <div class="tags">
               <span class="tag">ABAQUS</span>
+              <span class="tag">STATIQUE</span>
               <span class="tag">RIGIDITÉ</span>
               <span class="tag">SOUS-STRUCTURATION</span>
               <span class="tag">ISO 4210-6</span>
