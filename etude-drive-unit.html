@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Étude 02 — Rigidité d'un Drive Unit VAE | Dossier calcul structurel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14171C; --panel:#1B1F26; --panel-2:#20252D;
+    --line:#2A3038; --line-strong:#3A4149;
+    --text:#E8EAED; --text-dim:#8B93A1; --text-faint:#5B6371;
+    --accent:#E8A33D; --accent-soft:#4a3a20;
+    --cool:#4FB8C4; --force:#D6564A;
+    --display:'Space Grotesk',sans-serif; --body:'IBM Plex Sans',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      linear-gradient(var(--bg),var(--bg)),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 48px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 48px);
+    color:var(--text); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(20,23,28,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-strong);box-shadow:0 1px 0 rgba(232,163,61,0.15);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px;min-width:0;}
+  .brand{font-family:var(--mono);font-size:13px;letter-spacing:0.08em;color:var(--text-dim);white-space:nowrap;text-decoration:none;}
+  .brand b{color:var(--text);font-weight:600;}
+  nav ul{display:flex;gap:24px;list-style:none;font-size:13px;font-family:var(--mono);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;white-space:nowrap;}
+  nav ul::-webkit-scrollbar{display:none;}
+  nav a{text-decoration:none;color:var(--text-dim);transition:color .2s;padding:4px 2px;border-bottom:2px solid transparent;white-space:nowrap;}
+  nav a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  @media(max-width:900px){
+    nav .wrap{flex-wrap:wrap;height:auto;padding:14px 18px;gap:10px;}
+    .brand{font-size:11px;}
+    nav ul{display:flex;gap:16px;width:100%;overflow-x:auto;padding-top:10px;border-top:1px solid var(--line);-webkit-overflow-scrolling:touch;}
+    nav ul::-webkit-scrollbar{display:none;}
+    nav a{font-size:12px;font-weight:500;color:var(--text);}
+  }
+
+  /* HERO */
+  .hero{padding:96px 0 64px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);}
+  h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,4.6vw,50px);line-height:1.1;letter-spacing:-0.01em;max-width:840px;margin-bottom:22px;}
+  h1 em{font-style:normal;color:var(--accent);}
+  .hero p.lede{font-size:17px;color:var(--text-dim);max-width:660px;margin-bottom:32px;}
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .stat{background:var(--panel);padding:20px 22px;}
+  .stat .v{font-family:var(--display);font-size:24px;font-weight:600;color:var(--text);}
+  .stat .l{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:0.04em;margin-top:6px;}
+  @media(max-width:640px){.stat-row{grid-template-columns:1fr;}}
+
+  .banner{border:1px solid var(--line-strong);background:var(--panel-2);padding:14px 18px;margin-top:28px;}
+  .banner .tag{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);letter-spacing:0.05em;}
+  .banner p{font-size:13px;color:var(--text-dim);margin-top:6px;}
+
+  section{padding:64px 0;border-bottom:1px solid var(--line);scroll-margin-top:100px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:16px;flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono);color:var(--text-faint);font-size:13px;}
+  h2{font-family:var(--display);font-size:25px;font-weight:600;}
+  h3{font-family:var(--display);font-size:17px;font-weight:600;margin:36px 0 12px;scroll-margin-top:100px;}
+  h3:first-of-type{margin-top:8px;}
+  .sec-desc{color:var(--text-dim);max-width:680px;margin-bottom:20px;font-size:14.5px;}
+
+  ul.list{margin:14px 0 22px 0;}
+  ul.list li{list-style:none;padding:8px 0 8px 18px;border-bottom:1px solid var(--line);position:relative;font-size:13.5px;color:var(--text-dim);}
+  ul.list li::before{content:"—";position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
+
+  .obj-box{border-left:2px solid var(--accent);background:var(--panel-2);padding:16px 20px;margin:20px 0;}
+  .obj-box .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:0.05em;}
+  .obj-box p{font-size:14px;color:var(--text-dim);margin-top:6px;}
+
+  .principle-box{border:1px solid var(--cool);background:rgba(79,184,196,0.06);padding:16px 20px;margin:20px 0;}
+  .principle-box .tag{font-family:var(--mono);font-size:10.5px;color:var(--cool);letter-spacing:0.05em;}
+  .principle-box p{font-size:13.5px;color:var(--text-dim);margin-top:6px;}
+  .principle-box .formula{font-family:var(--mono);font-size:14px;color:var(--cool);margin-top:8px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:0.05em;color:var(--text-faint);padding:9px 12px;border-bottom:1px solid var(--line-strong);text-transform:uppercase;}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--text-dim);font-family:var(--mono);}
+  td.label{color:var(--text);font-family:var(--body);}
+  tr:hover td{background:var(--panel);}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);margin:16px 0;}
+  .note{font-size:12.5px;color:var(--text-faint);font-style:italic;margin:10px 0 20px;}
+
+  .img-slot{aspect-ratio:16/9;border:1px dashed var(--line-strong);background:var(--panel-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--text-faint);font-family:var(--mono);font-size:11px;text-align:center;padding:16px;margin:16px 0;}
+  .img-slot svg{width:22px;height:22px;opacity:0.5;}
+  .img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0;}
+  @media(max-width:800px){.img-grid{grid-template-columns:1fr;}}
+  .img-grid .img-slot{margin:0;}
+  .img-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0;}
+  @media(max-width:700px){.img-grid-2{grid-template-columns:1fr;}}
+  .img-grid-2 .img-slot{margin:0;}
+  .takeaway{margin-top:10px;padding:10px 12px;border-left:2px solid var(--accent);background:var(--panel-2);font-size:12px;color:var(--text-dim);}
+  .takeaway b{color:var(--accent);font-family:var(--mono);font-size:10px;letter-spacing:0.05em;display:block;margin-bottom:4px;}
+
+  .chain{display:flex;flex-direction:column;margin:16px 0;}
+  .chain-step{display:grid;grid-template-columns:44px 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--line);}
+  .chain-step:first-child{border-top:none;}
+  .chain-step .idx{font-family:var(--mono);font-size:12px;color:var(--accent);border:1px solid var(--line-strong);height:34px;width:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .chain-step h4{font-family:var(--display);font-size:14.5px;font-weight:600;margin-bottom:6px;}
+  .chain-step p{color:var(--text-dim);font-size:13px;}
+
+  .reco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0;}
+  @media(max-width:760px){.reco-grid{grid-template-columns:1fr;}}
+  .reco-card{background:var(--panel);padding:18px;}
+  .reco-card .tag{font-family:var(--mono);font-size:10px;color:var(--bg);background:var(--accent);display:inline-block;padding:3px 8px;margin-bottom:10px;}
+  .reco-card p{font-size:12.5px;color:var(--text-dim);}
+
+  footer{padding:56px 0;text-align:center;}
+  footer p{color:var(--text-faint);font-size:12.5px;font-family:var(--mono);}
+  footer .contact{margin-top:14px;font-size:13.5px;color:var(--text-dim);}
+
+  @media(max-width:480px){
+    .wrap{padding:0 18px;}
+    .hero{padding:56px 0 40px;}
+    section{padding:44px 0;}
+    h1{font-size:26px;}
+    .hero p.lede{font-size:15px;}
+    h2{font-size:20px;}
+    h3{font-size:15.5px;}
+    .stat .v{font-size:20px;}
+    table{font-size:11.5px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="index.html" class="brand">DOSSIER&nbsp;CALCUL — <b>ÉTUDES STRUCTURELLES</b></a>
+    <ul>
+      <li><a href="#contexte">Contexte</a></li>
+      <li><a href="#modele">Modèle</a></li>
+      <li><a href="#sensibilite">Sensibilité</a></li>
+      <li><a href="#modale">Modale</a></li>
+      <li><a href="#sous-structures">Sous-structures</a></li>
+      <li><a href="#chargement">Chargement ISO</a></li>
+      <li><a href="#decomposition">Décomposition</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">ÉTUDE 02 — DRIVE UNIT DE VAE (MOUNTAIN BIKE)</div>
+    <h1>Caractérisation de la rigidité d'un <em>Drive Unit</em> de VAE — du modèle isolé à l'assemblage complet</h1>
+    <p class="lede">Méthodologie Abaqus : analyse statique et analyse modale croisées pour caractériser la rigidité intrinsèque du moteur, puis sous-structuration cadre/drive unit et chargement pédalier normatif ISO 4210‑6 pour décomposer la déformation réelle entre contribution du cadre et contribution propre du moteur.</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="v">4</div><div class="l">POINTS DE FIXATION CADRE/DRIVE UNIT</div></div>
+      <div class="stat"><div class="v">1 200 N</div><div class="l">FORCE PÉDALIER — ISO 4210‑6, CATÉGORIE Mountain Bike</div></div>
+      <div class="stat"><div class="v">80–90%</div><div class="l">DE LA RIGIDITÉ GLOBALE MODÉLISÉE</div></div>
+    </div>
+
+    <div class="banner">
+      <span class="tag">MÉTHODOLOGIE GÉNÉRIQUE</span>
+      <p>Méthodologie issue d'une mission chez Bosch eBike Systems. Les données du projet sont confidentielles — la méthode et les paramètres normatifs (ISO 4210‑6) sont réels, mais les chiffres (rigidités, fréquences, torseurs d'effort) ne peuvent pas venir du projet d'origine. Je les recalculerai sur un cas générique équivalent.</p>
+    </div>
+  </div>
+</header>
+
+<section id="contexte">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Contexte & objectif</h2></div>
+    <p class="sec-desc">Le Drive Unit (carter moteur électrique) d'un vélo à assistance électrique de type Mountain Bike est fixé au cadre en 4 points. Sa rigidité propre, combinée à la flexibilité du cadre, détermine les déplacements réels du moteur en usage — un paramètre clé pour le confort, le bruit et la durabilité de l'ensemble.</p>
+
+    <div class="obj-box">
+      <span class="tag">OBJECTIF</span>
+      <p>Mettre en place une méthodologie générique de caractérisation de la rigidité de la drive unit, puis évaluer son comportement une fois intégrée au vélo, afin d'orienter les choix de conception et de renforcement structuraux.</p>
+    </div>
+
+    <h3 style="margin-top:28px;">Hypothèses de modélisation</h3>
+    <ul class="list">
+      <li>Modélisation simplifiée : pas de vis ni de préchage modélisés — couplages cinématiques (Reference Point + Coupling) au niveau des 4 points de fixation.</li>
+      <li>Périmètre limité aux composants structurants (carter principal + sous-composant interne à 3 points de fixation), représentant 80 à 90% de la rigidité globale du moteur — choix validé par comparaison entre analyses statique linéaire et non linéaire.</li>
+    </ul>
+
+    <div class="img-slot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-11 11"/></svg>
+      <span>VUE CAO DU DRIVE UNIT — 4 POINTS DE FIXATION ANNOTÉS (P1 à P4)</span>
+    </div>
+  </div>
+</section>
+
+<section id="partie1">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Partie 1 — Caractérisation intrinsèque de la drive unit</h2></div>
+    <p class="sec-desc">Caractériser la rigidité de la drive unit isolée, indépendamment du reste du vélo, via une analyse statique et une analyse modale croisées.</p>
+
+    <h3 id="modele">2.1 Présentation du modèle</h3>
+    <ul class="list">
+      <li>Géométrie : carter principal + sous-composant interne (3 points de fixation).</li>
+      <li>Maillage : type d'éléments et taille caractéristique à préciser — étude de convergence recommandée.</li>
+      <li>Couplages : Reference Point (RP) + Coupling Kinematic à chacun des 4 points de fixation.</li>
+    </ul>
+    <div class="img-slot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+      <span>VUE DU MAILLAGE — QUALITÉ, TAILLE D'ÉLÉMENTS</span>
+    </div>
+
+    <h3 id="sensibilite">2.2 Analyse de sensibilité statique</h3>
+    <p class="sec-desc">Des déplacements/rotations unitaires sont imposés successivement en traction, torsion et flexion, afin d'extraire la rigidité (k = Réaction / déplacement imposé) associée à chaque direction et d'établir la hiérarchie des sollicitations les plus critiques.</p>
+
+    <div class="img-grid">
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M15 6l6 6-6 6"/></svg><span>DÉFORMÉE — TRACTION</span></div>
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 1 1 8 8"/><path d="M4 12l3-3M4 12l3 3"/></svg><span>DÉFORMÉE — TORSION</span></div>
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17c3 0 3-10 6-10s3 14 6 14 3-7 6-7"/></svg><span>DÉFORMÉE — FLEXION</span></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Cas de charge</th><th>Déplacement/rotation imposé</th><th>Réaction (RF/RM)</th><th>Rigidité k = RF/δ</th><th>Unité</th></tr>
+        <tr><td class="label">Traction X</td><td>—</td><td>—</td><td>—</td><td>N/mm</td></tr>
+        <tr><td class="label">Torsion X</td><td>—</td><td>—</td><td>—</td><td>N·mm/rad</td></tr>
+        <tr><td class="label">Flexion Y</td><td>—</td><td>—</td><td>—</td><td>N/mm</td></tr>
+        <tr><td class="label">Flexion Z</td><td>—</td><td>—</td><td>—</td><td>N/mm</td></tr>
+      </table>
+    </div>
+    <p class="note">Résultat attendu : identification de la direction la plus molle (prioritaire à surveiller en Partie 2) et de la direction la plus rigide (facteur peu limitant).</p>
+
+    <h3 id="modale">2.3 Analyse modale et validation croisée</h3>
+    <p class="sec-desc">Même conditions aux limites qu'en statique (encastrement des 4 points de fixation). L'analyse modale (step Frequency, Lanczos) fournit les premières fréquences propres et leurs déformées associées, sans chargement appliqué — une propriété intrinsèque du système.</p>
+
+    <div class="principle-box">
+      <span class="tag">PRINCIPE DE LA VALIDATION CROISÉE</span>
+      <p>Plus une direction est souple en statique, plus sa fréquence propre associée doit être basse en modal (les modes sont classés du plus bas au plus haut, donc « premier mode » et « fréquence la plus basse » désignent la même chose). Si la direction molle en statique correspond bien au mode le plus bas en modal, ça confirme que le modèle éléments finis est cohérent — l'analyse modale ne mesure pas une rigidité, elle vérifie juste que l'ordre déjà trouvé en statique tient toujours en dynamique.</p>
+    </div>
+
+    <div class="img-grid">
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h3l2-7 4 14 3-10 2 3h4"/></svg><span>DÉFORMÉE MODE 1 (basse fréquence)</span></div>
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h3l2-7 4 14 3-10 2 3h4"/></svg><span>DÉFORMÉE MODE 2</span></div>
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h3l2-7 4 14 3-10 2 3h4"/></svg><span>DÉFORMÉE MODE 3</span></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Direction</th><th>Rigidité statique</th><th>Mode associé</th><th>Fréquence (Hz)</th><th>Cohérence</th></tr>
+        <tr><td class="label">Torsion</td><td>Faible</td><td>Mode 1</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">Flexion</td><td>Moyenne</td><td>Mode 2</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">Traction</td><td>Élevée</td><td>Mode 3</td><td>—</td><td>—</td></tr>
+      </table>
+    </div>
+
+    <h3>2.4 Synthèse de la Partie 1</h3>
+    <p class="sec-desc">À l'issue de cette première partie, la rigidité de la drive unit isolée est caractérisée et validée dans chaque direction (traction, torsion, flexion). Ces valeurs de rigidité servent de référence en Partie 2 pour isoler la contribution propre de la drive unit dans la déformation observée sur l'assemblage complet.</p>
+  </div>
+</section>
+
+<section id="partie2">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Partie 2 — Intégration dans l'assemblage complet</h2></div>
+    <p class="sec-desc">Évaluer le comportement réel de la drive unit une fois intégrée au vélo, en tenant compte de la flexibilité du cadre, afin de décomposer la déformation totale entre contribution du cadre et contribution propre de la drive unit.</p>
+
+    <h3 id="sous-structures">3.1 Génération des sous-structures</h3>
+    <p class="sec-desc">Le cadre et la drive unit sont chacun condensés en superéléments (substructuration Abaqus) à leurs points d'interface, ce qui réduit fortement le coût de calcul lors de leur intégration dans l'assemblage vélo complet, tout en conservant un comportement mécanique équivalent au modèle détaillé.</p>
+    <ul class="list">
+      <li>Nœuds de rétention : les 4 points de fixation cadre/drive unit (+ éventuellement un nœud interne de mesure).</li>
+      <li>Validation de la sous-structure : comparaison d'un cas de charge simple entre modèle détaillé et modèle substructuré, pour prouver l'équivalence avant utilisation.</li>
+    </ul>
+    <div class="img-grid-2">
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M10 6.5h4M17.5 10v4"/></svg><span>SCHÉMA : MODÈLE DÉTAILLÉ → SUPERÉLÉMENT (4 NŒUDS)</span></div>
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-11 11"/></svg><span>VÉLO COMPLET AVEC SOUS-STRUCTURE INTÉGRÉE</span></div>
+    </div>
+
+    <h3 id="chargement">3.2 Chargement pédalier normatif (ISO 4210‑6)</h3>
+    <p class="sec-desc">Le chargement appliqué sur l'assemblage complet reprend la configuration de l'essai de fatigue normalisé ISO 4210‑6 (§4.3), catégorie Mountain Bike, plutôt qu'un effort choisi arbitrairement — ce qui rend le cas de charge défendable, traçable et comparable entre différentes études.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Paramètre</th><th>Valeur</th></tr>
+        <tr><td class="label">Force appliquée (F)</td><td>1 200 N (catégorie Mountain Bike)</td></tr>
+        <tr><td class="label">Point d'application</td><td>150 mm de l'axe du pédalier</td></tr>
+        <tr><td class="label">Inclinaison</td><td>7,5° (± 0,5°) / plan longitudinal du cadre</td></tr>
+        <tr><td class="label">Mode de chargement</td><td>Alterné (pédale par pédale, retombée à ≤5% avant l'autre)</td></tr>
+        <tr><td class="label">Conditions aux limites</td><td>Montage repris à l'identique de l'essai normatif</td></tr>
+      </table>
+    </div>
+    <div class="img-grid-2">
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg><span>SCHÉMA DU MONTAGE NORMATIF (POINT, ANGLE, SENS)</span></div>
+      <div class="img-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-11 11"/></svg><span>CARTE DE DÉPLACEMENT — ASSEMBLAGE SOUS CHARGE</span></div>
+    </div>
+    <p class="note">Le chargement étant alterné, deux cas de charge distincts sont traités (pédale droite, pédale gauche), donnant deux jeux de résultats pour l'extraction ci-dessous.</p>
+
+    <h3 id="decomposition">3.3 Extraction et décomposition des contributions</h3>
+    <div class="principle-box">
+      <span class="tag">PRINCIPE DE LA DÉCOMPOSITION</span>
+      <p>La déformation totale mesurée dans l'assemblage complet se décompose en deux contributions :</p>
+      <p class="formula">δ_total = δ_DU (calculé à partir de la rigidité de la Partie 1, appliquée au torseur d'effort réellement transmis) + δ_cadre (part restante, imputable à la flexibilité du cadre)</p>
+    </div>
+
+    <div class="chain">
+      <div class="chain-step">
+        <div class="idx">1</div>
+        <div><h4>Extraire le torseur réel transmis</h4><p>Réactions aux connecteurs de l'interface cadre/drive unit, dans l'assemblage complet.</p></div>
+      </div>
+      <div class="chain-step">
+        <div class="idx">2</div>
+        <div><h4>Calculer le déplacement isolé équivalent</h4><p>Réutiliser la rigidité de la Partie 1 : δ_DU = F_réel / k, sous ce même torseur d'effort.</p></div>
+      </div>
+      <div class="chain-step">
+        <div class="idx">3</div>
+        <div><h4>Déduire la part imputable au cadre</h4><p>Comparaison au déplacement total mesuré dans l'assemblage complet (δ_total).</p></div>
+      </div>
+    </div>
+
+    <p class="sec-desc" style="margin-top:24px;">Torseur d'effort transmis aux 4 points d'interface</p>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Point</th><th>Fx (N)</th><th>Fy (N)</th><th>Fz (N)</th><th>Mx (N·mm)</th><th>My (N·mm)</th><th>Mz (N·mm)</th></tr>
+        <tr><td class="label">P1</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">P2</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">P3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">P4</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </table>
+    </div>
+
+    <p class="sec-desc">Décomposition de la déformation par direction</p>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Direction</th><th>δ_total (mm)</th><th>δ_DU (mm)</th><th>δ_cadre (mm)</th><th>% Cadre</th><th>% Drive Unit</th></tr>
+        <tr><td class="label">Torsion</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">Flexion</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">Traction</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </table>
+    </div>
+    <div class="img-slot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+      <span>DIAGRAMME EN BARRES EMPILÉES — % CADRE vs % DRIVE UNIT, PAR DIRECTION</span>
+    </div>
+
+    <h3>3.4 Recommandations de conception</h3>
+    <p class="sec-desc">Pour chaque direction, le composant représentant la plus grande part de la déformation totale est désigné comme le facteur limitant — c'est lui qu'il convient de renforcer en priorité pour réduire le déplacement global observé.</p>
+    <div class="reco-grid">
+      <div class="reco-card"><span class="tag">CADRE LIMITANT</span><p>Renfort du cadre (nervures, épaississement local aux points de fixation).</p></div>
+      <div class="reco-card"><span class="tag">DRIVE UNIT LIMITANTE</span><p>Renfort du carter moteur (nervurage interne, épaisseur des parois).</p></div>
+      <div class="reco-card"><span class="tag">CONTRIBUTION ÉQUILIBRÉE</span><p>Arbitrage selon les contraintes de masse et de coût.</p></div>
+    </div>
+    <div class="img-slot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-11 11"/></svg>
+      <span>SCHÉMA ANNOTÉ — ZONES DE RENFORT PROPOSÉES</span>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Conclusion générale</h2></div>
+    <p class="sec-desc">Cette étude a permis de mettre en place une méthodologie générique, reproductible sur différentes configurations de drive unit, combinant analyse statique et analyse modale pour caractériser la rigidité intrinsèque du moteur, puis substructuration et chargement normatif ISO 4210‑6 pour évaluer son comportement réel une fois intégré au vélo.</p>
+    <p class="sec-desc">La décomposition de la déformation totale entre contribution du cadre et contribution propre de la drive unit constitue le livrable central de l'étude : elle permet d'orienter objectivement les choix de renforcement selon la direction et le composant réellement limitants, plutôt que de s'appuyer sur une intuition de conception.</p>
+    <p style="margin-top:20px;"><a href="index.html" style="font-family:var(--mono);font-size:13px;color:var(--accent);">← Voir le dossier complet</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>DOSSIER CALCUL — ÉTUDES STRUCTURELLES · Ansys Mechanical / Abaqus</p>
+    <p class="contact">Malick FANNY · ibrahimemalickfanny@gmail.com · <a href="https://www.linkedin.com/in/malick-fanny-6b6b25202" style="color:var(--accent);">LinkedIn</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
