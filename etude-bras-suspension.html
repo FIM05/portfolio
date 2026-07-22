@@ -109,6 +109,7 @@
   td.label{color:var(--text);font-family:var(--body);}
   tr:hover td{background:var(--panel);}
   .tbl-wrap{overflow-x:auto;border:1px solid var(--line);margin-bottom:16px;}
+  .tbl-compact td,.tbl-compact th{padding:7px 10px;}
   .note{font-size:12.5px;color:var(--text-faint);font-style:italic;}
 
   /* DIAGRAM */
@@ -166,6 +167,10 @@
 
   /* RESULTS PLACEHOLDER */
   .results-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .res-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-top:10px;}
+  @media(max-width:760px){.res-row{grid-template-columns:1fr;}}
+  .modes-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:16px;}
+  @media(max-width:800px){.modes-row{grid-template-columns:1fr;}}
   .res-card{background:var(--panel);padding:26px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between;}
   .res-card h4{font-family:var(--display);font-size:16px;margin-bottom:8px;}
   .res-card p{color:var(--text-dim);font-size:13px;}
@@ -543,41 +548,64 @@
         <div>
           <h4>Statique structurelle</h4>
           <p>Von Mises, coefficient de sécurité, convergence de maillage.</p>
-          <div class="img-slot filled" style="aspect-ratio:auto;overflow:visible;display:block;padding:0;">
-            <img src="von-mises.png" alt="Cartographie Von Mises - maillage amélioré" style="width:100%;height:auto;display:block;">
-          </div>
           <div class="takeaway">Contrainte max relevée : 30,79 MPa (nœud 4193, maillage 3mm amélioré) — cohérent avec la série de convergence (30,17–30,8 MPa) et avec la contrainte relevée sur le maillage initial (30,822 MPa), confirmant la robustesse du résultat. Localisée sur le corps du bras, hors des alésages — résultat exploitable, contrainte max retenue pour cette étude.</div>
+          <div class="modes-row">
+            <div>
+              <div class="img-slot filled" style="aspect-ratio:4/3;">
+                <img src="von-mises.png" alt="Cartographie Von Mises - maillage amélioré">
+              </div>
+            </div>
+            <div>
+              <div class="img-slot filled" style="aspect-ratio:4/3;">
+                <img src="deplacement-total-statique.png" alt="Déplacement total">
+              </div>
+              <div class="takeaway" style="margin-top:8px;">0,44 à 2,35 mm — au-dessus de l'estimation manuelle (0,1-0,5 mm), qui reposait sur des raideurs de littérature approximatives. Pas d'inquiétude sur le calcul, l'estimation à la main était juste optimiste.</div>
+            </div>
+            <div>
+              <div class="img-slot filled" style="aspect-ratio:4/3;">
+                <img src="coefficient-securite.png" alt="Coefficient de sécurité">
+              </div>
+              <div class="takeaway" style="margin-top:8px;">Min 8,12 au nœud 4193 (le même point que la contrainte max) → limite élastique déduite ≈ 250 MPa, cohérent avec un acier de construction courant. Marge très confortable pour ce cas de charge.</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="res-card">
         <div>
           <h4>Analyse modale</h4>
           <p>6 premiers modes, participation modale validée croisée avec les raideurs statiques.</p>
-          <div class="tbl-wrap" style="margin:12px 0;">
-            <table>
-              <tr><th>Mode</th><th>Fréq (Hz)</th><th>Type</th></tr>
-              <tr><td class="label">1</td><td>14,94</td><td>Torsion pivot (Rot. Z)</td></tr>
-              <tr><td class="label">2</td><td>26,46</td><td>Translation axiale (Dir. Z)</td></tr>
-              <tr><td class="label">3</td><td>66,07</td><td>Flexion transversale (Dir. X / Rot. Y)</td></tr>
-              <tr><td class="label">4</td><td>82,62</td><td>Résiduel</td></tr>
-              <tr><td class="label">5</td><td>108,94</td><td>Résiduel</td></tr>
-              <tr><td class="label">6</td><td>127,11</td><td>Résiduel</td></tr>
+          <div class="tbl-wrap tbl-compact" style="margin:12px 0;">
+            <table style="font-size:12px;">
+              <tr><th>Mode</th><th>Fréq (Hz)</th><th>Type</th><th>Masse eff. cumulée</th></tr>
+              <tr><td class="label">1</td><td>14,94</td><td>Torsion pivot (Rot. Z)</td><td>Rot.Z 95% · Dir.Y 72%</td></tr>
+              <tr><td class="label">2</td><td>26,46</td><td>Translation axiale (Dir. Z)</td><td>Dir.Z 97%</td></tr>
+              <tr><td class="label">3</td><td>66,07</td><td>Flexion transversale (Dir. X / Rot. Y)</td><td>Dir.X 99% · Rot.Y 98%</td></tr>
+              <tr><td class="label">4</td><td>82,62</td><td>Résiduel</td><td>&gt; 99% partout</td></tr>
+              <tr><td class="label">5</td><td>108,94</td><td>Résiduel</td><td>&gt; 99% partout</td></tr>
+              <tr><td class="label">6</td><td>127,11</td><td>Résiduel</td><td>&gt; 99% partout</td></tr>
             </table>
           </div>
-          <div class="img-slot filled" style="aspect-ratio:4/3;">
-            <img src="modale-mode1.png" alt="Déformée modale - Mode 1">
-          </div>
-          <div class="takeaway" style="margin:8px 0 14px;">Mode 1 — 14,94 Hz. Comme une porte sur ses gonds : les silentblocs (proches de l'axe) bougent très peu, la rotule (loin de l'axe) bouge beaucoup. Rotation autour du pivot.</div>
 
-          <div class="img-slot filled" style="aspect-ratio:4/3;">
-            <img src="modale-mode2.png" alt="Déformée modale - Mode 2">
+          <div class="modes-row">
+            <div>
+              <div class="img-slot filled" style="aspect-ratio:4/3;">
+                <img src="modale-mode1.png" alt="Déformée modale - Mode 1">
+              </div>
+              <div class="takeaway" style="margin-top:8px;">Mode 1 — 14,94 Hz. Comme une porte sur ses gonds : les silentblocs (proches de l'axe) bougent très peu, la rotule (loin de l'axe) bouge beaucoup. Rotation autour du pivot.</div>
+            </div>
+            <div>
+              <div class="img-slot filled" style="aspect-ratio:4/3;">
+                <img src="modale-mode2.png" alt="Déformée modale - Mode 2">
+              </div>
+              <div class="takeaway" style="margin-top:8px;">Mode 2 — 26,46 Hz. Comme un plongeoir qui vibre d'un bloc : aucun point ne reste immobile, toute la pièce se déplace ensemble le long de son axe.</div>
+            </div>
+            <div>
+              <div class="img-slot filled" style="aspect-ratio:4/3;">
+                <img src="modale-mode3.png" alt="Déformée modale - Mode 3">
+              </div>
+              <div class="takeaway" style="margin-top:8px;">Mode 3 — 66,07 Hz. Toute la pièce bouge presque exactement pareil partout (moins de 6% d'écart) : un déplacement d'ensemble sur le côté, quasi sans flexion — cohérent avec la direction la plus raide du bras.</div>
+            </div>
           </div>
-          <div class="takeaway" style="margin:8px 0 14px;">Mode 2 — 26,46 Hz. Comme un plongeoir qui vibre d'un bloc : aucun point ne reste immobile, toute la pièce se déplace ensemble le long de son axe.</div>
-
-          <div class="img-slot filled" style="aspect-ratio:4/3;">
-            <img src="modale-mode3.png" alt="Déformée modale - Mode 3">
-          </div>
-          <div class="takeaway" style="margin:8px 0;">Mode 3 — 66,07 Hz. Toute la pièce bouge presque exactement pareil partout (moins de 6% d'écart) : un déplacement d'ensemble sur le côté, quasi sans flexion — cohérent avec la direction la plus raide du bras.</div>
         </div>
       </div>
       <div class="res-card">
