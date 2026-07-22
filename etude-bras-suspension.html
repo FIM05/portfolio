@@ -287,6 +287,9 @@
       <img src="cao-vue-complete.png" alt="Vue d'ensemble du système de suspension avant complet">
     </div>
     <div class="takeaway">Le système complet (2 triangles, moyeux, jantes, ressorts/amortisseurs, biellette de direction) situe le bras inférieur étudié — seule cette pièce est modélisée dans Ansys, le reste est remplacé par des conditions aux limites équivalentes (voir section Liaisons).</div>
+
+    <h3 style="font-family:var(--display);font-size:16px;margin:28px 0 10px;">Normes & références</h3>
+    <p class="sec-desc" style="margin-bottom:0;">Contrairement à un composant vélo (ISO 4210-6, norme publique), il n'existe pas de norme publique unique pour les essais de fatigue d'un bras de suspension automobile — chaque constructeur applique ses propres spécifications internes (cahier des charges CDCF, non publiées). Le cas de charge retenu ici (3g vertical, coefficient d'adhérence μ=1 pour freinage/virage) suit une méthodologie de pré-dimensionnement couramment publiée dans la littérature technique automobile (SAE, ouvrages de référence en dynamique du véhicule), pas une norme opposable — hypothèse à documenter explicitement plutôt qu'à citer comme une conformité réglementaire.</p>
   </div>
 </section>
 
@@ -550,11 +553,32 @@
       <div class="res-card">
         <div>
           <h4>Analyse modale</h4>
-          <p>10–20 premiers modes, participation modale, fréquences propres.</p>
-          <div class="img-slot">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h3l2-7 4 14 3-10 2 3h4"/></svg>
-            <span>DÉFORMÉE MODALE + TABLEAU FRÉQUENCES</span>
+          <p>6 premiers modes, participation modale validée croisée avec les raideurs statiques.</p>
+          <div class="tbl-wrap" style="margin:12px 0;">
+            <table>
+              <tr><th>Mode</th><th>Fréq (Hz)</th><th>Type</th></tr>
+              <tr><td class="label">1</td><td>14,94</td><td>Torsion pivot (Rot. Z)</td></tr>
+              <tr><td class="label">2</td><td>26,46</td><td>Translation axiale (Dir. Z)</td></tr>
+              <tr><td class="label">3</td><td>66,07</td><td>Flexion transversale (Dir. X / Rot. Y)</td></tr>
+              <tr><td class="label">4</td><td>82,62</td><td>Résiduel</td></tr>
+              <tr><td class="label">5</td><td>108,94</td><td>Résiduel</td></tr>
+              <tr><td class="label">6</td><td>127,11</td><td>Résiduel</td></tr>
+            </table>
           </div>
+          <div class="img-slot filled" style="aspect-ratio:4/3;">
+            <img src="modale-mode1.png" alt="Déformée modale - Mode 1">
+          </div>
+          <div class="takeaway" style="margin:8px 0 14px;">Mode 1 — 14,94 Hz. Comme une porte sur ses gonds : les silentblocs (proches de l'axe) bougent très peu, la rotule (loin de l'axe) bouge beaucoup. Rotation autour du pivot.</div>
+
+          <div class="img-slot filled" style="aspect-ratio:4/3;">
+            <img src="modale-mode2.png" alt="Déformée modale - Mode 2">
+          </div>
+          <div class="takeaway" style="margin:8px 0 14px;">Mode 2 — 26,46 Hz. Comme un plongeoir qui vibre d'un bloc : aucun point ne reste immobile, toute la pièce se déplace ensemble le long de son axe.</div>
+
+          <div class="img-slot filled" style="aspect-ratio:4/3;">
+            <img src="modale-mode3.png" alt="Déformée modale - Mode 3">
+          </div>
+          <div class="takeaway" style="margin:8px 0;">Mode 3 — 66,07 Hz. Toute la pièce bouge presque exactement pareil partout (moins de 6% d'écart) : un déplacement d'ensemble sur le côté, quasi sans flexion — cohérent avec la direction la plus raide du bras.</div>
         </div>
       </div>
       <div class="res-card">
@@ -569,6 +593,16 @@
       </div>
     </div>
 
+    <h3 style="font-family:var(--display);font-size:15.5px;margin:32px 0 10px;color:var(--text-faint);">Validation croisée statique/modale</h3>
+    <div class="tbl-wrap" style="margin-bottom:14px;">
+      <table>
+        <tr><th>Mode</th><th>Fréq (Hz)</th><th>Fraction masse effective dominante</th><th>Raideur associée</th></tr>
+        <tr><td class="label">1</td><td>14,94</td><td>Rotation Z : 0 → 0,950 · Dir. Y : 0 → 0,715</td><td>Krz (torsion pivot — la plus souple)</td></tr>
+        <tr><td class="label">2</td><td>26,46</td><td>Dir. Z : 0 → 0,968</td><td>Kz (axiale)</td></tr>
+        <tr><td class="label">3</td><td>66,07</td><td>Dir. X : 0,02 → 0,99 · Rot. Y : 0,31 → 0,98</td><td>Kx / Krx‑Kry (radiale/flexion)</td></tr>
+      </table>
+    </div>
+    <div class="takeaway">Plus une direction est souple en statique, plus sa fréquence propre associée est basse en modal — et c'est exactement ce qu'on observe : la direction la plus souple (Krz, torsion pivot) donne le mode le plus bas (14,94 Hz), la plus raide (Kx) donne le mode le plus haut (66,07 Hz). Les déformées confirment visuellement l'ordre : rotation (mode 1) → translation axiale (mode 2) → translation quasi-rigide (mode 3). Statique et modale racontent la même histoire.</div>
 
     <div style="border-left:2px solid var(--cool);background:var(--panel-2);padding:14px 18px;margin-top:28px;">
       <span style="font-family:var(--mono);font-size:10.5px;color:var(--cool);letter-spacing:0.05em;">LECTURE DU NIVEAU DE CONTRAINTE</span>
@@ -695,7 +729,7 @@
 <footer>
   <div class="wrap">
     <p>DOSSIER CALCUL — ÉTUDES STRUCTURELLES · Ansys Mechanical / Abaqus</p>
-    <p class="contact">Malick FANNY · ibrahimemalickfanny@gmail.com · [LinkedIn]</p>
+    <p class="contact">Malick FANNY · ibrahimemalickfanny@gmail.com · <a href="https://www.linkedin.com/in/malick-fanny-6b6b25202" style="color:var(--accent);">LinkedIn</a></p>
   </div>
 </footer>
 
