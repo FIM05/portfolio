@@ -73,7 +73,7 @@
   .study-row.mesh-bg::before{
     content:"";position:absolute;top:0;right:0;height:100%;width:45%;
     background-image:url('mesh-bras-bg.png');background-size:cover;background-position:center;
-    opacity:0.12;z-index:0;pointer-events:none;
+    opacity:0.2;z-index:0;pointer-events:none;
     mask-image:linear-gradient(to right, transparent, black 30%);
     -webkit-mask-image:linear-gradient(to right, transparent, black 30%);
   }
@@ -258,7 +258,7 @@
           <span class="n">01</span>
           <div class="titles">
             <h3>Bras de suspension inférieur</h3>
-            <p><b style="color:var(--text)">Objectif</b> : vérifier que le bras de suspension tient sous un choc 3g, en remontant tout le chemin depuis le contact roue jusqu'à la contrainte locale. <b style="color:var(--text)">Résultat</b> : validé — 30,79 MPa, coefficient de sécurité > 8. Démarche : géométrie CAO réelle, chargement par équilibres (10 446 N rotule / 13 381 N ressort), un mouvement de corps rigide diagnostiqué et corrigé en cours de route, convergence confirmée. Statique et modale bouclées, harmonique en cours.</p>
+            <p><b style="color:var(--text)">Objectif</b> : vérifier la tenue du bras de suspension sous un choc de 3g, en traçant la charge du contact roue jusqu'à la contrainte locale.<br><br><b style="color:var(--text)">Résultat</b> : validé — contrainte max 30,79 MPa, coefficient de sécurité supérieur à 8. Démarche complète : géométrie CAO réelle, chaîne de chargement par équilibres successifs, diagnostic et correction d'un mouvement de corps rigide, convergence de maillage confirmée. Analyses statique et modale bouclées ; harmonique en cours.</p>
             <div class="tags">
               <span class="tag">STATIQUE</span>
               <span class="tag">MODALE</span>
