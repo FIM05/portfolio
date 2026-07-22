@@ -66,7 +66,18 @@
   .study-row{
     display:flex;align-items:center;justify-content:space-between;gap:24px;
     padding:26px 4px;border-bottom:1px solid var(--line);transition:background .2s;
+    position:relative;
   }
+  .study-row.active{cursor:pointer;}
+  .study-row.mesh-bg{overflow:hidden;padding-left:20px;padding-right:20px;}
+  .study-row.mesh-bg::before{
+    content:"";position:absolute;top:0;right:0;height:100%;width:45%;
+    background-image:url('mesh-bras-bg.png');background-size:cover;background-position:center;
+    opacity:0.12;z-index:0;pointer-events:none;
+    mask-image:linear-gradient(to right, transparent, black 30%);
+    -webkit-mask-image:linear-gradient(to right, transparent, black 30%);
+  }
+  .study-row.mesh-bg > *{position:relative;z-index:1;}
   .study-row.active{cursor:pointer;}
   .study-row.active:hover{background:var(--panel);}
   .study-row .left{display:flex;align-items:baseline;gap:20px;min-width:0;}
@@ -97,7 +108,7 @@
   .xp-item h4{font-family:var(--display);font-size:16px;margin-bottom:2px;}
   .xp-item .org{font-family:var(--mono);font-size:12.5px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
   .org-badge{display:inline-block;font-family:var(--mono);font-weight:600;font-size:12px;color:var(--accent);background:var(--panel-2);border:1px solid var(--line-strong);border-radius:3px;padding:3px 9px;margin-right:8px;letter-spacing:0.02em;}
-  .org-logo{height:32px;width:auto;background:#fff;border-radius:5px;padding:4px 10px;display:inline-block;object-fit:contain;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+  .org-logo{max-height:32px;width:auto;max-width:100%;background:#fff;border-radius:5px;padding:4px 10px;display:inline-block;object-fit:contain;box-shadow:0 1px 3px rgba(0,0,0,0.3);box-sizing:border-box;}
   .org-logo.no-bg{background:transparent;padding:0;box-shadow:none;height:38px;border-radius:50%;}
   .xp-item p{font-size:13.5px;color:var(--text-dim);}
   .formation-block{margin-top:32px;padding-top:24px;border-top:1px solid var(--line-strong);}
@@ -194,7 +205,7 @@
         <div class="period">03/2025 – 09/2025<img src="logo-bosch.png" alt="Bosch" class="org-logo"></div>
         <div>
           <h4>Ingénieur calcul mécanique — Projet de fin d'études</h4>
-          <div class="org">eBike Systems — Reutlingen, Allemagne</div>
+          <div class="org">Bosch eBike Systems — Reutlingen, Allemagne</div>
           <p>Caractérisation de la rigidité des drive units (moteur électrique de VAE) sous Abaqus : modèle simplifié représentant 80–90% de la rigidité globale, analyse de sensibilité statique par déplacements/rotations imposés, sous‑structuration (superéléments) pour l'intégration au vélo complet, chargement pédalier selon ISO 4210‑6, décomposition des contributions vélo/drive unit pour orienter les choix de renforcement structurel.</p>
         </div>
       </div>
@@ -202,7 +213,7 @@
         <div class="period">06/2024 – 09/2024<img src="logo-artelia.png" alt="Artelia" class="org-logo"></div>
         <div>
           <h4>Assistant ingénieur calcul</h4>
-          <div class="org">Abidjan, Côte d'Ivoire</div>
+          <div class="org">Artelia — Abidjan, Côte d'Ivoire</div>
           <p>Analyses éléments finis thermo‑mécaniques non linéaires sous Ansys sur réseaux de tuyauteries pétrolières (ASME B31.3), étude paramétrique de coudes, modélisation d'assemblages boulonnés (BEAM188 / Bolt Pretension, ASME PCC‑1), sous‑modélisation locale.</p>
         </div>
       </div>
@@ -210,7 +221,7 @@
         <div class="period">02/2024 – 06/2024<img src="logo-ense3.png" alt="Grenoble INP - Ense3" class="org-logo no-bg"></div>
         <div>
           <h4>Ingénieur Modélisation & Simulation</h4>
-          <div class="org">FabLab — Grenoble, France</div>
+          <div class="org">Grenoble INP – Ense3 · FabLab — Grenoble, France</div>
           <p>Conception CAO de la transmission mécanique d'une hydrolienne (CATIA V5), analyses statiques/modales/harmoniques/transitoires sous Ansys, découplage fréquentiel amélioré de plus de 20%, validation expérimentale sur banc et en rivière.</p>
         </div>
       </div>
@@ -242,7 +253,7 @@
     <p style="color:var(--text-dim);font-size:14.5px;max-width:640px;margin-bottom:32px;">Chaque étude documente l'ensemble de la démarche — CAO, hypothèses, chaîne de chargement, conditions aux limites, résultats, post‑traitement, identification des problèmes et diagnostic de convergence — pas seulement le résultat final.</p>
 
     <div class="study-list">
-      <a href="etude-bras-suspension.html" class="study-row active">
+      <a href="etude-bras-suspension.html" class="study-row active mesh-bg">
         <div class="left">
           <span class="n">01</span>
           <div class="titles">
