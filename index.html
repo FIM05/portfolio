@@ -93,7 +93,7 @@
   .xp-item{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:22px 0;border-top:1px solid var(--line);}
   .xp-item:last-child{border-bottom:1px solid var(--line);}
   @media(max-width:640px){.xp-item{grid-template-columns:1fr;gap:6px;}}
-  .xp-item .period{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .xp-item .period{font-family:var(--mono);font-size:12px;color:var(--text-faint);display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
   .xp-item h4{font-family:var(--display);font-size:16px;margin-bottom:2px;}
   .xp-item .org{font-family:var(--mono);font-size:12.5px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
   .org-badge{display:inline-block;font-family:var(--mono);font-weight:600;font-size:12px;color:var(--accent);background:var(--panel-2);border:1px solid var(--line-strong);border-radius:3px;padding:3px 9px;margin-right:8px;letter-spacing:0.02em;}
@@ -191,26 +191,26 @@
 
     <div class="xp-list">
       <div class="xp-item">
-        <div class="period">03/2025 – 09/2025</div>
+        <div class="period">03/2025 – 09/2025<img src="logo-bosch.png" alt="Bosch" class="org-logo"></div>
         <div>
           <h4>Ingénieur calcul mécanique — Projet de fin d'études</h4>
-          <div class="org"><img src="logo-bosch.png" alt="Bosch" class="org-logo">eBike Systems — Reutlingen, Allemagne</div>
+          <div class="org">eBike Systems — Reutlingen, Allemagne</div>
           <p>Caractérisation de la rigidité des drive units (moteur électrique de VAE) sous Abaqus : modèle simplifié représentant 80–90% de la rigidité globale, analyse de sensibilité statique par déplacements/rotations imposés, sous‑structuration (superéléments) pour l'intégration au vélo complet, chargement pédalier selon ISO 4210‑6, décomposition des contributions vélo/drive unit pour orienter les choix de renforcement structurel.</p>
         </div>
       </div>
       <div class="xp-item">
-        <div class="period">06/2024 – 09/2024</div>
+        <div class="period">06/2024 – 09/2024<img src="logo-artelia.png" alt="Artelia" class="org-logo"></div>
         <div>
           <h4>Assistant ingénieur calcul</h4>
-          <div class="org"><img src="logo-artelia.png" alt="Artelia" class="org-logo">Abidjan, Côte d'Ivoire</div>
+          <div class="org">Abidjan, Côte d'Ivoire</div>
           <p>Analyses éléments finis thermo‑mécaniques non linéaires sous Ansys sur réseaux de tuyauteries pétrolières (ASME B31.3), étude paramétrique de coudes, modélisation d'assemblages boulonnés (BEAM188 / Bolt Pretension, ASME PCC‑1), sous‑modélisation locale.</p>
         </div>
       </div>
       <div class="xp-item">
-        <div class="period">02/2024 – 06/2024</div>
+        <div class="period">02/2024 – 06/2024<img src="logo-ense3.png" alt="Grenoble INP - Ense3" class="org-logo no-bg"></div>
         <div>
           <h4>Ingénieur Modélisation & Simulation</h4>
-          <div class="org"><img src="logo-ense3.png" alt="Grenoble INP - Ense3" class="org-logo no-bg">FabLab — Grenoble, France</div>
+          <div class="org">FabLab — Grenoble, France</div>
           <p>Conception CAO de la transmission mécanique d'une hydrolienne (CATIA V5), analyses statiques/modales/harmoniques/transitoires sous Ansys, découplage fréquentiel amélioré de plus de 20%, validation expérimentale sur banc et en rivière.</p>
         </div>
       </div>
