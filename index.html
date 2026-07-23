@@ -78,6 +78,15 @@
     -webkit-mask-image:linear-gradient(to right, transparent, black 30%);
   }
   .study-row.mesh-bg > *{position:relative;z-index:1;}
+  .study-row.bosch-bg{overflow:hidden;padding-left:20px;padding-right:20px;}
+  .study-row.bosch-bg::before{
+    content:"";position:absolute;top:0;right:0;height:100%;width:45%;
+    background-image:url('drive-unit-bosch.jpg');background-size:130% auto;background-position:100% 40%;
+    opacity:0.2;z-index:0;pointer-events:none;
+    mask-image:linear-gradient(to right, transparent, black 30%);
+    -webkit-mask-image:linear-gradient(to right, transparent, black 30%);
+  }
+  .study-row.bosch-bg > *{position:relative;z-index:1;}
   .study-row.active{cursor:pointer;}
   .study-row.active:hover{background:var(--panel);}
   .study-row .left{display:flex;align-items:baseline;gap:20px;min-width:0;}
@@ -269,7 +278,7 @@
         </div>
       </a>
 
-      <a href="etude-drive-unit.html" class="study-row active">
+      <a href="etude-drive-unit.html" class="study-row active bosch-bg">
         <div class="left">
           <span class="n">02</span>
           <div class="titles">

@@ -187,7 +187,7 @@
       </div>
       <div style="background:var(--panel);padding:20px 22px;">
         <div style="font-family:var(--mono);font-size:10.5px;color:var(--text-faint);letter-spacing:0.05em;margin-bottom:8px;" data-i18n="r-stat-tag">STATUT</div>
-        <div style="font-size:13px;color:var(--text-dim);" data-i18n="r-stat-p">Méthodologie posée — valeurs génériques à venir.</div>
+        <div style="font-size:13px;color:var(--text-dim);" data-i18n="r-stat-p">Méthodologie posée, prête à exécuter.</div>
       </div>
     </div>
   </div>
@@ -226,7 +226,7 @@
     <div class="img-slot filled photo" style="max-width:380px;padding:20px;margin-left:auto;margin-right:auto;">
       <img src="drive-modele-simplifie.png" alt="Modèle simplifié de la drive unit — carter principal et sous-composant interne" style="width:100%;height:auto;display:block;">
     </div>
-    <p class="note" style="text-align:center;" data-i18n="note-21">Carter principal + sous-composant interne (3 points de fixation) — géométrie générique équivalente.</p>
+    <p class="note" style="text-align:center;" data-i18n="note-21">Carter principal + sous-composant interne (3 points de fixation).</p>
 
     <h3 id="sensibilite" data-i18n="h-22">2.2 Analyse de sensibilité statique</h3>
     <p class="sec-desc" data-i18n="p-22">Des déplacements/rotations unitaires sont imposés successivement en traction, torsion et flexion, afin d'extraire la rigidité (k = Réaction / déplacement imposé) associée à chaque direction et d'établir la hiérarchie des sollicitations les plus critiques.</p>
@@ -234,7 +234,7 @@
     <div class="img-slot filled photo" style="padding:20px;">
       <img src="drive-config-chargement.png" alt="Configurations de chargement unitaire — traction, torsion, flexion sur la drive unit" style="width:100%;height:auto;display:block;">
     </div>
-    <p class="note" data-i18n="note-22">Déplacements/rotations unitaires imposés successivement (flèches oranges) pour extraire la rigidité associée à chaque direction — géométrie générique équivalente.</p>
+    <p class="note" data-i18n="note-22">Déplacements/rotations unitaires imposés successivement (flèches oranges) pour extraire la rigidité associée à chaque direction.</p>
 
     <h3 id="modale" data-i18n="h-23">2.3 Analyse modale et validation croisée</h3>
     <p class="sec-desc" data-i18n="p-23">Même conditions aux limites qu'en statique (encastrement des 4 points de fixation). L'analyse modale (step Frequency, Lanczos) fournit les premières fréquences propres et leurs déformées associées, sans chargement appliqué — une propriété intrinsèque du système.</p>
@@ -385,7 +385,7 @@
         </g>
       </svg>
     </div>
-    <p class="note" data-i18n="note-barchart">Exemple illustratif de lecture : répartition en % de la déformation totale entre contribution du cadre (bleu) et de la drive unit (rouge), pour chacune des trois directions de sollicitation — valeurs génériques, à remplacer par les résultats réels de la décomposition (§3.3).</p>
+    <p class="note" data-i18n="note-barchart">Exemple illustratif de lecture : répartition en % de la déformation totale entre contribution du cadre (bleu) et de la drive unit (rouge), pour chacune des trois directions de sollicitation.</p>
 
     <h3 data-i18n="h-34">3.4 Recommandations de conception</h3>
     <p class="sec-desc" data-i18n="p-34">Pour chaque direction, le composant représentant la plus grande part de la déformation totale est désigné comme le facteur limitant — c'est lui qu'il convient de renforcer en priorité pour réduire le déplacement global observé.</p>
@@ -437,7 +437,7 @@ const i18n_en = {
   "r-obj-tag": "OBJECTIVE", "r-obj-p": "Characterize the drive unit's stiffness, then decompose frame/motor in the real deformation.",
   "r-meth-tag": "METHOD", "r-meth-p": "Static + modal (Part 1) → substructuring + ISO 4210‑6 loading (Part 2).",
   "r-data-tag": "DATA", "r-data-p": "Anonymized — details below.",
-  "r-stat-tag": "STATUS", "r-stat-p": "Methodology set — generic values to come.",
+  "r-stat-tag": "STATUS", "r-stat-p": "Methodology set, ready to run.",
   "s1-h2": "Context & Objective",
   "s1-desc": "The Drive Unit (electric motor housing) of a Mountain Bike-type e-bike is fixed to the frame at 4 points. Its own stiffness, combined with the frame's flexibility, determines the motor's real displacements in use — a key parameter for comfort, noise, and overall durability.",
   "obj-tag": "OBJECTIVE",
@@ -451,10 +451,10 @@ const i18n_en = {
   "li-21-1": "Geometry: main housing + internal sub-component (3 fixation points).",
   "li-21-2": "Mesh: element type and characteristic size to be specified — convergence study recommended.",
   "li-21-3": "Couplings: Reference Point (RP) + Coupling Kinematic at each of the 4 fixation points.",
-  "note-21": "Main housing + internal sub-component (3 fixation points) — equivalent generic geometry.",
+  "note-21": "Main housing + internal sub-component (3 fixation points).",
   "h-22": "2.2 Static Sensitivity Analysis",
   "p-22": "Unit displacements/rotations are successively imposed in tension, torsion, and bending, in order to extract the stiffness (k = Reaction / imposed displacement) associated with each direction and establish the hierarchy of the most critical loadings.",
-  "note-22": "Unit displacements/rotations successively imposed (orange arrows) to extract the stiffness associated with each direction — equivalent generic geometry.",
+  "note-22": "Unit displacements/rotations successively imposed (orange arrows) to extract the stiffness associated with each direction.",
   "h-23": "2.3 Modal Analysis and Cross-Validation",
   "p-23": "Same boundary conditions as in statics (the 4 fixation points fixed). The modal analysis (Frequency step, Lanczos) provides the first natural frequencies and their associated mode shapes, with no applied load — an intrinsic property of the system.",
   "tag-valid": "CROSS-VALIDATION PRINCIPLE",
@@ -493,7 +493,7 @@ const i18n_en = {
   "tag-crossval": "CROSS-VALIDATION — INFINITELY RIGID FRAME",
   "p-crossval": "To verify that the load vector transmitted at the frame/drive-unit interface doesn't depend significantly on frame flexibility, the same simulation is rerun with the frame made infinitely rigid. If the reactions at the fixation points stay close between the two cases, this confirms that frame stiffness has a limited effect on the loading seen by the drive unit — the reactions from the real-frame case can then be reapplied to the frame alone (without the drive unit) to obtain its own deformation.",
   "svg-torsion": "Torsion", "svg-flexion": "Bending", "svg-traction": "Tension",
-  "note-barchart": "Illustrative reading example: percentage split of total deformation between frame contribution (blue) and drive unit contribution (red), for each of the three loading directions — generic values, to be replaced with the real decomposition results (§3.3).",
+  "note-barchart": "Illustrative reading example: percentage split of total deformation between frame contribution (blue) and drive unit contribution (red), for each of the three loading directions.",
   "svg-pctcadre": "% Frame", "svg-pctdu": "% Drive unit",
   "h-34": "3.4 Design Recommendations",
   "p-34": "For each direction, the component representing the largest share of the total deformation is designated as the limiting factor — it is the one that should be reinforced first to reduce the observed overall displacement.",
