@@ -222,18 +222,18 @@
       <li>Couplages : Reference Point (RP) + Coupling Kinematic à chacun des 4 points de fixation.</li>
     </ul>
 
-    <div class="img-slot">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-11 11"/></svg>
-      <span>MODÈLE SIMPLIFIÉ DE LA DRIVE UNIT<br>À insérer</span>
+    <div class="img-slot filled" style="aspect-ratio:4/3;max-width:420px;padding:20px;margin-left:auto;margin-right:auto;">
+      <img src="images/drive-modele-simplifie.png" alt="Modèle simplifié de la drive unit — carter principal et sous-composant interne" style="max-width:100%;max-height:100%;object-fit:contain;">
     </div>
+    <p class="note" style="text-align:center;">Carter principal + sous-composant interne (3 points de fixation) — géométrie générique équivalente.</p>
 
     <h3 id="sensibilite">2.2 Analyse de sensibilité statique</h3>
     <p class="sec-desc">Des déplacements/rotations unitaires sont imposés successivement en traction, torsion et flexion, afin d'extraire la rigidité (k = Réaction / déplacement imposé) associée à chaque direction et d'établir la hiérarchie des sollicitations les plus critiques.</p>
 
-    <div class="img-slot">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M15 6l6 6-6 6"/></svg>
-      <span>CONFIGURATIONS DE CHARGEMENT — TRACTION/TORSION/FLEXION SUR LA DU<br>À insérer</span>
+    <div class="img-slot filled" style="aspect-ratio:3.56/1;padding:20px;">
+      <img src="images/drive-config-chargement.png" alt="Configurations de chargement unitaire — traction, torsion, flexion sur la drive unit" style="max-width:100%;max-height:100%;object-fit:contain;">
     </div>
+    <p class="note">Déplacements/rotations unitaires imposés successivement (flèches oranges) pour extraire la rigidité associée à chaque direction — géométrie générique équivalente.</p>
 
     <h3 id="modale">2.3 Analyse modale et validation croisée</h3>
     <p class="sec-desc">Même conditions aux limites qu'en statique (encastrement des 4 points de fixation). L'analyse modale (step Frequency, Lanczos) fournit les premières fréquences propres et leurs déformées associées, sans chargement appliqué — une propriété intrinsèque du système.</p>
