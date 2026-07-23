@@ -318,15 +318,20 @@
       </table>
     </div>
 
-    <div class="img-grid-2" style="zoom:0.95;">
-      <div class="img-slot filled photo" style="height:200px;padding:0;overflow:hidden;display:block;">
-        <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction" data-i18n-alt="alt-chainforce" style="width:100%;height:100%;object-fit:contain;display:block;">
+    <div class="img-grid-2" style="zoom:0.95;align-items:start;">
+      <div>
+        <div class="img-slot filled photo" style="height:200px;padding:0;overflow:hidden;display:block;">
+          <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction" data-i18n-alt="alt-chainforce" style="width:100%;height:100%;object-fit:contain;display:block;">
+        </div>
+        <p class="note" data-i18n="note-32a-left">Chainforce appliquée au tube de direction pour le cas de charge réel (cadre souple) — deux cas alternés, pédale droite (2.1.1) et pédale gauche (2.1.2).</p>
       </div>
-      <div class="img-slot filled photo" style="height:200px;padding:0;overflow:hidden;display:block;">
-        <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="width:100%;height:100%;object-fit:contain;display:block;">
+      <div>
+        <div class="img-slot filled photo" style="height:200px;padding:0;overflow:hidden;display:block;">
+          <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="width:100%;height:100%;object-fit:contain;display:block;">
+        </div>
+        <p class="note" data-i18n="note-32a-right">Même chargement rejoué avec le cadre rendu infiniment rigide — réactions aux points de fixation comparées au cas souple pour valider que la flexibilité du cadre n'affecte pas significativement le torseur transmis à la drive unit.</p>
       </div>
     </div>
-    <p class="note" data-i18n="note-32a">Chainforce appliquée au tube de direction pour le cas de charge réel (à gauche), comparée au cas cadre rendu infiniment rigide (à droite) — réactions aux points de fixation comparées pour valider que la flexibilité du cadre n'affecte pas significativement le torseur transmis à la drive unit.</p>
     <p class="note" data-i18n="note-32b">Le chargement étant alterné, deux cas de charge distincts sont traités (pédale droite, pédale gauche), donnant deux jeux de résultats pour l'extraction ci-dessous.</p>
 
     <h3 id="decomposition" data-i18n="h-33">3.3 Extraction et décomposition des contributions</h3>
@@ -475,7 +480,8 @@ const i18n_en = {
   "td-p3": "Inclination", "td-p3v": "7.5° (± 0.5°) / frame's longitudinal plane",
   "td-p4": "Loading mode", "td-p4v": "Alternating (pedal by pedal, decaying to ≤5% before the other)",
   "td-p5": "Boundary conditions", "td-p5v": "Mounting identical to the normative test",
-  "note-32a": "Chainforce applied to the steerer tube for the real load case (left), compared to the case with an infinitely rigid frame (right) — reactions at the fixation points compared to validate that frame flexibility does not significantly affect the load vector transmitted to the drive unit.",
+  "note-32a-left": "Chainforce applied to the steerer tube for the real load case (flexible frame) — two alternating cases, right pedal (2.1.1) and left pedal (2.1.2).",
+  "note-32a-right": "Same loading rerun with the frame made infinitely rigid — reactions at the fixation points compared against the flexible case to validate that frame flexibility does not significantly affect the load vector transmitted to the drive unit.",
   "note-32b": "Since the loading is alternating, two distinct load cases are handled (right pedal, left pedal), giving two sets of results for the extraction below.",
   "h-33": "3.3 Extraction and Decomposition of Contributions",
   "tag-decomp": "DECOMPOSITION PRINCIPLE",
