@@ -774,7 +774,6 @@
           <h3>Diagnostic : mouvement de corps rigide non contraint</h3>
           <p>Message <b style="color:var(--text)">« insufficient constraints to prevent rigid body motion »</b> : le modèle peut encore bouger sans se déformer dans au moins une direction — le solveur ne trouve pas de solution stable. Un <b style="color:var(--text)">temps de calcul anormalement long</b> (le solveur qui « tourne » sans converger) est souvent le premier symptôme, avant même le message d'erreur explicite.</p>
           <p>Point de vigilance spécifique à une pièce tenue par <b style="color:var(--text)">2 bushings alignés sur le même axe</b> (ici Z, l'axe de pivot) : les raideurs en translation (Kx, Ky, Kz) ne s'opposent à aucune rotation du bras <em>autour de cet axe</em> — les 2 points restent immobiles pendant cette rotation, ils ne « voient » rien. Seule la raideur en <b style="color:var(--text)">torsion (Krz)</b> peut empêcher ce mouvement. Une charge (Bearing Load / Remote Force) n'est jamais une contrainte : elle ne bloque aucun déplacement, seul un joint ou un support le peut.</p>
-          <div class="result-tag"><span>Checklist : les 2 joints sont‑ils scopés (pas « Aucune sélection ») ?</span><span>Les 6 raideurs diagonales sont‑elles non nulles sur les 2 bushings ?</span></div>
         </div>
       </div>
       <div class="chain-step">
@@ -783,7 +782,6 @@
           <h3>Interprétation : exclure les contraintes locales aux conditions aux limites</h3>
           <p>Toute application idéalisée d'une liaison (Joint Bushing, Bearing Load, et <b style="color:var(--text)">surtout un Fixed Support</b>) crée une concentration de contrainte artificielle localement, autour de la zone concernée — ce n'est pas un défaut réel de la pièce, mais un effet de la simplification de modélisation elle‑même. C'est le principe de <b style="color:var(--text)">Saint‑Venant</b> : au‑delà d'une distance de l'ordre de la dimension caractéristique de la zone chargée (≈ 1 à 2 fois le diamètre du trou), la contrainte redevient représentative du comportement réel.</p>
           <p>Un <b style="color:var(--text)">Fixed Support</b> est le cas le plus sévère : en bloquant totalement les 6 DDL sans aucune souplesse, il concentre la contrainte de façon encore plus artificielle qu'un Bushing (qui laisse un peu de liberté élastique). C'est une raison supplémentaire, en plus de celles déjà vues, de s'en méfier : même utilisé ponctuellement pour un test de convergence, la contrainte relevée juste à son voisinage ne doit jamais être retenue comme résultat final.</p>
-          <div class="result-tag"><span>À exclure de l'interprétation : contrainte dans un rayon ≈ 1–2× le diamètre du trou autour de chaque liaison</span></div>
         </div>
       </div>
     </div>
