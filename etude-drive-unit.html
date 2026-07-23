@@ -261,8 +261,8 @@
       <li>Validation de la sous-structure : comparaison d'un cas de charge simple entre modèle détaillé et modèle substructuré, pour prouver l'équivalence avant utilisation.</li>
     </ul>
     <div class="img-grid-2">
-      <div class="img-slot filled" style="aspect-ratio:500/220;padding:16px;">
-        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <div class="img-slot filled" style="height:260px;padding:16px;display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;max-height:100%;">
           <text x="90" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#8B93A1">MODÈLE DÉTAILLÉ</text>
           <rect x="30" y="40" width="120" height="120" fill="none" stroke="#4FB8C4" stroke-width="1.5"/>
           <g stroke="#3A4149" stroke-width="0.6" opacity="0.7">
@@ -290,8 +290,8 @@
           <text x="410" y="185" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#5B6371">4 nœuds de rétention</text>
         </svg>
       </div>
-      <div class="img-slot filled photo" style="padding:16px;">
-        <img src="drive-sous-structuration.png" alt="Étapes d'assemblage des superéléments (drive unit + cadre) et types de connexion Beam / Translator entre nœuds de rétention" style="width:100%;height:auto;display:block;">
+      <div class="img-slot filled photo" style="height:260px;padding:16px;display:flex;align-items:center;justify-content:center;">
+        <img src="drive-sous-structuration.png" alt="Étapes d'assemblage des superéléments (drive unit + cadre) et types de connexion Beam / Translator entre nœuds de rétention" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;">
       </div>
     </div>
     <p class="note">À gauche, principe de la condensation (modèle détaillé → superélément à 4 nœuds de rétention) ; à droite, import des superéléments (drive unit + cadre) et assemblage sous Abaqus, avec deux types de connexion aux points de fixation : <b style="color:var(--text)">Beam</b> (liaison rigide, tous les CORM contraints) et <b style="color:var(--text)">Translator</b> (liaison glissante, un degré de translation libre) — géométrie et fichiers renommés pour l'illustration.</p>
@@ -319,11 +319,11 @@
     </div>
 
     <div class="img-grid-2">
-      <div class="img-slot filled photo" style="padding:16px;">
-        <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction" style="width:100%;height:auto;display:block;">
+      <div class="img-slot filled photo" style="height:220px;padding:16px;display:flex;align-items:center;justify-content:center;">
+        <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;">
       </div>
-      <div class="img-slot filled photo" style="padding:16px;">
-        <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="width:100%;height:auto;display:block;">
+      <div class="img-slot filled photo" style="height:220px;padding:16px;display:flex;align-items:center;justify-content:center;">
+        <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;">
       </div>
     </div>
     <p class="note">Chainforce appliquée au tube de direction pour le cas de charge réel (à gauche), comparée au cas cadre rendu infiniment rigide (à droite) — réactions aux points de fixation comparées pour valider que la flexibilité du cadre n'affecte pas significativement le torseur transmis à la drive unit.</p>
@@ -394,8 +394,8 @@
 <section id="conclusion" style="border-bottom:none;">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">04</span><h2>Conclusion générale</h2></div>
-    <p class="sec-desc">Statique et modale caractérisent la drive unit isolée ; sous-structuration et chargement ISO 4210‑6 montrent ensuite comment elle se comporte une fois montée sur le vélo. La méthode se transpose à d'autres configurations de drive unit.</p>
-    <p class="sec-desc">Le vrai livrable, c'est la décomposition cadre/drive unit : elle dit quel composant renforcer en priorité, direction par direction, plutôt que de deviner.</p>
+    <p class="sec-desc">La Partie 1 (statique + modale croisées) caractérise la rigidité intrinsèque de la drive unit, indépendamment du reste du vélo. La Partie 2 (sous-structuration + chargement pédalier ISO 4210‑6) montre ensuite comment cette même rigidité se comporte une fois le moteur intégré au cadre, sous un cas de charge normatif et traçable plutôt qu'arbitraire. La démarche — caractériser isolément, puis réintégrer et décomposer — se transpose telle quelle à d'autres architectures de drive unit.</p>
+    <p class="sec-desc">Le livrable central de cette étude n'est pas une valeur de rigidité isolée, mais la décomposition cadre/drive unit elle‑même : elle indique, direction par direction, quel composant est réellement limitant — et donc lequel renforcer en priorité — plutôt que de le supposer.</p>
     <p style="margin-top:20px;"><a href="index.html" style="font-family:var(--mono);font-size:13px;color:var(--accent);">← Voir le dossier complet</a></p>
   </div>
 </section>
