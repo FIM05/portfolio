@@ -260,9 +260,9 @@
       <li>Nœuds de rétention : les 4 points de fixation cadre/drive unit (+ éventuellement un nœud interne de mesure).</li>
       <li>Validation de la sous-structure : comparaison d'un cas de charge simple entre modèle détaillé et modèle substructuré, pour prouver l'équivalence avant utilisation.</li>
     </ul>
-    <div class="img-grid-2">
-      <div class="img-slot filled" style="height:260px;padding:16px;display:flex;align-items:center;justify-content:center;">
-        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;max-height:100%;">
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:16px 0;">
+      <div class="img-slot filled" style="height:260px;padding:16px;display:flex;align-items:center;justify-content:center;margin:0;">
+        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="height:100%;width:auto;display:block;">
           <text x="90" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#8B93A1">MODÈLE DÉTAILLÉ</text>
           <rect x="30" y="40" width="120" height="120" fill="none" stroke="#4FB8C4" stroke-width="1.5"/>
           <g stroke="#3A4149" stroke-width="0.6" opacity="0.7">
@@ -290,8 +290,8 @@
           <text x="410" y="185" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#5B6371">4 nœuds de rétention</text>
         </svg>
       </div>
-      <div class="img-slot filled photo" style="height:260px;padding:16px;display:flex;align-items:center;justify-content:center;">
-        <img src="drive-sous-structuration.png" alt="Étapes d'assemblage des superéléments (drive unit + cadre) et types de connexion Beam / Translator entre nœuds de rétention" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;">
+      <div class="img-slot filled photo" style="height:260px;padding:16px;display:flex;align-items:center;justify-content:center;margin:0;">
+        <img src="drive-sous-structuration.png" alt="Étapes d'assemblage des superéléments (drive unit + cadre) et types de connexion Beam / Translator entre nœuds de rétention" style="height:100%;width:auto;display:block;">
       </div>
     </div>
     <p class="note">À gauche, principe de la condensation (modèle détaillé → superélément à 4 nœuds de rétention) ; à droite, import des superéléments (drive unit + cadre) et assemblage sous Abaqus, avec deux types de connexion aux points de fixation : <b style="color:var(--text)">Beam</b> (liaison rigide, tous les CORM contraints) et <b style="color:var(--text)">Translator</b> (liaison glissante, un degré de translation libre) — géométrie et fichiers renommés pour l'illustration.</p>
@@ -318,12 +318,12 @@
       </table>
     </div>
 
-    <div class="img-grid-2">
-      <div class="img-slot filled photo" style="height:220px;padding:16px;display:flex;align-items:center;justify-content:center;">
-        <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;">
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:16px 0;">
+      <div class="img-slot filled photo" style="height:220px;padding:16px;display:flex;align-items:center;justify-content:center;margin:0;">
+        <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction" style="height:100%;width:auto;display:block;">
       </div>
-      <div class="img-slot filled photo" style="height:220px;padding:16px;display:flex;align-items:center;justify-content:center;">
-        <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;">
+      <div class="img-slot filled photo" style="height:220px;padding:16px;display:flex;align-items:center;justify-content:center;margin:0;">
+        <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="height:100%;width:auto;display:block;">
       </div>
     </div>
     <p class="note">Chainforce appliquée au tube de direction pour le cas de charge réel (à gauche), comparée au cas cadre rendu infiniment rigide (à droite) — réactions aux points de fixation comparées pour valider que la flexibilité du cadre n'affecte pas significativement le torseur transmis à la drive unit.</p>
