@@ -92,11 +92,12 @@
   .note{font-size:12.5px;color:var(--text-faint);font-style:italic;margin:10px 0 20px;}
 
   .img-slot{aspect-ratio:16/9;border:1px dashed var(--line-strong);background:var(--panel-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--text-faint);font-family:var(--mono);font-size:11px;text-align:center;padding:16px;margin:16px 0;}
+  .img-slot.photo{aspect-ratio:auto;display:block;}
   .img-slot svg{width:22px;height:22px;opacity:0.5;}
   .img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0;}
   @media(max-width:800px){.img-grid{grid-template-columns:1fr;}}
   .img-grid .img-slot{margin:0;}
-  .img-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0;}
+  .img-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0;align-items:start;}
   @media(max-width:700px){.img-grid-2{grid-template-columns:1fr;}}
   .img-grid-2 .img-slot{margin:0;}
   .takeaway{margin-top:10px;padding:10px 12px;border-left:2px solid var(--accent);background:var(--panel-2);font-size:12px;color:var(--text-dim);}
@@ -222,16 +223,16 @@
       <li>Couplages : Reference Point (RP) + Coupling Kinematic à chacun des 4 points de fixation.</li>
     </ul>
 
-    <div class="img-slot filled" style="aspect-ratio:212/182;max-width:380px;padding:20px;margin-left:auto;margin-right:auto;">
-      <img src="drive-modele-simplifie.png" alt="Modèle simplifié de la drive unit — carter principal et sous-composant interne" style="width:100%;height:100%;object-fit:contain;">
+    <div class="img-slot filled photo" style="max-width:380px;padding:20px;margin-left:auto;margin-right:auto;">
+      <img src="drive-modele-simplifie.png" alt="Modèle simplifié de la drive unit — carter principal et sous-composant interne" style="width:100%;height:auto;display:block;">
     </div>
     <p class="note" style="text-align:center;">Carter principal + sous-composant interne (3 points de fixation) — géométrie générique équivalente.</p>
 
     <h3 id="sensibilite">2.2 Analyse de sensibilité statique</h3>
     <p class="sec-desc">Des déplacements/rotations unitaires sont imposés successivement en traction, torsion et flexion, afin d'extraire la rigidité (k = Réaction / déplacement imposé) associée à chaque direction et d'établir la hiérarchie des sollicitations les plus critiques.</p>
 
-    <div class="img-slot filled" style="aspect-ratio:702/197;padding:20px;">
-      <img src="drive-config-chargement.png" alt="Configurations de chargement unitaire — traction, torsion, flexion sur la drive unit" style="width:100%;height:100%;object-fit:contain;">
+    <div class="img-slot filled photo" style="padding:20px;">
+      <img src="drive-config-chargement.png" alt="Configurations de chargement unitaire — traction, torsion, flexion sur la drive unit" style="width:100%;height:auto;display:block;">
     </div>
     <p class="note">Déplacements/rotations unitaires imposés successivement (flèches oranges) pour extraire la rigidité associée à chaque direction — géométrie générique équivalente.</p>
 
@@ -259,7 +260,8 @@
       <li>Nœuds de rétention : les 4 points de fixation cadre/drive unit (+ éventuellement un nœud interne de mesure).</li>
       <li>Validation de la sous-structure : comparaison d'un cas de charge simple entre modèle détaillé et modèle substructuré, pour prouver l'équivalence avant utilisation.</li>
     </ul>
-    <div class="img-slot filled" style="aspect-ratio:16/9;padding:20px;">
+    <div class="img-grid-2">
+      <div class="img-slot filled" style="aspect-ratio:500/220;padding:16px;">
         <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
           <text x="90" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#8B93A1">MODÈLE DÉTAILLÉ</text>
           <rect x="30" y="40" width="120" height="120" fill="none" stroke="#4FB8C4" stroke-width="1.5"/>
@@ -287,12 +289,12 @@
           <circle cx="470" cy="160" r="5" fill="#E8A33D" stroke="#14171C" stroke-width="1"/>
           <text x="410" y="185" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#5B6371">4 nœuds de rétention</text>
         </svg>
+      </div>
+      <div class="img-slot filled photo" style="padding:16px;">
+        <img src="drive-sous-structuration.png" alt="Étapes d'assemblage des superéléments (drive unit + cadre) et types de connexion Beam / Translator entre nœuds de rétention" style="width:100%;height:auto;display:block;">
+      </div>
     </div>
-
-    <div class="img-slot filled" style="aspect-ratio:1223/625;padding:20px;">
-      <img src="drive-sous-structuration.png" alt="Étapes d'assemblage des superéléments (drive unit + cadre) et types de connexion Beam / Translator entre nœuds de rétention" style="width:100%;height:100%;object-fit:contain;">
-    </div>
-    <p class="note">Import des superéléments (drive unit + cadre) et assemblage sous Abaqus, avec deux types de connexion aux points de fixation : <b style="color:var(--text)">Beam</b> (liaison rigide, tous les CORM contraints) et <b style="color:var(--text)">Translator</b> (liaison glissante, un degré de translation libre) — géométrie et fichiers renommés pour l'illustration.</p>
+    <p class="note">À gauche, principe de la condensation (modèle détaillé → superélément à 4 nœuds de rétention) ; à droite, import des superéléments (drive unit + cadre) et assemblage sous Abaqus, avec deux types de connexion aux points de fixation : <b style="color:var(--text)">Beam</b> (liaison rigide, tous les CORM contraints) et <b style="color:var(--text)">Translator</b> (liaison glissante, un degré de translation libre) — géométrie et fichiers renommés pour l'illustration.</p>
 
     <h3 id="chargement">3.2 Chargement pédalier normatif (ISO 4210‑6)</h3>
     <p class="sec-desc">Le chargement appliqué sur l'assemblage complet reprend la configuration de l'essai de fatigue normalisé ISO 4210‑6 (§4.3), catégorie Mountain Bike, plutôt qu'un effort choisi arbitrairement — ce qui rend le cas de charge défendable, traçable et comparable entre différentes études.</p>
@@ -315,20 +317,16 @@
         <tr><td class="label">Conditions aux limites</td><td>Montage repris à l'identique de l'essai normatif</td></tr>
       </table>
     </div>
-    <div class="img-slot filled" style="aspect-ratio:320/95;max-width:520px;padding:20px;margin-left:auto;margin-right:auto;">
-      <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction, pédale droite (2.1.1) et pédale gauche (2.1.2)" style="width:100%;height:100%;object-fit:contain;">
-    </div>
-    <p class="note">Chainforce appliquée au tube de direction pour les deux cas de charge alternés (pédale droite / pédale gauche), sur le cadre réel + drive unit — géométrie générique.</p>
 
     <div class="img-grid-2">
-      <div class="img-slot filled" style="aspect-ratio:502/285;padding:16px;">
-        <img src="drive-frame-simulation-crop.png" alt="Simulation cadre souple (réel) + drive unit sous chainforce" style="width:100%;height:100%;object-fit:contain;">
+      <div class="img-slot filled photo" style="padding:16px;">
+        <img src="drive-chainforce-load-v2.png" alt="Cas de charge réel (chainforce) appliqué au tube de direction" style="width:100%;height:auto;display:block;">
       </div>
-      <div class="img-slot filled" style="aspect-ratio:735/396;padding:16px;">
-        <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="width:100%;height:100%;object-fit:contain;">
+      <div class="img-slot filled photo" style="padding:16px;">
+        <img src="drive-frame-flexible-rigide.png" alt="Simulation cadre rendu infiniment rigide + drive unit sous chainforce, pour comparaison des réactions" style="width:100%;height:auto;display:block;">
       </div>
     </div>
-    <p class="note">Comparaison cadre souple (réel, à gauche) vs cadre rendu infiniment rigide (à droite), même chargement — réactions aux points de fixation comparées pour valider que la flexibilité du cadre n'affecte pas significativement le torseur transmis à la drive unit.</p>
+    <p class="note">Chainforce appliquée au tube de direction pour le cas de charge réel (à gauche), comparée au cas cadre rendu infiniment rigide (à droite) — réactions aux points de fixation comparées pour valider que la flexibilité du cadre n'affecte pas significativement le torseur transmis à la drive unit.</p>
     <p class="note">Le chargement étant alterné, deux cas de charge distincts sont traités (pédale droite, pédale gauche), donnant deux jeux de résultats pour l'extraction ci-dessous.</p>
 
     <h3 id="decomposition">3.3 Extraction et décomposition des contributions</h3>
