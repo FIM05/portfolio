@@ -81,7 +81,7 @@
   .study-row.bosch-bg{overflow:hidden;padding-left:20px;padding-right:20px;}
   .study-row.bosch-bg::before{
     content:"";position:absolute;top:0;right:0;height:100%;width:45%;
-    background-image:url('drive-unit-bosch.jpg');background-size:105% auto;background-position:100% 40%;
+    background-image:url('drive-unit-bosch.jpg');background-size:105% auto;background-position:110% 40%;
     opacity:0.15;z-index:0;pointer-events:none;
     mask-image:linear-gradient(to right, transparent, black 30%);
     -webkit-mask-image:linear-gradient(to right, transparent, black 30%);
@@ -258,9 +258,30 @@
     <p style="color:var(--text-dim);font-size:14.5px;max-width:640px;margin-bottom:32px;" data-i18n="sec2-intro">Chaque étude documente l'ensemble de la démarche — CAO, hypothèses, chaîne de chargement, conditions aux limites, résultats, post‑traitement, identification des problèmes et diagnostic de convergence — pas seulement le résultat final.</p>
 
     <div class="study-list">
+      <a href="etude-bras-pelleteuse.html" class="study-row active">
+        <div class="left">
+          <span class="n">03</span>
+          <div class="titles">
+            <h3>Bras de pelleteuse — statique, modale & fatigue sur un cycle d'excavation</h3>
+            <p><b style="color:var(--text)">Objectif</b> : vérifier la tenue du balancier d'une pelleteuse rétro sous l'effort d'arrachement nominal du godet, situer ses fréquences propres, et estimer sa durée de vie en fatigue sous un chargement cyclique représentatif d'un cycle d'excavation.<br><br><b style="color:var(--text)">Méthode</b> : chaîne de charge par équilibres successifs, liaisons pivot (Joint Revolute) et efforts de contact (Bearing Load), statique et modale croisées, puis cumul de dommage par la règle de Miner sur les 4 phases du cycle. Géométrie et cas de charge représentatifs.</p>
+            <div class="tags">
+              <span class="tag">ANSYS</span>
+              <span class="tag">STATIQUE</span>
+              <span class="tag">MODALE</span>
+              <span class="tag">FATIGUE</span>
+              <span class="tag">RÈGLE DE MINER</span>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <span class="status">EN COURS</span>
+          <span class="cta">Ouvrir l'étude →</span>
+        </div>
+      </a>
+
       <a href="etude-bras-suspension.html" class="study-row active mesh-bg">
         <div class="left">
-          <span class="n">01</span>
+          <span class="n">02</span>
           <div class="titles">
             <h3 data-i18n="study1-h3">Bras de suspension inférieur</h3>
             <p data-i18n="study1-p"><b style="color:var(--text)">Objectif</b> : vérifier la tenue du bras de suspension sous un choc de 3g, en traçant la charge du contact roue jusqu'à la contrainte locale.<br><br><b style="color:var(--text)">Résultat</b> : validé — contrainte max 30,79 MPa, coefficient de sécurité supérieur à 8. Démarche complète : géométrie CAO réelle, chaîne de chargement par équilibres successifs, diagnostic et correction d'un mouvement de corps rigide, convergence de maillage confirmée. Analyses statique et modale bouclées ; harmonique en cours.</p>
@@ -280,7 +301,7 @@
 
       <a href="etude-drive-unit.html" class="study-row active bosch-bg">
         <div class="left">
-          <span class="n">02</span>
+          <span class="n">01</span>
           <div class="titles">
             <h3 data-i18n="study2-h3">Rigidité d'un moteur électrique de VAE — sous-structuration & décomposition des contributions</h3>
             <p data-i18n="study2-p"><b style="color:var(--text)">Objectif</b> : caractériser la rigidité d'une drive unit de VAE puis décomposer, une fois intégrée au vélo, la part de déformation imputable au cadre et celle propre au moteur — pour orienter objectivement le renforcement structurel.<br><br><b style="color:var(--text)">Méthode</b> : modèle simplifié à 80–90% de la rigidité réelle (Abaqus), analyse de sensibilité par déplacements/rotations imposés, sous‑structuration en superéléments, chargement pédalier selon ISO 4210‑6 (1 200 N, catégorie Mountain Bike). Méthodologie issue d'une mission Bosch eBike Systems, données anonymisées.</p>
