@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="title">Étude 02 — Rigidité d'un Drive Unit VAE | Dossier calcul structurel</title>
+<title data-i18n="title">Étude 01 — Rigidité d'un Drive Unit VAE | Dossier calcul structurel</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -112,6 +114,14 @@
 
   .reco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0;}
   @media(max-width:760px){.reco-grid{grid-template-columns:1fr;}}
+
+  .study-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:16px;}
+  @media(max-width:800px){.study-grid{grid-template-columns:1fr;}}
+  .study-card{background:var(--panel);padding:22px;min-height:120px;position:relative;text-decoration:none;color:inherit;}
+  .study-card.active{background:var(--panel-2);}
+  .study-card .n{font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+  .study-card h5{font-family:var(--display);font-size:15px;margin:10px 0 6px;}
+  .study-card p{font-size:12.5px;color:var(--text-faint);}
   .reco-card{background:var(--panel);padding:18px;}
   .reco-card .tag{font-family:var(--mono);font-size:10px;color:var(--bg);background:var(--accent);display:inline-block;padding:3px 8px;margin-bottom:10px;}
   .reco-card p{font-size:12.5px;color:var(--text-dim);}
@@ -146,6 +156,7 @@
       <li><a href="#sous-structures" data-i18n="nav-5">Sous-structures</a></li>
       <li><a href="#chargement" data-i18n="nav-6">Chargement ISO</a></li>
       <li><a href="#decomposition" data-i18n="nav-7">Décomposition</a></li>
+      <li><a href="#autres-etudes" data-i18n="nav-etudes">Études</a></li>
       <li><a href="#conclusion" data-i18n="nav-8">Conclusion</a></li>
     </ul>
   </div>
@@ -153,7 +164,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow" data-i18n="hero-eyebrow">ÉTUDE 02 — DRIVE UNIT DE VAE (MOUNTAIN BIKE)</div>
+    <div class="eyebrow" data-i18n="hero-eyebrow">ÉTUDE 01 — DRIVE UNIT DE VAE (MOUNTAIN BIKE)</div>
     <h1 data-i18n="hero-h1">Caractérisation de la rigidité d'un <em>Drive Unit</em> de VAE — du modèle isolé à l'assemblage complet</h1>
     <p class="lede" data-i18n="hero-lede">Méthodologie Abaqus : analyse statique et analyse modale croisées pour caractériser la rigidité intrinsèque du moteur, puis sous-structuration cadre/drive unit et chargement pédalier normatif ISO 4210‑6 pour décomposer la déformation réelle entre contribution du cadre et contribution propre du moteur.</p>
 
@@ -187,7 +198,7 @@
       </div>
       <div style="background:var(--panel);padding:20px 22px;">
         <div style="font-family:var(--mono);font-size:10.5px;color:var(--text-faint);letter-spacing:0.05em;margin-bottom:8px;" data-i18n="r-stat-tag">STATUT</div>
-        <div style="font-size:13px;color:var(--text-dim);" data-i18n="r-stat-p">Méthodologie posée, prête à exécuter.</div>
+        <div style="font-size:13px;color:var(--text-dim);" data-i18n="r-stat-p">Méthodologie posée.</div>
       </div>
     </div>
   </div>
@@ -396,9 +407,32 @@
   </div>
 </section>
 
+<section id="autres-etudes">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Autres études du dossier</h2></div>
+    <div class="study-grid">
+      <a href="etude-bras-pelleteuse.html" class="study-card active">
+        <div class="n">03</div>
+        <h5>Bras de pelleteuse</h5>
+        <p>Statique + modale + fatigue — Ansys</p>
+      </a>
+      <a href="etude-bras-suspension.html" class="study-card active">
+        <div class="n">02</div>
+        <h5>Bras de suspension inférieur</h5>
+        <p>Statique + modale + harmonique — Ansys</p>
+      </a>
+      <div class="study-card">
+        <div class="n">01</div>
+        <h5>Rigidité Drive Unit VAE</h5>
+        <p>Statique + modale + sous-structuration — Abaqus</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="conclusion" style="border-bottom:none;">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">04</span><h2 data-i18n="concl-h2">Conclusion générale</h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2 data-i18n="concl-h2">Conclusion générale</h2></div>
     <p class="sec-desc" data-i18n="concl-p1">La Partie 1 (statique + modale croisées) caractérise la rigidité intrinsèque de la drive unit, indépendamment du reste du vélo. La Partie 2 (sous-structuration + chargement pédalier ISO 4210‑6) montre ensuite comment cette même rigidité se comporte une fois le moteur intégré au cadre, sous un cas de charge normatif et traçable plutôt qu'arbitraire. La démarche — caractériser isolément, puis réintégrer et décomposer — se transpose telle quelle à d'autres architectures de drive unit.</p>
     <p class="sec-desc" data-i18n="concl-p2">Le livrable central de cette étude n'est pas une valeur de rigidité isolée, mais la décomposition cadre/drive unit elle‑même : elle indique, direction par direction, quel composant est réellement limitant — et donc lequel renforcer en priorité — plutôt que de le supposer.</p>
     <p style="margin-top:20px;"><a href="index.html" style="font-family:var(--mono);font-size:13px;color:var(--accent);" data-i18n="back-link">← Voir le dossier complet</a></p>
@@ -424,7 +458,7 @@ const i18n_en = {
   "title": "Study 02 — E-bike Drive Unit Stiffness | Structural Calculation Portfolio",
   "nav-brand": "CALCULATION&nbsp;PORTFOLIO — <b>STRUCTURAL STUDIES</b>",
   "nav-1": "Context", "nav-2": "Model", "nav-3": "Sensitivity", "nav-4": "Modal",
-  "nav-5": "Substructures", "nav-6": "ISO Loading", "nav-7": "Decomposition", "nav-8": "Conclusion",
+  "nav-5": "Substructures", "nav-6": "ISO Loading", "nav-7": "Decomposition", "nav-8": "Conclusion", "nav-etudes": "Studies",
   "hero-eyebrow": "STUDY 02 — E-BIKE DRIVE UNIT (MOUNTAIN BIKE)",
   "hero-h1": "Stiffness characterization of an e-bike <em>Drive Unit</em> — from isolated model to full assembly",
   "hero-lede": "Abaqus methodology: cross-checked static and modal analysis to characterize the motor's intrinsic stiffness, then frame/drive-unit substructuring and normative ISO 4210‑6 pedal loading to decompose the real deformation into frame contribution and motor's own contribution.",
@@ -436,7 +470,7 @@ const i18n_en = {
   "r-obj-tag": "OBJECTIVE", "r-obj-p": "Characterize the drive unit's stiffness, then decompose frame/motor in the real deformation.",
   "r-meth-tag": "METHOD", "r-meth-p": "Static + modal (Part 1) → substructuring + ISO 4210‑6 loading (Part 2).",
   "r-data-tag": "DATA", "r-data-p": "Anonymized — details below.",
-  "r-stat-tag": "STATUS", "r-stat-p": "Methodology set, ready to run.",
+  "r-stat-tag": "STATUS", "r-stat-p": "Methodology set.",
   "s1-h2": "Context & Objective",
   "s1-desc": "The Drive Unit (electric motor housing) of a Mountain Bike-type e-bike is fixed to the frame at 4 points. Its own stiffness, combined with the frame's flexibility, determines the motor's real displacements in use — a key parameter for comfort, noise, and overall durability.",
   "obj-tag": "OBJECTIVE",
