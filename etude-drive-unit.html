@@ -269,7 +269,7 @@
     <h3 id="sous-structures" data-i18n="h-31">3.1 Génération des sous-structures</h3>
     <p class="sec-desc" data-i18n="p-31">Le cadre et la drive unit sont chacun condensés en superéléments (substructuration Abaqus) à leurs points d'interface, ce qui réduit fortement le coût de calcul lors de leur intégration dans l'assemblage vélo complet, tout en conservant un comportement mécanique équivalent au modèle détaillé.</p>
     <ul class="list">
-      <li data-i18n="li-31-1">Nœuds de rétention : les 4 points de fixation cadre/drive unit (+ éventuellement un nœud interne de mesure).</li>
+      <li data-i18n="li-31-1">Nœuds de rétention : les 4 points de fixation cadre/drive unit, l'axe du pédalier pour la sous-structure drive unit, et les zones de contact au sol (pneus) pour la sous-structure cadre.</li>
       <li data-i18n="li-31-2">Validation de la sous-structure : comparaison d'un cas de charge simple entre modèle détaillé et modèle substructuré, pour prouver l'équivalence avant utilisation.</li>
     </ul>
     <div class="img-grid-2" style="zoom:0.95;">
@@ -306,7 +306,7 @@
         <img src="drive-sous-structuration.png" alt="Étapes d'assemblage des superéléments (drive unit + cadre) et types de connexion Beam / Translator entre nœuds de rétention" style="width:100%;height:100%;object-fit:contain;display:block;">
       </div>
     </div>
-    <p class="note" data-i18n="note-31">À gauche, principe de la condensation (modèle détaillé → superélément à 4 nœuds de rétention) ; à droite, import des superéléments (drive unit + cadre) et assemblage sous Abaqus, avec deux types de connexion aux points de fixation : <b style="color:var(--text)">Beam</b> (liaison rigide, tous les CORM contraints) et <b style="color:var(--text)">Translator</b> (liaison glissante, un degré de translation libre) — géométrie et fichiers renommés pour l'illustration.</p>
+    <p class="note" data-i18n="note-31">À gauche, principe de la condensation (modèle détaillé → superélément à 4 nœuds de rétention) ; à droite, import des superéléments (drive unit + cadre) et assemblage sous Abaqus, avec deux types de connexion aux points de fixation : <b style="color:var(--text)">Beam</b> (liaison rigide, tous les CORM contraints) et <b style="color:var(--text)">Translator</b> (liaison glissante, un degré de translation libre — pour représenter le jeu du montage réel au point de fixation concerné).</p>
 
     <h3 id="chargement" data-i18n="h-32">3.2 Chargement pédalier normatif (ISO 4210‑6)</h3>
     <p class="sec-desc" data-i18n="p-32">Le chargement appliqué sur l'assemblage complet reprend la configuration de l'essai de fatigue normalisé ISO 4210‑6 (§4.3), catégorie Mountain Bike, plutôt qu'un effort choisi arbitrairement — ce qui rend le cas de charge défendable, traçable et comparable entre différentes études.</p>
@@ -500,11 +500,11 @@ const i18n_en = {
   "s3-desc": "Evaluate the real behavior of the drive unit once integrated into the bike, accounting for frame flexibility, in order to decompose the total deformation between frame contribution and the drive unit's own contribution.",
   "h-31": "3.1 Substructure Generation",
   "p-31": "The frame and the drive unit are each condensed into superelements (Abaqus substructuring) at their interface points, which greatly reduces computational cost when integrating them into the full bicycle assembly, while preserving mechanical behavior equivalent to the detailed model.",
-  "li-31-1": "Retained nodes: the 4 frame/drive-unit fixation points (+ possibly one internal measurement node).",
+  "li-31-1": "Retained nodes: the 4 frame/drive-unit fixation points, the pedal spindle axis for the drive unit substructure, and the ground contact zones (tires) for the frame substructure.",
   "li-31-2": "Substructure validation: comparison of a simple load case between the detailed model and the substructured model, to prove equivalence before use.",
   "svg-detail": "DETAILED MODEL", "svg-nk": "N nodes, K DOF", "svg-condens": "condensation",
   "svg-superel": "SUPERELEMENT", "svg-4noeuds": "4 retained nodes",
-  "note-31": "On the left, the condensation principle (detailed model → superelement with 4 retained nodes); on the right, import of the superelements (drive unit + frame) and assembly under Abaqus, with two connection types at the fixation points: <b style=\"color:var(--text)\">Beam</b> (rigid connection, all CORMs constrained) and <b style=\"color:var(--text)\">Translator</b> (sliding connection, one free translation DOF) — geometry and filenames renamed for illustration.",
+  "note-31": "On the left, the condensation principle (detailed model → superelement with 4 retained nodes); on the right, import of the superelements (drive unit + frame) and assembly under Abaqus, with two connection types at the fixation points: <b style=\"color:var(--text)\">Beam</b> (rigid connection, all CORMs constrained) and <b style=\"color:var(--text)\">Translator</b> (sliding connection, one free translation DOF — used to represent the real assembly clearance at that fixation point).",
   "h-32": "3.2 Normative Pedal Loading (ISO 4210‑6)",
   "p-32": "The load applied to the full assembly follows the configuration of the standardized ISO 4210‑6 fatigue test (§4.3), Mountain Bike category, rather than an arbitrarily chosen force — which makes the load case defensible, traceable, and comparable across different studies.",
   "th-bike-type": "Bicycle type", "td-forcef1": "Force F₁ (N)",
