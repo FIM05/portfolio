@@ -230,7 +230,7 @@
     <h3 id="modele" data-i18n="h-21">2.1 Présentation du modèle</h3>
     <ul class="list">
       <li data-i18n="li-21-1">Géométrie : carter principal + sous-composant interne (3 points de fixation).</li>
-      <li data-i18n="li-21-2">Maillage : type d'éléments et taille caractéristique à préciser — étude de convergence recommandée.</li>
+      <li data-i18n="li-21-2">Maillage : type d'éléments tétraédriques quadratiques, taille caractéristique fixée par étude de convergence.</li>
       <li data-i18n="li-21-3">Couplages : Reference Point (RP) + Coupling Kinematic à chacun des 4 points de fixation.</li>
     </ul>
 
@@ -248,7 +248,7 @@
     <p class="note" data-i18n="note-22">Déplacements/rotations unitaires imposés successivement (flèches oranges) pour extraire la rigidité associée à chaque direction.</p>
 
     <h3 id="modale" data-i18n="h-23">2.3 Analyse modale et validation croisée</h3>
-    <p class="sec-desc" data-i18n="p-23">Même conditions aux limites qu'en statique (encastrement des 4 points de fixation). L'analyse modale (step Frequency, Lanczos) fournit les premières fréquences propres et leurs déformées associées, sans chargement appliqué — une propriété intrinsèque du système.</p>
+    <p class="sec-desc" data-i18n="p-23">Conditions aux limites en Bushing aux 4 points de fixation, avec raideur de liaison extraite de la littérature interne — un essai préalable avec encastrement pur en ces mêmes points surestimait les fréquences propres (raideur infinie imposée aux points de fixation, alors que le Bushing réel a une raideur finie). L'analyse modale (step Frequency, Lanczos) fournit les premières fréquences propres et leurs déformées associées, sans chargement appliqué — une propriété intrinsèque du système.</p>
 
     <div class="principle-box">
       <span class="tag" data-i18n="tag-valid">PRINCIPE DE LA VALIDATION CROISÉE</span>
@@ -414,12 +414,12 @@
       <a href="etude-bras-pelleteuse.html" class="study-card active">
         <div class="n">03</div>
         <h5>Bras de pelleteuse</h5>
-        <p>Statique + modale + fatigue — Ansys</p>
+        <p>Statique + modale + fatigue — Abaqus</p>
       </a>
       <a href="etude-bras-suspension.html" class="study-card active">
         <div class="n">02</div>
         <h5>Bras de suspension inférieur</h5>
-        <p>Statique + modale + harmonique — Ansys</p>
+        <p>Statique + modale + harmonique — Abaqus</p>
       </a>
       <div class="study-card">
         <div class="n">01</div>
@@ -482,14 +482,14 @@ const i18n_en = {
   "s2-desc": "Characterize the stiffness of the isolated drive unit, independent of the rest of the bike, via cross-checked static and modal analysis.",
   "h-21": "2.1 Model Overview",
   "li-21-1": "Geometry: main housing + internal sub-component (3 fixation points).",
-  "li-21-2": "Mesh: element type and characteristic size to be specified — convergence study recommended.",
+  "li-21-2": "Mesh: quadratic tetrahedral elements, characteristic size set by convergence study.",
   "li-21-3": "Couplings: Reference Point (RP) + Coupling Kinematic at each of the 4 fixation points.",
   "note-21": "Main housing + internal sub-component (3 fixation points).",
   "h-22": "2.2 Static Sensitivity Analysis",
   "p-22": "Unit displacements/rotations are successively imposed in tension, torsion, and bending, in order to extract the stiffness (k = Reaction / imposed displacement) associated with each direction and establish the hierarchy of the most critical loadings.",
   "note-22": "Unit displacements/rotations successively imposed (orange arrows) to extract the stiffness associated with each direction.",
   "h-23": "2.3 Modal Analysis and Cross-Validation",
-  "p-23": "Same boundary conditions as in statics (the 4 fixation points fixed). The modal analysis (Frequency step, Lanczos) provides the first natural frequencies and their associated mode shapes, with no applied load — an intrinsic property of the system.",
+  "p-23": "Bushing boundary conditions at the 4 fixation points, with connection stiffness drawn from internal literature — a preliminary run with a pure fixed support at these same points overestimated the natural frequencies (infinite stiffness imposed at the fixation points, whereas the real Bushing has finite stiffness). The modal analysis (Frequency step, Lanczos) provides the first natural frequencies and their associated mode shapes, with no applied load — an intrinsic property of the system.",
   "tag-valid": "CROSS-VALIDATION PRINCIPLE",
   "p-valid": "The more flexible a direction is in statics, the lower its associated natural frequency should be in modal analysis (modes are ranked from lowest to highest, so \u201cfirst mode\u201d and \u201clowest frequency\u201d refer to the same thing). If the soft direction found in statics does correspond to the lowest mode in modal analysis, this confirms the finite element model is consistent — modal analysis doesn't measure a stiffness, it just verifies that the ranking already found in statics still holds dynamically.",
   "h-24": "2.4 Part 1 Summary",
