@@ -294,9 +294,9 @@
           <span class="n">03</span>
           <div class="titles">
             <h3 data-i18n="study3-h3">Bras de pelleteuse — statique, modale & fatigue sur un cycle d'excavation</h3>
-            <p data-i18n="study3-p"><b style="color:var(--text)">Objectif</b> : vérifier la tenue du balancier d'une pelleteuse rétro sous l'effort d'arrachement nominal du godet, situer ses fréquences propres, et estimer sa durée de vie en fatigue sous un chargement cyclique représentatif d'un cycle d'excavation.<br><br><b style="color:var(--text)">Méthode</b> : chaîne de charge par équilibres successifs, Joint Revolute et efforts appliqués via Remote Force, statique et modale croisées, puis cumul de dommage par la règle de Miner sur les 4 phases du cycle. Géométrie et cas de charge représentatifs.</p>
+            <p data-i18n="study3-p"><b style="color:var(--text)">Objectif</b> : vérifier la tenue du balancier d'une pelleteuse rétro sous l'effort d'arrachement nominal du godet, situer ses fréquences propres, et estimer sa durée de vie en fatigue sous un chargement cyclique représentatif d'un cycle d'excavation.<br><br><b style="color:var(--text)">Méthode</b> : chaîne de charge par équilibres successifs, connecteur Hinge et efforts appliqués via Reference Point couplé, statique et modale croisées, puis cumul de dommage par la règle de Miner sur les 4 phases du cycle. Géométrie et cas de charge représentatifs.</p>
             <div class="tags">
-              <span class="tag">ANSYS</span>
+              <span class="tag">ABAQUS</span>
               <span class="tag" data-i18n="tag-static">STATIQUE</span>
               <span class="tag" data-i18n="tag-modal">MODALE</span>
               <span class="tag" data-i18n="tag-fatigue">FATIGUE</span>
@@ -317,7 +317,7 @@
             <h3 data-i18n="study1-h3">Bras de suspension inférieur</h3>
             <p data-i18n="study1-p"><b style="color:var(--text)">Objectif</b> : vérifier la tenue du bras de suspension sous un choc de 3g, en traçant la charge du contact roue jusqu'à la contrainte locale.<br><br><b style="color:var(--text)">Résultat</b> : validé — contrainte max 30,79 MPa, coefficient de sécurité supérieur à 8. Démarche complète : géométrie CAO réelle, chaîne de chargement par équilibres successifs, diagnostic et correction d'un mouvement de corps rigide, convergence de maillage confirmée. Analyses statique et modale bouclées ; harmonique en cours.</p>
             <div class="tags">
-              <span class="tag">ABAQUS</span>
+              <span class="tag">ANSYS</span>
               <span class="tag" data-i18n="tag-static">STATIQUE</span>
               <span class="tag" data-i18n="tag-modal">MODALE</span>
               <span class="tag" data-i18n="tag-harmonic">HARMONIQUE</span>
@@ -408,7 +408,7 @@ const i18n_en = {
   "status-encours": "IN PROGRESS",
   "cta-open": "Open study →",
   "study3-h3": "Excavator Arm — Static, Modal & Fatigue Over an Excavation Cycle",
-  "study3-p": "<b style=\"color:var(--text)\">Objective</b>: verify the stick arm of a backhoe excavator under the bucket's rated breakout force, locate its natural frequencies, and estimate its fatigue life under cyclic loading representative of an excavation cycle.<br><br><b style=\"color:var(--text)\">Method</b>: load chain via successive equilibria, Joint Revolute and forces applied via Remote Force, cross-checked static and modal analysis, then cumulative damage via Miner's rule over the 4 phases of the cycle. Representative geometry and load case.",
+  "study3-p": "<b style=\"color:var(--text)\">Objective</b>: verify the stick arm of a backhoe excavator under the bucket's rated breakout force, locate its natural frequencies, and estimate its fatigue life under cyclic loading representative of an excavation cycle.<br><br><b style=\"color:var(--text)\">Method</b>: load chain via successive equilibria, Hinge connector and forces applied via a coupled Reference Point, cross-checked static and modal analysis, then cumulative damage via Miner's rule over the 4 phases of the cycle. Representative geometry and load case.",
   "tag-fatigue": "FATIGUE",
   "tag-miner": "MINER'S RULE",
   "study4-h3": "Pressure Vessel — Static Verification by Stress Linearization",

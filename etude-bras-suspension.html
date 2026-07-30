@@ -248,6 +248,7 @@
       <li><a href="#geometrie" data-i18n="nav-2">Géométrie</a></li>
       <li><a href="#chargement" data-i18n="nav-3">Chargement</a></li>
       <li><a href="#liaisons" data-i18n="nav-4">Liaisons</a></li>
+      <li><a href="#contact" data-i18n="nav-4b">Contact</a></li>
       <li><a href="#resultats" data-i18n="nav-5">Résultats</a></li>
       <li><a href="#competences" data-i18n="nav-6">Compétences</a></li>
       <li><a href="#autres-etudes" data-i18n="nav-7">Études</a></li>
@@ -454,9 +455,36 @@
   </div>
 </section>
 
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2 data-i18n="s5b-h2">Étude complémentaire — Connecteurs & sous-modélisation du contact au pivot</h2></div>
+    <p class="sec-desc" data-i18n="s5b-desc">Le modèle principal représente la rotule inférieure par une Bearing Load — une approximation rapide et couramment admise, mais qui ne reproduit pas le contact réel axe/alésage (jeu fonctionnel, aire de contact qui évolue avec la charge, frottement). Cette section documente une vérification complémentaire par connecteurs et sous-modélisation, pour juger la validité de l'approximation initiale.</p>
+
+    <h3 data-i18n="h-conn" style="margin-top:8px;">Étape 1 — Connecteurs sur le modèle global</h3>
+    <p style="font-size:13.5px;color:var(--text-dim);" data-i18n="p-conn">Le modèle global reprend les liaisons sous forme de Joints Ansys plutôt que de charges réparties : Joint Bushing aux silentblocs (déjà utilisé, § Liaisons), et un Joint Cylindrical/Revolute à la rotule inférieure et au point ressort, autorisant la rotation et — pour la rotule — un léger jeu radial si le jeu fonctionnel réel est connu. Le modèle global reste rapide à résoudre : c'est une étape de vérification, pas le remplacement du modèle principal.</p>
+
+    <h3 data-i18n="h-submod">Étape 2 — Sous-modélisation du contact réel au pivot</h3>
+    <p style="font-size:13.5px;color:var(--text-dim);" data-i18n="p-submod1">Un sous-modèle local, limité au voisinage immédiat de la rotule inférieure, reprend la géométrie réelle de l'axe et de l'alésage avec un contact surface-surface (contact pair), frottement de Coulomb, et le jeu fonctionnel réel entre les deux pièces — au lieu de la pression cosinus idéalisée.</p>
+    <p style="font-size:13.5px;color:var(--text-dim);" data-i18n="p-submod2">Le sous-modèle est piloté par les déplacements extraits du modèle global (driven nodes), à une distance suffisante de la zone de contact pour que l'imprécision du modèle global à cet endroit reste négligeable — même logique que pour l'extraction du torseur au piquage vue dans l'étude Drive Unit, appliquée ici au contact plutôt qu'à une frontière de coupe.</p>
+
+    <div class="principle-box">
+      <span class="tag" data-i18n="tag-submod">CE QUE LA SOUS-MODÉLISATION VÉRIFIE (ET NE VÉRIFIE PAS)</span>
+      <p data-i18n="p-submod3">Le sous-modèle affine la répartition réelle de la pression de contact (aire effective, gradient, extrema) et vérifie que l'hypothèse cosinus du modèle principal reste conservative ou représentative. Il ne remet pas en cause le torseur global transmis par la rotule (déjà validé par l'équilibre du modèle principal) — seule la distribution locale de contrainte au contact est réexaminée.</p>
+    </div>
+
+    <div class="img-slot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+      <span data-i18n="ph-contact">PRESSION DE CONTACT RÉELLE VS APPROXIMATION COSINUS<br>À insérer</span>
+    </div>
+
+    <h3 data-i18n="h-normes-contact">Bonnes pratiques & références</h3>
+    <p class="sec-desc" style="margin-bottom:0;" data-i18n="p-normes-contact">Il n'existe pas de norme unique et publique imposant cette démarche de vérification par sous-modélisation du contact — elle s'inspire de bonnes pratiques largement diffusées dans la communauté du calcul EF (documentation Ansys sur le contact et la sous-modélisation, benchmarks NAFEMS sur la vérification de modèles de contact). Hypothèse méthodologique à documenter explicitement, pas une conformité réglementaire à un référentiel donné.</p>
+  </div>
+</section>
+
 <section id="resultats">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">05</span><h2 data-i18n="s5-h2">Résultats</h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2 data-i18n="s5-h2">Résultats</h2></div>
     <p class="sec-desc" data-i18n="s5-desc">Structure prête, calcul à exécuter sous Ansys Mechanical. Cette section sera complétée avec cartographies de contrainte, déplacement, modes propres et fonction de transfert.</p>
 
     <h3 id="maillage" style="font-family:var(--display);font-size:18px;margin-bottom:10px;scroll-margin-top:90px;" data-i18n="h-maillage">Convergence de maillage</h3>
@@ -679,7 +707,7 @@
 
 <section id="competences">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">06</span><h2 data-i18n="s6-h2">Compétences démontrées</h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2 data-i18n="s6-h2">Compétences démontrées</h2></div>
     <ul class="skills-list">
       <li data-i18n="sk-1">Extraction et exploitation de coordonnées réelles depuis la CAO</li>
       <li data-i18n="sk-2">Reconstitution d'une chaîne de charge par équilibres successifs</li>
@@ -698,12 +726,12 @@
 
 <section id="autres-etudes" style="border-bottom:none;">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">07</span><h2 data-i18n="s7-h2">Autres études du dossier</h2></div>
+    <div class="sec-head"><span class="sec-num">08</span><h2 data-i18n="s7-h2">Autres études du dossier</h2></div>
     <div class="study-grid">
       <a href="etude-bras-pelleteuse.html" class="study-card active">
         <div class="n">03</div>
         <h5>Bras de pelleteuse</h5>
-        <p>Statique + modale + fatigue — Ansys</p>
+        <p>Statique + modale + fatigue — Abaqus</p>
       </a>
       <div class="study-card">
         <div class="n">02</div>
@@ -722,7 +750,7 @@
 
 <section id="nuances">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">08</span><h2 data-i18n="s8-h2">Annexe — Diagnostic & démarche de résolution</h2></div>
+    <div class="sec-head"><span class="sec-num">09</span><h2 data-i18n="s8-h2">Annexe — Diagnostic & démarche de résolution</h2></div>
     <div style="border:1px solid var(--line-strong);background:var(--panel-2);padding:14px 18px;margin-bottom:24px;">
       <span style="font-family:var(--mono);font-size:10.5px;color:var(--text-faint);letter-spacing:0.05em;" data-i18n="tag-journal">JOURNAL DE BORD</span>
       <p style="font-size:13.5px;color:var(--text-dim);margin-top:6px;" data-i18n="p-journal">Cette annexe documente les difficultés rencontrées pendant la construction du modèle (convergence, orientation des repères, choix de conditions aux limites) et comment elles ont été résolues. Les sections précédentes présentent la démarche et les résultats retenus ; celle‑ci trace le raisonnement qui a permis d'y arriver — utile pour juger la fiabilité du modèle, pas nécessaire pour lire les résultats.</p>
@@ -814,6 +842,19 @@ const i18n_en = {
   "title": "Study 01 — Lower Suspension Arm | Structural Calculation Portfolio",
   "nav-brand": "CALCULATION&nbsp;PORTFOLIO — <b>STRUCTURAL STUDIES</b>",
   "nav-1": "Context", "nav-2": "Geometry", "nav-3": "Loading", "nav-4": "Boundary Conditions",
+  "nav-4b": "Contact",
+  "s5b-h2": "Additional Study — Connectors & Submodeling of Contact at the Pivot",
+  "s5b-desc": "The main model represents the lower ball joint with a non-uniform pressure (cosine distribution) — a fast and commonly accepted approximation, but one that doesn't reproduce the real axis/bore contact (functional clearance, contact area that evolves with load, friction). This section documents an additional verification via connectors and submodeling, to judge the validity of the initial approximation.",
+  "h-conn": "Step 1 — Connectors on the Global Model",
+  "p-conn": "The global model represents the connections as Ansys Joints rather than distributed loads: a Bushing joint at the bushings (already used, see Boundary Conditions), and a Cylindrical/Revolute joint at the lower ball joint and spring point, allowing rotation and — for the ball joint — a slight radial clearance if the real functional clearance is known. The global model stays fast to solve: this is a verification step, not a replacement for the main model.",
+  "h-submod": "Step 2 — Submodeling the Real Contact at the Pivot",
+  "p-submod1": "A local submodel, limited to the immediate vicinity of the lower ball joint, reproduces the real geometry of the pin and bore with surface-to-surface contact, Coulomb friction, and the real functional clearance between the two parts — instead of the idealized cosine pressure.",
+  "p-submod2": "The submodel is driven by displacements extracted from the global model (driven nodes), at a distance from the contact zone sufficient for the global model's inaccuracy there to remain negligible — the same logic as the load-vector extraction at the nozzle seen in the Drive Unit study, applied here to a contact rather than a cut boundary.",
+  "tag-submod": "WHAT SUBMODELING VERIFIES (AND DOESN'T)",
+  "p-submod3": "The submodel refines the real contact pressure distribution (effective area, gradient, extrema) and checks that the main model's cosine assumption remains conservative or representative. It does not call into question the overall load vector transmitted by the ball joint (already validated by the main model's equilibrium) — only the local contact stress distribution is re-examined.",
+  "ph-contact": "REAL CONTACT PRESSURE VS COSINE APPROXIMATION<br>To be added",
+  "h-normes-contact": "Good Practices & References",
+  "p-normes-contact": "There is no single public standard mandating this contact-submodeling verification approach — it draws on good practices widely shared in the FE calculation community (Ansys documentation on contact and submodeling, NAFEMS benchmarks on contact model verification). A methodological assumption to be explicitly documented, not certified compliance to a given standard.",
   "nav-5": "Results", "nav-6": "Skills", "nav-7": "Studies", "nav-8": "Diagnostics",
   "hero-eyebrow": "STUDY 01 — FRONT SUSPENSION, LOWER ARM",
   "hero-h1": "From tire-ground contact to local stress: <em>tracing the load</em> through a suspension arm",
@@ -939,7 +980,7 @@ const i18n_en = {
   "csD-h3": "Bushing Joint: Body-Ground, not Body-Body",
   "csD-p": "Since the chassis is not modeled, the joint is defined as <b style=\"color:var(--text)\">Body-Ground</b>: only the mobile body (the arm's face) is specified, the other end being an implicit fixed reference. Body-Body mode is only required if the chassis is actually present in the model.",
   "csE-h3": "Remote Point Rigid: excess representativeness",
-  "csE-p1": "A Remote Point in Rigid mode imposes the same transformation on all nodes of the cylindrical face — including the half of the hole opposite the load direction, which ends up being \u201cpulled\u201d in a non-physical way. Yet a hole with a simple axis only transmits <b style=\"color:var(--text)\">compression</b>, never tension.",
+  "csE-p1": "A Remote Point Rigid constraint imposes the same transformation on all nodes of the cylindrical face — including the half of the hole opposite the load direction, which ends up being \u201cpulled\u201d in a non-physical way. Yet a hole with a simple axis only transmits <b style=\"color:var(--text)\">compression</b>, never tension.",
   "csE-p2": "<b style=\"color:var(--cool)\">Bushings</b>: the sleeve is bonded/press-fitted → contact over the whole circumference → Rigid remains representative.<br><b style=\"color:var(--force)\">Ball joint and spring point</b>: simple axis/hole contact → use <b style=\"color:var(--text)\">Bearing Load</b> rather than a classic Remote Force, for a cosine distribution limited to the half-cylinder in contact.",
   "csF-h3": "Diagnosis: unconstrained rigid body motion",
   "csF-p1": "Message <b style=\"color:var(--text)\">\u201cinsufficient constraints to prevent rigid body motion\u201d</b>: the model can still move without deforming in at least one direction — the solver cannot find a stable solution. An <b style=\"color:var(--text)\">abnormally long computation time</b> (the solver \u201crunning\u201d without converging) is often the first symptom, even before the explicit error message.",
