@@ -221,7 +221,9 @@
     <h3 style="margin-top:28px;" data-i18n="hyp-h3">Hypothèses de modélisation</h3>
     <ul class="list">
       <li data-i18n="hyp-li1">Modélisation simplifiée : pas de vis ni de préchage modélisés — couplages cinématiques (Reference Point + Coupling) au niveau des 4 points de fixation.</li>
+      <li data-i18n="hyp-li1b">Contacts entre composants de type surface-surface (General Contact) ; aux interfaces de vis (carter/sous-composant), liaison Tie — sans glissement, substituant l'absence de vis modélisées. La liaison Tie reste compatible avec une analyse linéaire ; le contact surface-surface général, lui, impose une analyse non linéaire dès qu'ouverture ou glissement sont possibles.</li>
       <li data-i18n="hyp-li2">Périmètre limité aux composants structurants (carter principal + sous-composant interne à 3 points de fixation), représentant 80 à 90% de la rigidité globale du moteur — choix validé par comparaison entre analyses statique linéaire et non linéaire, écart inférieur à 10% sur la contrainte max à la déformation correspondant à la limite élastique.</li>
+      <li data-i18n="hyp-li2b">Dans l'analyse non linéaire, le contact surface-surface est resté fermé sur toute la plage de chargement (pas d'ouverture ni de perte de contact) — cohérent avec le faible écart observé face à l'analyse linéaire.</li>
       <li data-i18n="hyp-li3">Comparaison linéaire/non linéaire menée hors des zones de liaison (4 points de fixation) : la contrainte y est perturbée par le couplage idéalisé (Coupling), quelle que soit l'analyse — principe de Saint-Venant, ces zones sont exclues de la lecture.</li>
     </ul>
   </div>
@@ -487,7 +489,9 @@ const i18n_en = {
   "obj-p": "Characterize the drive unit's stiffness, then see how it behaves once mounted on the bike — to know what to reinforce first, the frame or the motor.",
   "hyp-h3": "Modeling Assumptions",
   "hyp-li1": "Simplified modeling: no bolts or preload modeled — kinematic couplings (Reference Point + Coupling) at the 4 fixation points.",
+  "hyp-li1b": "Component-to-component contacts are surface-to-surface (General Contact); at the screw interfaces (housing/sub-component), a Tie constraint — no slip — substitutes for the absence of modeled screws. The Tie constraint remains compatible with a linear analysis; the general surface-to-surface contact, on the other hand, requires a nonlinear analysis as soon as opening or slipping is possible.",
   "hyp-li2": "Scope limited to structural components (main housing + internal sub-component with 3 fixation points), representing 80 to 90% of the motor's overall stiffness — a choice validated by comparing linear and nonlinear static analyses, deviation under 10% on max stress at the strain corresponding to the yield limit.",
+  "hyp-li2b": "In the nonlinear analysis, the surface-to-surface contact remained closed over the entire loading range (no opening or loss of contact) — consistent with the small deviation observed versus the linear analysis.",
   "hyp-li3": "The linear/nonlinear comparison is conducted outside the fixation zones (4 points): stress there is perturbed by the idealized Coupling regardless of the analysis — Saint-Venant's principle, these zones are excluded from the reading.",
   "s2-h2": "Part 1 — Intrinsic Characterization of the Drive Unit",
   "s2-desc": "Characterize the stiffness of the isolated drive unit, independent of the rest of the bike, via cross-checked static and modal analysis.",
