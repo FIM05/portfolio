@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="title">Étude 01 — Rigidité d'un Drive Unit VAE | Dossier calcul structurel</title>
+<title data-i18n="title">Étude 01 — Rigidité d'une Drive Unit VAE | Dossier calcul structurel</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -176,7 +176,7 @@
 
     <div class="banner">
       <span class="tag" data-i18n="banner-tag">MÉTHODOLOGIE GÉNÉRIQUE</span>
-      <p data-i18n="banner-p">Méthodologie issue d'une mission chez Bosch eBike Systems. Les données du projet sont confidentielles — la méthode et les paramètres normatifs (ISO 4210‑6) sont réels, mais les chiffres (rigidités, fréquences, torseurs d'effort) ne peuvent pas venir du projet d'origine. Je les recalculerai sur un cas générique équivalent.</p>
+      <p data-i18n="banner-p">Méthodologie issue d'une mission chez Bosch eBike Systems. Les données du projet sont confidentielles — la méthode et les paramètres normatifs (ISO 4210‑6) sont réels, mais les chiffres (rigidités, fréquences, torseurs d'effort) ne viennent pas du projet d'origine.</p>
     </div>
   </div>
 </header>
@@ -186,7 +186,7 @@
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);">
       <div style="background:var(--panel);padding:20px 22px;">
         <div style="font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:0.05em;margin-bottom:8px;" data-i18n="r-obj-tag">OBJECTIF</div>
-        <div style="font-size:13px;color:var(--text-dim);" data-i18n="r-obj-p">Caractériser la rigidité de la drive unit puis décomposer cadre/moteur dans la déformation réelle.</div>
+        <div style="font-size:13px;color:var(--text-dim);" data-i18n="r-obj-p">Caractériser la rigidité de la drive unit puis décomposer la déformation réelle entre cadre et DU.</div>
       </div>
       <div style="background:var(--panel);padding:20px 22px;">
         <div style="font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:0.05em;margin-bottom:8px;" data-i18n="r-meth-tag">MÉTHODE</div>
@@ -207,7 +207,12 @@
 <section id="contexte">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">01</span><h2 data-i18n="s1-h2">Contexte & objectif</h2></div>
-    <p class="sec-desc" data-i18n="s1-desc">Le Drive Unit (carter moteur électrique) d'un vélo à assistance électrique de type Mountain Bike est fixé au cadre en 4 points. Sa rigidité propre, combinée à la flexibilité du cadre, détermine les déplacements réels du moteur en usage — un paramètre clé pour le confort, le bruit et la durabilité de l'ensemble.</p>
+    <p class="sec-desc" data-i18n="s1-desc">La Drive Unit (carter moteur électrique) d'un vélo à assistance électrique de type Mountain Bike est fixée au cadre en 4 points. Sa rigidité propre, combinée à la flexibilité du cadre, détermine les déplacements réels du moteur en usage — un paramètre clé pour le confort, le bruit et la durabilité de l'ensemble.</p>
+
+    <div class="img-slot" style="aspect-ratio:310/107;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-11 11"/></svg>
+      <span data-i18n="ph-du-cadre">VUE D'ENSEMBLE — DRIVE UNIT MONTÉE SUR LE CADRE<br>À insérer</span>
+    </div>
 
     <div class="obj-box">
       <span class="tag" data-i18n="obj-tag">OBJECTIF</span>
@@ -232,13 +237,25 @@
     <ul class="list">
       <li data-i18n="li-21-1">Géométrie : carter principal + sous-composant interne (3 points de fixation).</li>
       <li data-i18n="li-21-2">Maillage : type d'éléments tétraédriques quadratiques, taille caractéristique fixée par étude de convergence.</li>
-      <li data-i18n="li-21-3">Couplages : Reference Point (RP) + Coupling Kinematic à chacun des 4 points de fixation.</li>
+      <li data-i18n="li-21-3">Couplages : Reference Point (RP) + Coupling Kinematic entre la zone de contact réelle et le point de référence, à chacun des 4 points de fixation.</li>
     </ul>
 
     <div class="img-slot filled photo" style="aspect-ratio:212/182;max-width:380px;padding:0;overflow:hidden;display:block;margin-left:auto;margin-right:auto;">
       <img src="drive-modele-simplifie.png" alt="Modèle simplifié de la drive unit — carter principal et sous-composant interne" style="width:100%;height:100%;object-fit:contain;display:block;">
     </div>
     <p class="note" style="text-align:center;" data-i18n="note-21">Carter principal + sous-composant interne (3 points de fixation).</p>
+
+    <h3 style="margin-top:28px;" data-i18n="h-mesh">Convergence de maillage</h3>
+    <p class="sec-desc" data-i18n="p-mesh-intro">Avant d'exploiter un résultat de contrainte ou de raideur, il faut vérifier qu'il ne dépend plus de la finesse du maillage. Méthode : raffiner successivement (global, puis local aux congés/zones de couplage), relever la grandeur d'intérêt à chaque étape, et retenir le maillage à partir duquel l'écart entre deux raffinements devient négligeable (typiquement &lt; 5%).</p>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th data-i18n="th-iter">Itération</th><th data-i18n="th-taille">Taille de maille (mm)</th><th data-i18n="th-nbel">Nb éléments</th><th data-i18n="th-raidmax">Rigidité (direction critique)</th><th data-i18n="th-ecart">Écart vs précédent</th></tr>
+        <tr><td class="label" data-i18n="mesh-r1">1 — grossier</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="label">2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="label" data-i18n="mesh-r3">3 — fin (retenu)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </table>
+    </div>
+    <p class="note" data-i18n="note-mesh">Maillage tétraédrique quadratique (C3D10) — cohérent avec le type d'élément visé dans les hypothèses de modélisation (§2.1). Valeurs à renseigner une fois le calcul lancé sur la géométrie définitive.</p>
 
     <h3 id="sensibilite" data-i18n="h-22">2.2 Analyse de sensibilité statique</h3>
     <p class="sec-desc" data-i18n="p-22">Des déplacements/rotations unitaires sont imposés successivement en traction, torsion et flexion, afin d'extraire la rigidité (k = Réaction / déplacement imposé) associée à chaque direction et d'établir la hiérarchie des sollicitations les plus critiques.</p>
@@ -269,7 +286,7 @@
     <h3 id="sous-structures" data-i18n="h-31">3.1 Génération des sous-structures</h3>
     <p class="sec-desc" data-i18n="p-31">Le cadre et la drive unit sont chacun condensés en superéléments (substructuration Abaqus) à leurs points d'interface, ce qui réduit fortement le coût de calcul lors de leur intégration dans l'assemblage vélo complet, tout en conservant un comportement mécanique équivalent au modèle détaillé.</p>
     <ul class="list">
-      <li data-i18n="li-31-1">Nœuds de rétention : les 4 points de fixation cadre/drive unit, l'axe du pédalier pour la sous-structure drive unit, et les zones de contact au sol (pneus) pour la sous-structure cadre.</li>
+      <li data-i18n="li-31-1">Nœuds de rétention : les 4 points de fixation cadre/drive unit, les deux points pédalier (droite/gauche) pour la sous-structure drive unit, et le point de contact au sol avant et le point arrière pour la sous-structure cadre.</li>
       <li data-i18n="li-31-2">Validation de la sous-structure : comparaison d'un cas de charge simple entre modèle détaillé et modèle substructuré, pour prouver l'équivalence avant utilisation.</li>
     </ul>
     <div class="img-grid-2" style="zoom:0.95;">
@@ -467,8 +484,9 @@ const i18n_en = {
   "stat2-l": "PEDAL FORCE — ISO 4210‑6, Mountain Bike CATEGORY",
   "stat3-l": "OF OVERALL STIFFNESS MODELED",
   "banner-tag": "GENERIC METHODOLOGY",
-  "banner-p": "Methodology from an assignment at Bosch eBike Systems. Project data is confidential — the method and normative parameters (ISO 4210‑6) are real, but the figures (stiffnesses, frequencies, load vectors) cannot come from the original project. I will recalculate them on an equivalent generic case.",
-  "r-obj-tag": "OBJECTIVE", "r-obj-p": "Characterize the drive unit's stiffness, then decompose frame/motor in the real deformation.",
+  "banner-p": "Methodology from an assignment at Bosch eBike Systems. Project data is confidential — the method and normative parameters (ISO 4210‑6) are real, but the figures (stiffnesses, frequencies, load vectors) do not come from the original project.",
+  "r-obj-tag": "OBJECTIVE", "r-obj-p": "Characterize the drive unit's stiffness, then decompose the real deformation between frame and DU.",
+  "ph-du-cadre": "OVERVIEW — DRIVE UNIT MOUNTED ON THE FRAME<br>To be added",
   "r-meth-tag": "METHOD", "r-meth-p": "Static + modal (Part 1) → substructuring + ISO 4210‑6 loading (Part 2).",
   "r-data-tag": "DATA", "r-data-p": "Anonymized — details below.",
   "r-stat-tag": "STATUS", "r-stat-p": "Methodology set.",
@@ -485,8 +503,14 @@ const i18n_en = {
   "h-21": "2.1 Model Overview",
   "li-21-1": "Geometry: main housing + internal sub-component (3 fixation points).",
   "li-21-2": "Mesh: quadratic tetrahedral elements, characteristic size set by convergence study.",
-  "li-21-3": "Couplings: Reference Point (RP) + Coupling Kinematic at each of the 4 fixation points.",
+  "li-21-3": "Couplings: Reference Point (RP) + Coupling Kinematic between the real contact zone and the reference point, at each of the 4 fixation points.",
   "note-21": "Main housing + internal sub-component (3 fixation points).",
+  "h-mesh": "Mesh Convergence",
+  "p-mesh-intro": "Before using a stress or stiffness result, one must verify it no longer depends on mesh refinement. Method: refine successively (globally, then locally at fillets/coupling zones), record the quantity of interest at each step, and keep the mesh from which the gap between two refinements becomes negligible (typically &lt; 5%).",
+  "th-raidmax": "Stiffness (critical direction)",
+  "mesh-r1": "1 — coarse",
+  "mesh-r3": "3 — fine (retained)",
+  "note-mesh": "Quadratic tetrahedral mesh (C3D10) — consistent with the element type targeted in the modeling assumptions (§2.1). Values to be filled in once the calculation is run on the final geometry.",
   "h-22": "2.2 Static Sensitivity Analysis",
   "p-22": "Unit displacements/rotations are successively imposed in tension, torsion, and bending, in order to extract the stiffness (k = Reaction / imposed displacement) associated with each direction and establish the hierarchy of the most critical loadings.",
   "note-22": "Unit displacements/rotations successively imposed (orange arrows) to extract the stiffness associated with each direction.",
@@ -500,7 +524,7 @@ const i18n_en = {
   "s3-desc": "Evaluate the real behavior of the drive unit once integrated into the bike, accounting for frame flexibility, in order to decompose the total deformation between frame contribution and the drive unit's own contribution.",
   "h-31": "3.1 Substructure Generation",
   "p-31": "The frame and the drive unit are each condensed into superelements (Abaqus substructuring) at their interface points, which greatly reduces computational cost when integrating them into the full bicycle assembly, while preserving mechanical behavior equivalent to the detailed model.",
-  "li-31-1": "Retained nodes: the 4 frame/drive-unit fixation points, the pedal spindle axis for the drive unit substructure, and the ground contact zones (tires) for the frame substructure.",
+  "li-31-1": "Retained nodes: the 4 frame/drive-unit fixation points, the two pedal points (right/left) for the drive unit substructure, and the front ground contact point and rear point for the frame substructure.",
   "li-31-2": "Substructure validation: comparison of a simple load case between the detailed model and the substructured model, to prove equivalence before use.",
   "svg-detail": "DETAILED MODEL", "svg-nk": "N nodes, K DOF", "svg-condens": "condensation",
   "svg-superel": "SUPERELEMENT", "svg-4noeuds": "4 retained nodes",
