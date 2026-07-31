@@ -247,8 +247,8 @@
     <p class="note" style="text-align:center;" data-i18n="note-21">Carter principal + sous-composant interne (3 points de fixation).</p>
 
     <h3 style="margin-top:28px;" data-i18n="h-mesh">Convergence de maillage</h3>
-    <p class="sec-desc" data-i18n="p-mesh-intro">Avant d'exploiter un résultat de contrainte ou de raideur, il faut vérifier qu'il ne dépend plus de la finesse du maillage. Méthode : raffiner successivement (global, puis local aux congés/zones de couplage), relever la grandeur d'intérêt à chaque étape, et retenir le maillage à partir duquel l'écart entre deux raffinements devient négligeable (typiquement &lt; 5%).</p>
-    <p class="note" data-i18n="note-mesh">Maillage tétraédrique quadratique (C3D10), cohérent avec le type d'élément visé dans les hypothèses de modélisation (§2.1).</p>
+    <p class="sec-desc" data-i18n="p-mesh-intro">Maillage raffiné successivement (global, puis local aux congés et zones de couplage), en relevant la contrainte à un nœud sonde hors des zones de conditions aux limites (Saint‑Venant) à chaque étape, jusqu'à ce que l'écart entre deux raffinements devienne négligeable.</p>
+    <p class="note" data-i18n="note-mesh">Maillage tétraédrique quadratique retenu (C3D10).</p>
 
     <h3 id="sensibilite" data-i18n="h-22">2.2 Analyse de sensibilité statique</h3>
     <p class="sec-desc" data-i18n="p-22">Des déplacements/rotations unitaires sont imposés successivement en traction, torsion et flexion, afin d'extraire la rigidité (k = Réaction / déplacement imposé) associée à chaque direction et d'établir la hiérarchie des sollicitations les plus critiques.</p>
@@ -409,7 +409,7 @@
     <p class="note" data-i18n="note-barchart">Exemple illustratif de lecture : répartition en % de la déformation totale entre contribution du cadre (bleu) et de la drive unit (rouge), pour chacune des trois directions de sollicitation.</p>
 
     <h3 data-i18n="h-34">3.4 Recommandations de conception</h3>
-    <p class="sec-desc" data-i18n="p-34">Pour chaque direction, le composant représentant la plus grande part de la déformation totale est désigné comme le facteur limitant — c'est lui qu'il convient de renforcer en priorité pour réduire le déplacement global observé.</p>
+    <p class="sec-desc" data-i18n="p-34">Pour chaque direction, le composant représentant la plus grande part de la déformation totale est le facteur limitant.</p>
     <div class="reco-grid">
       <div class="reco-card"><span class="tag" data-i18n="reco1-tag">CADRE LIMITANT</span><p data-i18n="reco1-p">Renfort du cadre (nervures, épaississement local aux points de fixation).</p></div>
       <div class="reco-card"><span class="tag" data-i18n="reco2-tag">DRIVE UNIT LIMITANTE</span><p data-i18n="reco2-p">Renfort du carter moteur (nervurage interne, épaisseur des parois).</p></div>
@@ -501,8 +501,8 @@ const i18n_en = {
   "li-21-3": "Couplings: Reference Point (RP) + Coupling Kinematic between the real contact zone and the reference point, at each of the 4 fixation points.",
   "note-21": "Main housing + internal sub-component (3 fixation points).",
   "h-mesh": "Mesh Convergence",
-  "p-mesh-intro": "Before using a stress or stiffness result, one must verify it no longer depends on mesh refinement. Method: refine successively (globally, then locally at fillets/coupling zones), record the quantity of interest at each step, and keep the mesh from which the gap between two refinements becomes negligible (typically &lt; 5%).",
-  "note-mesh": "Quadratic tetrahedral mesh (C3D10), consistent with the element type targeted in the modeling assumptions (§2.1).",
+  "p-mesh-intro": "Mesh refined successively (globally, then locally at fillets and coupling zones), tracking stress at a probe node outside the boundary condition zones (Saint‑Venant) at each step, until the gap between two refinements becomes negligible.",
+  "note-mesh": "Quadratic tetrahedral mesh retained (C3D10).",
   "h-22": "2.2 Static Sensitivity Analysis",
   "p-22": "Unit displacements/rotations are successively imposed in tension, torsion, and bending, in order to extract the stiffness (k = Reaction / imposed displacement) associated with each direction and establish the hierarchy of the most critical loadings.",
   "note-22": "Unit displacements/rotations successively imposed (orange arrows) to extract the stiffness associated with each direction.",
@@ -547,7 +547,7 @@ const i18n_en = {
   "note-barchart": "Illustrative reading example: percentage split of total deformation between frame contribution (blue) and drive unit contribution (red), for each of the three loading directions.",
   "svg-pctcadre": "% Frame", "svg-pctdu": "% Drive unit",
   "h-34": "3.4 Design Recommendations",
-  "p-34": "For each direction, the component representing the largest share of the total deformation is designated as the limiting factor — it is the one that should be reinforced first to reduce the observed overall displacement.",
+  "p-34": "For each direction, the component representing the largest share of the total deformation is the limiting factor.",
   "reco1-tag": "FRAME LIMITING", "reco1-p": "Frame reinforcement (ribs, local thickening at fixation points).",
   "reco2-tag": "DRIVE UNIT LIMITING", "reco2-p": "Motor housing reinforcement (internal ribbing, wall thickness).",
   "reco3-tag": "BALANCED CONTRIBUTION", "reco3-p": "Trade-off based on mass and cost constraints.",

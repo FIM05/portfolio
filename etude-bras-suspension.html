@@ -485,14 +485,14 @@
 <section id="resultats">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">06</span><h2 data-i18n="s5-h2">Résultats</h2></div>
-    <p class="sec-desc" data-i18n="s5-desc">Structure prête, calcul à exécuter sous Ansys Mechanical. Cette section sera complétée avec cartographies de contrainte, déplacement, modes propres et fonction de transfert.</p>
+    <p class="sec-desc" data-i18n="s5-desc">Structure prête, calcul à exécuter sous Ansys Mechanical.</p>
 
     <h3 id="maillage" style="font-family:var(--display);font-size:18px;margin-bottom:10px;scroll-margin-top:90px;" data-i18n="h-maillage">Convergence de maillage</h3>
     <div style="border:1px solid var(--cool);background:rgba(79,184,196,0.08);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
       <span style="font-family:var(--mono);font-size:10.5px;letter-spacing:0.05em;color:var(--cool);border:1px solid var(--cool);padding:3px 8px;white-space:nowrap;" data-i18n="badge-valide">MODÈLE VALIDÉ</span>
       <span style="font-family:var(--body);font-size:13px;color:var(--text-dim);" data-i18n="p-modelevalide">Série calculée après correction du DOF de torsion (repère du Bushing fixé) et au vrai cas de charge (10 446 N / 13 381 N) — déplacement dans l'ordre de grandeur attendu. Remplace la série de diagnostic précédente (voir Annexe — Diagnostic).</span>
     </div>
-    <p class="sec-desc" style="margin-bottom:24px;" data-i18n="p-maillage-intro">Avant d'exploiter un résultat de contrainte, il faut vérifier qu'il ne dépend plus de la finesse du maillage. Méthode : raffiner successivement (global ou local aux zones de concentration — congés, trous), relever la contrainte max à chaque étape, et retenir le maillage à partir duquel l'écart entre deux raffinements successifs devient négligeable (typiquement &lt; 5%).</p>
+    <p class="sec-desc" style="margin-bottom:24px;" data-i18n="p-maillage-intro">Maillage raffiné successivement (global, puis local aux zones de concentration — congés, trous), en relevant la contrainte max à chaque étape, jusqu'à ce que l'écart entre deux raffinements successifs devienne négligeable (&lt; 5%).</p>
 
     <div class="tbl-wrap">
       <table>
@@ -906,11 +906,11 @@ const i18n_en = {
   "bc4-p": "Sum of bushing reactions (Joint Probe) compared to the sum of applied forces (ball joint + spring).",
   "bc4-val": "1,473.7 N × 2 = 2,947.4 N — vs 2,935 N expected (0.4% deviation)",
   "s5-h2": "Results",
-  "s5-desc": "Structure ready, calculation to be run under Ansys Mechanical. This section will be completed with stress maps, displacement, mode shapes, and transfer function.",
+  "s5-desc": "Structure ready, calculation to be run under Ansys Mechanical.",
   "h-maillage": "Mesh Convergence",
   "badge-valide": "MODEL VALIDATED",
   "p-modelevalide": "Series computed after correcting the torsion DOF (Bushing frame fixed) and using the real load case (10,446 N / 13,381 N) — displacement within the expected order of magnitude. Replaces the previous diagnostic series (see Appendix — Diagnostics).",
-  "p-maillage-intro": "Before using a stress result, one must verify it no longer depends on mesh refinement. Method: refine successively (globally or locally at concentration zones — fillets, holes), record the max stress at each step, and keep the mesh from which the gap between two successive refinements becomes negligible (typically &lt; 5%).",
+  "p-maillage-intro": "Mesh refined successively (globally, then locally at concentration zones — fillets, holes), tracking max stress at each step, until the gap between two successive refinements becomes negligible (&lt; 5%).",
   "th-iter": "Iteration", "th-taille": "Element size (mm)", "th-nbel": "Nb. elements", "th-contmax": "Max stress (MPa)", "th-ecart": "Deviation vs previous",
   "mesh-r1": "1 — coarse (global 17)", "mesh-r4": "4 — fine (retained)",
   "note-conv": "Regular, monotonic convergence (29.4 → 29.7 → 30.1 → 30.17 MPa), deviations consistently below the 5% threshold from 6 mm onward — <b style=\"color:var(--text)\">retained max stress ≈ 30.17 MPa</b> (3 mm mesh).",
