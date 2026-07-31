@@ -362,6 +362,11 @@
       <p class="formula" data-i18n="p-formula">δ_total = δ_DU (calculé à partir de la rigidité de la Partie 1, appliquée au torseur d'effort réellement transmis) + δ_cadre (part restante, imputable à la flexibilité du cadre)</p>
     </div>
 
+    <div class="img-slot filled photo" style="padding:0;overflow:hidden;">
+      <img src="drive-linear-system.png" alt="Cas flexible vs cas rigide — système linéaire de décomposition cadre/drive unit" style="width:100%;height:auto;display:block;">
+    </div>
+    <p class="note" data-i18n="note-linsys">Cas flexible (cadre + DU déformables) vs cas rigide (cadre infiniment rigide) — le système linéaire R_DU + R_F = K_F.U se résout par différence entre les deux cas pour approcher R_F, la part propre au cadre.</p>
+
     <div class="chain">
       <div class="chain-step">
         <div class="idx">1</div>
@@ -538,6 +543,7 @@ const i18n_en = {
   "tag-decomp": "DECOMPOSITION PRINCIPLE",
   "p-decomp1": "The total deformation measured in the full assembly breaks down into two contributions:",
   "p-formula": "δ_total = δ_DU (computed from the Part 1 stiffness, applied to the load vector actually transmitted) + δ_frame (remaining share, attributable to frame flexibility)",
+  "note-linsys": "Flexible case (frame + DU deformable) vs rigid case (infinitely rigid frame) — the linear system R_DU + R_F = K_F.U is solved by difference between the two cases to approximate R_F, the frame's own share.",
   "cs1-h4": "Extract the real transmitted load vector", "cs1-p": "Reactions at the frame/drive-unit interface connectors, in the full assembly.",
   "cs2-h4": "Compute the equivalent isolated displacement", "cs2-p": "Reuse the Part 1 stiffness: δ_DU = F_real / k, under this same load vector.",
   "cs3-h4": "Deduce the share attributable to the frame", "cs3-p": "Comparison with the total displacement measured in the full assembly (δ_total).",
