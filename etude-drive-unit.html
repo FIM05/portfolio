@@ -209,7 +209,7 @@
     <div class="sec-head"><span class="sec-num">01</span><h2 data-i18n="s1-h2">Contexte & objectif</h2></div>
     <p class="sec-desc" data-i18n="s1-desc">La Drive Unit (carter moteur électrique) d'un vélo à assistance électrique de type Mountain Bike est fixée au cadre en 4 points. Sa rigidité propre, combinée à la flexibilité du cadre, détermine les déplacements réels du moteur en usage — un paramètre clé pour le confort, le bruit et la durabilité de l'ensemble.</p>
 
-    <div class="img-slot photo" style="aspect-ratio:310/107;padding:0;overflow:hidden;">
+    <div class="img-slot photo" style="aspect-ratio:892/341;padding:0;overflow:hidden;">
       <img src="poster-du-cao-velo.png" alt="Vue d'ensemble drive unit montée sur le cadre" data-i18n-alt="alt-du-cadre" style="width:100%;height:100%;object-fit:contain;display:block;">
     </div>
 
@@ -246,15 +246,7 @@
 
     <h3 style="margin-top:28px;" data-i18n="h-mesh">Convergence de maillage</h3>
     <p class="sec-desc" data-i18n="p-mesh-intro">Avant d'exploiter un résultat de contrainte ou de raideur, il faut vérifier qu'il ne dépend plus de la finesse du maillage. Méthode : raffiner successivement (global, puis local aux congés/zones de couplage), relever la grandeur d'intérêt à chaque étape, et retenir le maillage à partir duquel l'écart entre deux raffinements devient négligeable (typiquement &lt; 5%).</p>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th data-i18n="th-iter">Itération</th><th data-i18n="th-taille">Taille de maille (mm)</th><th data-i18n="th-nbel">Nb éléments</th><th data-i18n="th-raidmax">Rigidité (direction critique)</th><th data-i18n="th-ecart">Écart vs précédent</th></tr>
-        <tr><td class="label" data-i18n="mesh-r1">1 — grossier</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td class="label">2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td class="label" data-i18n="mesh-r3">3 — fin (retenu)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      </table>
-    </div>
-    <p class="note" data-i18n="note-mesh">Maillage tétraédrique quadratique (C3D10) — cohérent avec le type d'élément visé dans les hypothèses de modélisation (§2.1). Valeurs à renseigner une fois le calcul lancé sur la géométrie définitive.</p>
+    <p class="note" data-i18n="note-mesh">Maillage tétraédrique quadratique (C3D10), cohérent avec le type d'élément visé dans les hypothèses de modélisation (§2.1).</p>
 
     <h3 id="sensibilite" data-i18n="h-22">2.2 Analyse de sensibilité statique</h3>
     <p class="sec-desc" data-i18n="p-22">Des déplacements/rotations unitaires sont imposés successivement en traction, torsion et flexion, afin d'extraire la rigidité (k = Réaction / déplacement imposé) associée à chaque direction et d'établir la hiérarchie des sollicitations les plus critiques.</p>
@@ -506,10 +498,7 @@ const i18n_en = {
   "note-21": "Main housing + internal sub-component (3 fixation points).",
   "h-mesh": "Mesh Convergence",
   "p-mesh-intro": "Before using a stress or stiffness result, one must verify it no longer depends on mesh refinement. Method: refine successively (globally, then locally at fillets/coupling zones), record the quantity of interest at each step, and keep the mesh from which the gap between two refinements becomes negligible (typically &lt; 5%).",
-  "th-raidmax": "Stiffness (critical direction)",
-  "mesh-r1": "1 — coarse",
-  "mesh-r3": "3 — fine (retained)",
-  "note-mesh": "Quadratic tetrahedral mesh (C3D10) — consistent with the element type targeted in the modeling assumptions (§2.1). Values to be filled in once the calculation is run on the final geometry.",
+  "note-mesh": "Quadratic tetrahedral mesh (C3D10), consistent with the element type targeted in the modeling assumptions (§2.1).",
   "h-22": "2.2 Static Sensitivity Analysis",
   "p-22": "Unit displacements/rotations are successively imposed in tension, torsion, and bending, in order to extract the stiffness (k = Reaction / imposed displacement) associated with each direction and establish the hierarchy of the most critical loadings.",
   "note-22": "Unit displacements/rotations successively imposed (orange arrows) to extract the stiffness associated with each direction.",
