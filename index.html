@@ -158,9 +158,42 @@
     .study-row h3{font-size:16.5px;}
     .study-row p{font-size:12.5px;}
   }
+  .softskill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:16px;}
+  @media(max-width:760px){.softskill-grid{grid-template-columns:1fr;}}
+  .softskill-card{background:var(--panel);padding:22px;}
+  .softskill-card h4{font-family:var(--display);font-size:15px;margin-bottom:10px;color:var(--accent);}
+  .softskill-card .sk-label{font-family:var(--mono);font-size:10px;color:var(--text-faint);letter-spacing:0.05em;margin-top:10px;display:block;}
+  .softskill-card p{font-size:13px;color:var(--text-dim);margin-top:4px;line-height:1.55;}
+  .sk-list{margin:4px 0 0 16px;}
+  .sk-list li{list-style:none;position:relative;padding:4px 0 4px 14px;font-size:12.5px;color:var(--text-dim);line-height:1.5;}
+  .sk-list li::before{content:"—";position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(20,23,28,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-strong);box-shadow:0 1px 0 rgba(232,163,61,0.15);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:24px;min-width:0;}
+  nav .brand{font-family:var(--mono);font-size:12.5px;letter-spacing:0.06em;color:var(--text-dim);white-space:nowrap;text-decoration:none;}
+  nav .brand b{color:var(--text);font-weight:600;}
+  nav ul{display:flex;gap:22px;list-style:none;font-size:12.5px;font-family:var(--mono);overflow-x:auto;scrollbar-width:none;white-space:nowrap;}
+  nav ul::-webkit-scrollbar{display:none;}
+  nav a{text-decoration:none;color:var(--text-dim);transition:color .2s;padding:4px 2px;border-bottom:2px solid transparent;}
+  nav a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  @media(max-width:700px){
+    nav .wrap{flex-wrap:wrap;height:auto;padding:10px 18px;gap:8px;}
+    nav ul{width:100%;overflow-x:auto;padding-top:8px;border-top:1px solid var(--line);}
+  }
 </style>
 </head>
 <body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">DOSSIER&nbsp;CALCUL — <b>ÉTUDES STRUCTURELLES</b></span>
+    <ul>
+      <li><a href="#parcours" data-i18n="nav-1">Parcours</a></li>
+      <li><a href="#portfolio" data-i18n="nav-2">Portfolio</a></li>
+      <li><a href="#softskills" data-i18n="nav-3">Compétences</a></li>
+    </ul>
+  </div>
+</nav>
 
 <header class="profile">
   <img class="hero-bg" src="hero-fea.png" alt="">
@@ -169,7 +202,7 @@
       <div>
         <div class="eyebrow" data-i18n="eyebrow">DISPONIBLE POUR UN POSTE — INGÉNIEUR CALCUL / SIMULATION MÉCANIQUE</div>
         <h1>Malick FANNY</h1>
-        <p class="bio" data-i18n="bio">Diplômé en Mécanique des Structures de l'Ense3 (Grenoble INP), je me spécialise en calcul et simulation numérique — calcul éléments finis (FEA) — à travers des expériences internationales dans l'énergie, le secteur pétrolier et la mobilité (Bosch, Artelia, FabLab Grenoble INP). Rigoureux et orienté résultat, je recherche un poste d'ingénieur calcul mécanique pour contribuer à des projets industriels stimulants. Ce dossier documente ma démarche complète — de la géométrie CAO à l'analyse et l'interprétation des résultats — sur des cas d'étude réels.</p>
+        <p class="bio" data-i18n="bio">Diplômé en Mécanique des Structures de l'Ense3 (Grenoble INP), je me spécialise en calcul et simulation numérique — calcul éléments finis (FEA) — à travers une expérience professionnelle internationale dans l'énergie, le secteur pétrolier et la mobilité (Bosch, Artelia), une expérience académique (FabLab Grenoble INP), et des projets personnels développés en auto-formation et en autonomie. Rigoureux et orienté résultat, je recherche un poste d'ingénieur calcul mécanique pour contribuer à des projets industriels stimulants. Ce dossier documente ma démarche complète — de la géométrie CAO à l'analyse et l'interprétation des résultats — sur des cas d'étude réels.</p>
         <div class="skills">
           <div class="skill-group">
             <span class="label" data-i18n="lbl-fea">Calcul éléments finis (FEA / FEM)</span>
@@ -215,7 +248,7 @@
   </div>
 </header>
 
-<section>
+<section id="parcours">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">01</span><h2 data-i18n="sec1-title">Parcours</h2></div>
 
@@ -262,7 +295,7 @@
   </div>
 </section>
 
-<section>
+<section id="portfolio">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">02</span><h2 data-i18n="sec2-title">Portfolio</h2></div>
     <p style="color:var(--text-dim);font-size:14.5px;max-width:640px;margin-bottom:32px;" data-i18n="sec2-intro">Chaque étude documente l'ensemble de la démarche — CAO, hypothèses, chaîne de chargement, conditions aux limites, résultats, post‑traitement, identification des problèmes et diagnostic de convergence — pas seulement le résultat final.</p>
@@ -354,6 +387,84 @@
   </div>
 </section>
 
+<section id="softskills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2 data-i18n="sec3-title">Compétences transversales</h2></div>
+    <p style="color:var(--text-dim);font-size:14.5px;max-width:640px;margin-bottom:0;" data-i18n="sec3-intro">Chaque compétence ci-dessous est illustrée par une situation concrète tirée des études de ce dossier, avec le résultat obtenu — pas juste une liste de mots-clés.</p>
+
+    <div class="softskill-grid">
+      <div class="softskill-card">
+        <h4 data-i18n="sk1-h4">Rigueur méthodologique</h4>
+        <span class="sk-label" data-i18n="sk-demo">DÉMONSTRATION</span>
+        <ul class="sk-list" data-i18n="sk1-demo">
+          <li>Convergence de maillage menée systématiquement avant d'exploiter un résultat (bras de suspension, drive unit)</li>
+          <li>Diagnostic documenté des pièges rencontrés — mouvement de corps rigide, unités d'angle, zones de perturbation Saint‑Venant (bras de suspension)</li>
+          <li>Utilisation systématique des normes applicables plutôt que de valeurs arbitraires — ISO 4210‑6 (Bosch), ASME (mission Artelia, réservoir sous pression)</li>
+          <li>Capitalisation des méthodes d'une étude à l'autre — sous-modélisation du contact réel reprise du principe déjà appliqué à l'extraction de torseur (drive unit → bras de suspension)</li>
+        </ul>
+        <span class="sk-label" data-i18n="sk-res">RÉSULTAT</span>
+        <p data-i18n="sk1-res">Résultats validés à moins de 5% d'écart entre raffinements, écart linéaire/non linéaire inférieur à 10% confirmé sur la drive unit ; démarche documentée et réutilisable d'une étude à l'autre plutôt que reconstruite à chaque fois.</p>
+      </div>
+      <div class="softskill-card">
+        <h4 data-i18n="sk2-h4">Esprit critique</h4>
+        <span class="sk-label" data-i18n="sk-demo">DÉMONSTRATION</span>
+        <ul class="sk-list" data-i18n="sk2-demo">
+          <li>Remise en question des hypothèses simplificatrices — Fixed Support / encastrement vs liaison représentative (bras de suspension)</li>
+          <li>Comparaison systématique cadre rigide vs souple plutôt qu'un seul cas retenu (Bosch)</li>
+          <li>Validation croisée statique/modale plutôt que confiance aveugle en un seul résultat (bras de suspension, drive unit)</li>
+        </ul>
+        <span class="sk-label" data-i18n="sk-res">RÉSULTAT</span>
+        <p data-i18n="sk2-res">Identification d'un écart entre estimation manuelle et calcul EF expliqué par la source (raideur de silentbloc), plutôt que rejeté comme une anomalie.</p>
+      </div>
+      <div class="softskill-card">
+        <h4 data-i18n="sk3-h4">Autonomie & auto-formation</h4>
+        <span class="sk-label" data-i18n="sk-demo">DÉMONSTRATION</span>
+        <ul class="sk-list" data-i18n="sk3-demo">
+          <li>Bras de suspension — diagnostic complet de modélisation, hors mission professionnelle</li>
+          <li>Bras de pelleteuse — cumul de dommage en fatigue, méthodologie non pratiquée en poste</li>
+          <li>Réservoir sous pression — linéarisation de contrainte selon les codes ASME VIII</li>
+        </ul>
+        <span class="sk-label" data-i18n="sk-res">RÉSULTAT</span>
+        <p data-i18n="sk3-res">Montée en compétence documentée sur un registre différent (appareils à pression, secteur oil & gas) sans encadrement.</p>
+      </div>
+      <div class="softskill-card">
+        <h4 data-i18n="sk5-h4">Adaptabilité</h4>
+        <span class="sk-label" data-i18n="sk-demo">DÉMONSTRATION</span>
+        <ul class="sk-list" data-i18n="sk5-demo">
+          <li>Technique — passage d'un outil à l'autre selon le contexte (Ansys, Abaqus)</li>
+          <li>Sectorielle — automobile, VAE, engins de chantier, appareils à pression oil & gas</li>
+          <li>Environnementale et culturelle — parcours académique et professionnel entre la Côte d'Ivoire, la France et l'Allemagne</li>
+        </ul>
+        <span class="sk-label" data-i18n="sk-res">RÉSULTAT</span>
+        <p data-i18n="sk5-res">Mêmes principes fondamentaux appliqués avec la terminologie et les outils propres à chaque contexte technique ; intégration rapide dans des équipes et environnements de travail différents (langue, culture d'entreprise, méthodes de travail).</p>
+      </div>
+      <div class="softskill-card">
+        <h4 data-i18n="sk6-h4">Innovation</h4>
+        <span class="sk-label" data-i18n="sk-demo">DÉMONSTRATION</span>
+        <ul class="sk-list" data-i18n="sk6-demo">
+          <li>Décomposition cadre/drive unit par comparaison flexible vs infiniment rigide, pour isoler une contribution qu'aucun résultat direct ne donne (Bosch)</li>
+          <li>Connecteurs et sous-modélisation du contact réel au pivot plutôt qu'une approximation figée (bras de suspension)</li>
+          <li>Proposition d'utiliser la sous-structuration (superéléments) pour les cas d'étude linéaires afin de réduire le temps de calcul — méthode non utilisée en interne jusque-là (drive unit, mission Bosch)</li>
+        </ul>
+        <span class="sk-label" data-i18n="sk-res">RÉSULTAT</span>
+        <p data-i18n="sk6-res">Approche transposable à d'autres cas où deux composants interagissent sans qu'un capteur unique ne sépare leurs contributions respectives ; réduction du coût de calcul sur les cas linéaires grâce à la sous-structuration.</p>
+      </div>
+      <div class="softskill-card">
+        <h4 data-i18n="sk7-h4">Travail d'équipe</h4>
+        <span class="sk-label" data-i18n="sk-demo">DÉMONSTRATION</span>
+        <ul class="sk-list" data-i18n="sk7-demo">
+          <li>Bosch eBike Systems — collaboration avec les équipes conception et expérimentation</li>
+          <li>Artelia — intégration dans l'équipe calcul</li>
+          <li>Projet hydrolienne au FabLab Grenoble INP — collaboration avec les équipes travaillant sur les parties électrique et hydraulique</li>
+          <li>Méthodologie construite en cohérence avec les pratiques internes existantes plutôt qu'imposée isolément</li>
+        </ul>
+        <span class="sk-label" data-i18n="sk-res">RÉSULTAT</span>
+        <p data-i18n="sk7-res">Résultats directement exploitables par les équipes de conception pour orienter le renforcement structurel ; la multiplicité des points de vue au sein de l'équipe permet de renforcer et fiabiliser les choix de modélisation retenus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <p data-i18n="footer-line">DOSSIER CALCUL — ÉTUDES STRUCTURELLES · Ansys Mechanical / Abaqus</p>
@@ -373,13 +484,14 @@
 const i18n_en = {
   "title": "Calculation Portfolio — Structural Studies",
   "eyebrow": "AVAILABLE FOR A POSITION — MECHANICAL CALCULATION / SIMULATION ENGINEER",
-  "bio": "Graduate in Structural Mechanics from Ense3 (Grenoble INP), I specialize in numerical calculation and simulation — finite element analysis (FEA) — through international experience in energy, oil & gas, and mobility (Bosch, Artelia, FabLab Grenoble INP). Rigorous and results-driven, I'm looking for a mechanical calculation engineer position to contribute to challenging industrial projects. This portfolio documents my complete approach — from CAD geometry to analysis and interpretation of results — on real case studies.",
+  "bio": "Graduate in Structural Mechanics from Ense3 (Grenoble INP), I specialize in numerical calculation and simulation — finite element analysis (FEA) — through international professional experience in energy, oil & gas, and mobility (Bosch, Artelia), academic experience (FabLab Grenoble INP), and personal projects developed through self-training and autonomy. Rigorous and results-driven, I'm looking for a mechanical calculation engineer position to contribute to challenging industrial projects. This portfolio documents my complete approach — from CAD geometry to analysis and interpretation of results — on real case studies.",
   "lbl-fea": "Finite Element Analysis (FEA / FEM)",
   "lbl-cad": "CAD Design",
   "lbl-prog": "Programming",
   "lbl-normes": "Standards",
   "cv-link": "Resume (PDF)",
   "sec1-title": "Experience",
+  "nav-1": "Experience", "nav-2": "Portfolio", "nav-3": "Skills",
   "xp1-h4": "Mechanical Calculation Engineer — Final-year Internship",
   "xp1-org": "Bosch eBike Systems — Reutlingen, Germany",
   "xp1-p": "Stiffness characterization of e-bike drive units under Abaqus: simplified model representing 80–90% of overall stiffness, static sensitivity analysis via imposed displacements/rotations, substructuring (superelements) for integration into the full bicycle, pedal loading per ISO 4210‑6, decomposition of frame/drive unit contributions to guide structural reinforcement choices.",
@@ -394,6 +506,27 @@ const i18n_en = {
   "f2-h4": "Preparatory Classes (Science)",
   "sec2-title": "Portfolio",
   "sec2-intro": "Each study documents the full approach — CAD, assumptions, load chain, boundary conditions, results, post-processing, issue identification and convergence diagnostics — not just the final result.",
+  "sec3-title": "Transferable Skills",
+  "sec3-intro": "Each skill below is illustrated by a concrete situation drawn from the studies in this portfolio, with the result obtained — not just a list of keywords.",
+  "sk-demo": "DEMONSTRATION", "sk-res": "RESULT",
+  "sk1-h4": "Methodological Rigor",
+  "sk1-demo": "<li>Mesh convergence systematically performed before using a result (suspension arm, drive unit)</li><li>Documented diagnostics of pitfalls encountered — rigid body motion, angle units, Saint‑Venant perturbation zones (suspension arm)</li><li>Systematic use of applicable standards rather than arbitrary values — ISO 4210‑6 (Bosch), ASME (Artelia assignment, pressure vessel)</li><li>Capitalizing on methods from one study to the next — real-contact submodeling reusing the same principle already applied to load-vector extraction (drive unit → suspension arm)</li>",
+  "sk1-res": "Results validated to within 5% between refinements, linear/nonlinear deviation under 10% confirmed on the drive unit; approach documented and reusable from one study to the next rather than rebuilt each time.",
+  "sk2-h4": "Critical Thinking",
+  "sk2-demo": "<li>Questioning simplifying assumptions — Fixed Support / encastrement vs. representative joint (suspension arm)</li><li>Systematic comparison of rigid vs. flexible frame rather than a single case retained (Bosch)</li><li>Cross-validation between static and modal analysis rather than blind trust in a single result (suspension arm, Bosch)</li>",
+  "sk2-res": "Identified a gap between manual estimate and FE calculation and traced it to its source (bushing stiffness), rather than dismissing it as an anomaly.",
+  "sk3-h4": "Autonomy & Self-Learning",
+  "sk3-demo": "<li>Suspension arm — full modeling diagnostics, outside any professional assignment</li><li>Excavator arm — fatigue damage accumulation, methodology not practiced on the job</li><li>Pressure vessel — stress linearization per ASME VIII codes</li>",
+  "sk3-res": "Documented skill acquisition in a different register (pressure equipment, oil & gas sector) without supervision.",
+  "sk5-h4": "Adaptability",
+  "sk5-demo": "<li>Technical — switching between tools depending on context (Ansys, Abaqus)</li><li>Sectoral — automotive, e-bike, construction equipment, oil & gas pressure equipment</li><li>Environmental and cultural — academic and professional path across Ivory Coast, France, and Germany</li>",
+  "sk5-res": "Same core principles applied with the terminology and tools proper to each technical context; quick integration into different teams and work environments (language, company culture, working methods).",
+  "sk6-h4": "Innovation",
+  "sk6-demo": "<li>Frame/drive-unit decomposition by comparing flexible vs. infinitely rigid cases, to isolate a contribution no direct result provides (Bosch)</li><li>Connectors and submodeling of the real contact at the pivot rather than a fixed approximation (suspension arm)</li><li>Proposed using substructuring (superelements) for linear study cases to reduce computation time — a method not previously used internally (drive unit, Bosch assignment)</li>",
+  "sk6-res": "Approach transposable to other cases where two components interact without a single sensor separating their respective contributions; reduced computational cost on linear cases through substructuring.",
+  "sk7-h4": "Teamwork",
+  "sk7-demo": "<li>Bosch eBike Systems — collaboration with the design and experimentation teams</li><li>Artelia — integration into the calculation team</li><li>Tidal turbine project at Grenoble INP FabLab — collaboration with the teams working on the electrical and hydraulic parts</li><li>Methodology built in line with existing internal practices rather than imposed in isolation</li>",
+  "sk7-res": "Results directly usable by design teams to guide structural reinforcement; the multiplicity of viewpoints within the team helps strengthen and validate the modeling choices made.",
   "study1-h3": "Lower Suspension Arm",
   "study1-p": "<b style=\"color:var(--text)\">Objective</b>: verify the suspension arm's strength under a 3g impact, tracing the load from wheel contact to local stress.<br><br><b style=\"color:var(--text)\">Result</b>: validated — max stress 30.79 MPa, safety factor above 8. Complete approach: real CAD geometry, load chain via successive equilibria, diagnosis and correction of a rigid body motion, confirmed mesh convergence. Static and modal analyses completed; harmonic in progress.",
   "tag-static": "STATIC",
